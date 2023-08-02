@@ -12,6 +12,6 @@ public class GameManager
 
     public GameManager()
     {
-
+        System.out.println("Ciao");
     }
 }  
