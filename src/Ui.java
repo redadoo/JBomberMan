@@ -1,9 +1,7 @@
 package src;
 
 import java.awt.Color;
-
 import javax.swing.*;
-
 
 public class Ui 
 {
@@ -20,13 +18,15 @@ public class Ui
 
     }
 
-    
     public void CrateMainField()
     {
         window = new JFrame();
         window.setSize(1280, 720);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
-        window.getContentPane().setBackground(Color.BLACK);
+        window.getContentPane().setBackground(Color.BLACK); 
+        window.setTitle("snes Bomberman"); //Titolo in alto a sinistra -> della window
+        window.setLocationRelativeTo(null); //Far partire la window dal centro dello schermo
         window.setLayout(null);
+        window.setVisible(true);  // si può anche togliere 
     }
 }

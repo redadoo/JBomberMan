@@ -1,7 +1,5 @@
 package src;
 
-import javax.swing.*;
-
 public class GameManager 
 {  
     Ui ui = new Ui(this);
@@ -12,6 +10,6 @@ public class GameManager
 
     public GameManager()
     {
-        System.out.println("Ciao");
+        CreateImage i = new CreateImage(ui.window);
     }
 }  
