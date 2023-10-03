@@ -3,23 +3,30 @@ package src;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import java.awt.*;
 
 public class CreateImage extends JFrame
 {
-    JLabel DispleyField;
+    JLabel DisplayField;
     ImageIcon image;
 
 
-    public CreateImage(JFrame frame)
+    public CreateImage(JFrame frame, String name)
     {
         try
         {
-            image = new ImageIcon(getClass().getResource("download.jpg"));
-            DispleyField = new JLabel(image);
-            DispleyField.setSize(100, 100);
-            frame.add(DispleyField);
+            image = new ImageIcon(getClass().getResource(name));
+            DisplayField = new JLabel(image);
+            
+/*             frame.add(DisplayField);
+            frame.pack();
+            frame.setVisible(true); */
+            System.out.println(name);
         } 
-        catch(Exception e){ System.out.println(e); } //Ah Coglione
+        catch(Exception e)
+        { 
+            System.out.println(e); 
+        }
     }
     
 }

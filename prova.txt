@@ -1,0 +1,89 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class CharacterGameApp {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Character Movement With Images");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            CharacterGamePanel gamePanel = new CharacterGamePanel();
+            frame.add(gamePanel);
+            frame.pack();
+            frame.setVisible(true);
+        });
+    }
+}
+
+class CharacterGamePanel extends JPanel {
+    private Character character;
+
+    public CharacterGamePanel() {
+        setPreferredSize(new Dimension(800, 600));
+        character = new Character("character.png", 50, 50); // Sostituisci il percorso all'immagine
+        add(character);
+
+        Timer timer = new Timer(16, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aggiorna la logica del gioco
+                character.update();
+            }
+        });
+        timer.start();
+
+        setFocusable(true);
+        addKeyListener(character);
+    }
+}
+
+class Character extends JLabel implements ActionListener, KeyListener {
+    private int x;
+    private int y;
+    private BufferedImage characterImage;
+
+    public Character(String imagePath, int startX, int startY) {
+        x = startX;
+        y = startY;
+        // Carica l'immagine del personaggio da un file
+        try {
+            characterImage = ImageIO.read(new File(imagePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setIcon(new ImageIcon(characterImage));
+        setBounds(x, y, characterImage.getWidth(), characterImage.getHeight());
+    }
+
+    public void update() {
+        // Aggiorna il movimento del personaggio in base alla logica del gioco
+        repaint();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Codice per gestire azioni dell'ActionListener (se necessario)
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+        // Aggiorna la posizione del personaggio in base all'input utente
+        if (key == KeyEvent.VK_LEFT) {
+            x -= 5;
+        } else if (key == KeyEvent.VK_RIGHT) {
+            x += 5;
+        } else if (key == KeyEvent.VK_UP) {
+            y -= 5;
+        } else if (key == KeyEvent.VK_DOWN) {
+            y += 5;
+        }
+        setLocation(x, y);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
+}
