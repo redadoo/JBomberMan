@@ -18,7 +18,7 @@ public class GameManager
 		Map map = new Map("src/Resource/Maps/stage_0.png", new Vector2(0, 83), new Vector2(497, 328));
 		
 		// Inizializzazione del Player 
-		Player player = new Player("src/Resource/PlayerSprite/PlayerFront.png", new Vector2(-130,-120), new Vector2(25, 25));
+		Player player = new Player("src/Resource/PlayerSprite/PlayerFront.png", new Vector2(60,100), new Vector2(25, 25));
 		
 		/*
 		* Aggiungiamo degli elementi allo schermo 

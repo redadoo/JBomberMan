@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 public class Player 
 {
+	private Collider	collider;
 	private int			life;
 	private int			point;
 	private Vector2		pos;
@@ -34,7 +35,6 @@ public class Player
      */
 	public Player( String imagePath, Vector2 pos, Vector2 size)
 	{
-		//Si passano i parametri alla classe padre
 		this.pos = pos;
 		
 		this.size = size;
@@ -65,6 +65,9 @@ public class Player
 
 		//Lunghezza passo del player
 		this.moveDistance = 10;
+		this.collider = new Collider();
+		this.collider.box.pos = this.pos;
+		this.collider.box.size = this.size;
 	}
 
 	public void changeSpirte(String imagePath) 
