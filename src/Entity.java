@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /* 
- * Classe che verrà estesa dal player e i nemici
+ * Classe che verrà estesa dei personaggi
 */
 public abstract class Entity 
 {

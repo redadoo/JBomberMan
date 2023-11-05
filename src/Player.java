@@ -3,6 +3,8 @@ package src;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+
+
 public class Player 
 {
 	private int			life;
@@ -11,7 +13,22 @@ public class Player
 	private Vector2		size;
 	private String		imagePath;
 	private JLabel		sprite;
+	private int			moveDistance;
 
+
+	static public void Print(String x)
+	{
+		System.out.print(x);
+	}
+
+	static public void PrintPos(Vector2 pos)
+	{
+		Print("x :   ");
+		Print(String.valueOf(pos.x));
+		Print("y :   ");
+		Print(String.valueOf(pos.y));
+		Print("\n");
+	}
     /*
      *  Costruttore della classe Player
      */
@@ -25,12 +42,16 @@ public class Player
         //inizializiamo lo sprite
         this.sprite = new JLabel();
 		
-		ImageIcon sizeSprite = new ImageIcon(imagePath);
+		// ? 
+		ImageIcon playerIcon = new ImageIcon(imagePath);
 		
-		java.awt.Image image = sizeSprite.getImage();
-		java.awt.Image newimg = image.getScaledInstance(size.x, size.y,  java.awt.Image.SCALE_SMOOTH); // scale it smoothly  
+		// Ottengo l'immagine dello sprite scalata
+		java.awt.Image newimg = playerIcon.getImage().getScaledInstance(size.x, size.y,  java.awt.Image.SCALE_SMOOTH);
+		 
+		// Riportiamo a ImageIcon
 		ImageIcon newImageIcon = new ImageIcon(newimg);
 		
+		// Imposta la posizione
         this.sprite.setIcon(newImageIcon);
 
         this.sprite.setLocation(this.pos.x,this.pos.y);
@@ -41,6 +62,9 @@ public class Player
 
         //Punti iniziali del player
 		this.point = 0;
+
+		//Lunghezza passo del player
+		this.moveDistance = 10;
 	}
 
 	public Vector2 getPos() { return this.pos; }
@@ -53,7 +77,14 @@ public class Player
 
 	public void moveEntity(Vector2 newPos) 
 	{
+		if (newPos != this.getPos())
+			PrintPos(this.getPos());
  		this.pos = newPos;
         this.sprite.setLocation(this.pos.x, this.pos.y);
+	}
+
+	public int returnMoveDistance()
+	{
+		return this.moveDistance;
 	}
 }
