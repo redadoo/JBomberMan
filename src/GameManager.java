@@ -15,20 +15,18 @@ public class GameManager
 		GamePanel gamePanel = new GamePanel(new JFrame(), new JPanel(), new Vector2(512, 448), "Snes Bomberman");
 
 		// Inizializzazione della mappa
-		Map map = new Map("src/mappa.png", new Vector2(0, 83), new Vector2(497, 328));
+		Map map = new Map("src/Resource/Maps/stage_0.png", new Vector2(0, 83), new Vector2(497, 328));
 		
 		// Inizializzazione del Player 
-		Player player = new Player("src/sprite_4.png", new Vector2(-130,-120), new Vector2(370,370));
+		Player player = new Player("src/Resource/PlayerSprite/PlayerFront.png", new Vector2(-130,-120), new Vector2(25, 25));
 		
-
 		/*
 		* Aggiungiamo degli elementi allo schermo 
 		  La mappa e il player
 		*/
 		gamePanel.addToPanel(player.returnLabel());
-		gamePanel.addToPanel(map.returnLabel(),map.getPos());
+		gamePanel.addToPanel(map.returnLabel(), map.getPos());
 
-		/* gamePanel.returnJPanel() */
 		
 		/*
 		*  Movimento

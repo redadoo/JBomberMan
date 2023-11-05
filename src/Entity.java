@@ -1,6 +1,5 @@
 package src;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /* 
