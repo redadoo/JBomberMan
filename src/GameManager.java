@@ -6,14 +6,6 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/* import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image; */
-
-/* import sun.auscreen.AuscreenPlayer;
-import sun.auscreen.AuscreenStream; */
-
-
-
 public class GameManager
 {  
 
@@ -22,18 +14,21 @@ public class GameManager
 		// Inizializzazione del schermo 
 		GamePanel gamePanel = new GamePanel(new JFrame(), new JPanel(), new Vector2(512, 448), "Snes Bomberman");
 
-		// Inizializzazione del Player 
-		Player player = new Player("src/sprite_4.png", new Vector2(-130,-120), new Vector2(500,500));
-		
 		// Inizializzazione della mappa
-		Map map = new Map("src/mappa.png", new Vector2(-130, -120), new Vector2(512, 328));
+		Map map = new Map("src/mappa.png", new Vector2(0, 83), new Vector2(497, 328));
+		
+		// Inizializzazione del Player 
+		Player player = new Player("src/sprite_4.png", new Vector2(-130,-120), new Vector2(370,370));
+		
 
 		/*
-		* aggiungiamo degli elementi allo schermo 
+		* Aggiungiamo degli elementi allo schermo 
+		  La mappa e il player
 		*/
-
 		gamePanel.addToPanel(player.returnLabel());
-		gamePanel.addToPanel(map.returnLabel());
+		gamePanel.addToPanel(map.returnLabel(),map.getPos());
+
+		/* gamePanel.returnJPanel() */
 		
 		/*
 		*  Movimento
@@ -55,7 +50,8 @@ public class GameManager
 			// Tasto in basso
 			if (Keyboard.isKeyPressed(KeyEvent.VK_S))
 				player.moveEntity(new Vector2(player.getPos().x, player.getPos().y + player.returnMoveDistance()));				
-			map.moveEntity(player.getPos());
+			/* map.moveEntity(player.getPos()); */
+			
 			Thread.sleep(60);
 		}	
 	}

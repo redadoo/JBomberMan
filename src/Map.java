@@ -28,8 +28,10 @@ public class Map {
 		// Imposta la posizione
         this.label.setIcon(newImageIcon);
 
-        this.label.setLocation(this.pos.x,this.pos.y);
         this.label.setSize(size.x, size.y);
+        this.label.setLocation(this.pos.x,this.pos.y);
+/* 		this.label. */
+
     }
 
     public Vector2 getPos() { return this.pos; }

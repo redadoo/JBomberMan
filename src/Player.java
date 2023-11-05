@@ -77,8 +77,8 @@ public class Player
 
 	public void moveEntity(Vector2 newPos) 
 	{
-		if (newPos != this.getPos())
-			PrintPos(this.getPos());
+/* 		if (newPos != this.getPos())
+			PrintPos(this.getPos()); */
  		this.pos = newPos;
         this.sprite.setLocation(this.pos.x, this.pos.y);
 	}
