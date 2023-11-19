@@ -6,8 +6,8 @@ package src;
 public class Vector2
 {              
     // Members
-    public int x;
-    public int y;
+    public float x;
+    public float y;
        
     // Constructors
     public Vector2() 
@@ -16,12 +16,17 @@ public class Vector2
         this.y = 0;
     }
        
+    public Vector2(float x, float y) 
+    {
+        this.x = x;
+        this.y = y;
+    }
+    
     public Vector2(int x, int y) 
     {
         this.x = x;
         this.y = y;
     }
-       
     // Compare two vectors
     public boolean equals(Vector2 other) 
     {

@@ -24,9 +24,9 @@ public class Player
 
 	static public void PrintPos(Vector2 pos)
 	{
-		Print("x :   ");
+		Print(" x :   ");
 		Print(String.valueOf(pos.x));
-		Print("y :   ");
+		Print(" y :   ");
 		Print(String.valueOf(pos.y));
 		Print("\n");
 	}
@@ -46,7 +46,7 @@ public class Player
 		ImageIcon playerIcon = new ImageIcon(imagePath);
 		
 		// Ottengo l'immagine dello sprite scalata
-		java.awt.Image newimg = playerIcon.getImage().getScaledInstance(size.x, size.y,  java.awt.Image.SCALE_SMOOTH);
+		java.awt.Image newimg = playerIcon.getImage().getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH);
 		 
 		// Riportiamo a ImageIcon
 		ImageIcon newImageIcon = new ImageIcon(newimg);
@@ -54,8 +54,8 @@ public class Player
 		// Imposta la posizione
         this.sprite.setIcon(newImageIcon);
 
-        this.sprite.setLocation(this.pos.x,this.pos.y);
-        this.sprite.setSize(size.x, size.y);
+        this.sprite.setLocation((int)this.pos.x, (int)this.pos.y);
+        this.sprite.setSize((int)size.x, (int)size.y);
 
         // Vita iniziale del player 
 		this.life = 5;
@@ -65,9 +65,7 @@ public class Player
 
 		//Lunghezza passo del player
 		this.moveDistance = 10;
-		this.collider = new Collider();
-		this.collider.box.pos = this.pos;
-		this.collider.box.size = this.size;
+		this.collider = new Collider(this.pos,this.size.x,this.size.y);
 	}
 
 	public void changeSpirte(String imagePath) 
@@ -75,13 +73,13 @@ public class Player
 		ImageIcon playerIcon = new ImageIcon(imagePath);
 		
 		// Ottengo l'immagine dello sprite scalata
-		java.awt.Image newimg = playerIcon.getImage().getScaledInstance(size.x, size.y,  java.awt.Image.SCALE_SMOOTH);
+		java.awt.Image newimg = playerIcon.getImage().getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH);
 		 
 		// Riportiamo a ImageIcon
 		ImageIcon newImageIcon = new ImageIcon(newimg);
 		
 		// Imposta la posizione
-        this.sprite.setSize(this.size.x, this.size.y);
+        this.sprite.setSize((int)this.size.x, (int)this.size.y);
         this.sprite.setIcon(newImageIcon);
 	}
 
@@ -95,9 +93,10 @@ public class Player
 
 	public void moveEntity(Vector2 newPos) 
 	{
-		if (newPos != this.getPos())
-			PrintPos(this.getPos());
-			
+
+/* 		if (newPos != this.getPos())
+			PrintPos(this.getPos()); */
+
 		if (newPos.x > this.getPos().x)
 			this.changeSpirte("src/Resource/PlayerSprite/PlayerRight.png");
 		if (newPos.x < this.getPos().x)
@@ -108,12 +107,17 @@ public class Player
 			this.changeSpirte("src/Resource/PlayerSprite/PlayerFront.png");
 
  		this.pos = newPos;
-        this.sprite.setLocation(this.pos.x, this.pos.y);
-		this.sprite.setSize(this.size.x, this.size.y);
+        this.sprite.setLocation((int)this.pos.x, (int)this.pos.y);
+		this.sprite.setSize((int)this.size.x, (int)this.size.y);
 	}
 
 	public int returnMoveDistance()
 	{
 		return this.moveDistance;
+	}
+
+	public Vector2 getSize()
+	{
+		return this.size;
 	}
 }

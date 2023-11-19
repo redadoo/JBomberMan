@@ -40,7 +40,7 @@ public class GamePanel
 	{
 		this.panel.add(comp);
 		screen.setVisible(true);
-		comp.setLocation(pos.x, pos.y);
+		comp.setLocation((int)pos.x, (int)pos.y);
 	}
 
 	void addToScreen(Component comp)
@@ -51,7 +51,7 @@ public class GamePanel
 
 	void setSize(Vector2 size)
 	{
-		this.screen.setSize(size.x,size.y);
+		this.screen.setSize((int)size.x, (int)size.y);
 	}
 
 	JPanel returnJPanel()
