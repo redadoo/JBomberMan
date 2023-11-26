@@ -68,6 +68,13 @@ public class Collider
 		Vector2 aBottomLeft;
 		Vector2 bBottomLeft;
 
+		boolean coll1 = false;
+		boolean coll2 = false;
+		boolean coll3 = false;
+		boolean coll4 = false;
+		boolean coll5 = false;
+
+
 		boxCollider a = colliderA.returnBoxCollider();
 		boxCollider b = colliderB.returnBoxCollider();
 		
@@ -78,8 +85,44 @@ public class Collider
 		aTopRight = new Vector2(a.pos.x + (a.xSize / 2),a.pos.y - (a.ySize / 2));
 		bTopRight = new Vector2(a.pos.x + (a.xSize / 2),a.pos.y - (a.ySize / 2));
 
-		boolean widthIsPositive = Math.min(aTopRight.x, bTopRight.x) > Math.max(aBottomLeft.x, bBottomLeft.x);
-        boolean heightIsPositive = Math.min(bTopRight.y, aTopRight.y) > Math.max(aBottomLeft.y, bBottomLeft.y);
-        return ( widthIsPositive && heightIsPositive);
+/* 		System.err.println("player info : ");
+		Print(aBottomLeft);
+		Print(aTopRight);
+		System.err.println("collider  info : ");
+		Print(bBottomLeft);
+		Print(bTopRight);
+		//Casi in cui non collidono
+		if (aBottomLeft.x == bBottomLeft.x && aTopRight.x == bTopRight.x)
+		{
+			coll5 = true;
+		}
+		if (aBottomLeft.y <= bTopRight.y)
+		{
+			coll1 = true;
+		}
+		if (bBottomLeft.y <= aTopRight.y)
+		{
+			coll2 = true;
+		}
+		// x
+		if (aBottomLeft.x >= bBottomLeft.x && aTopRight.x >= bBottomLeft.x)
+		{
+			coll3 = true;
+		}
+		if (aBottomLeft.x <= bTopRight.x && aTopRight.x <= bTopRight.x)
+		{
+			coll4 = true;
+		}
+		return (coll5 && coll4 && coll3 && coll2 && coll1); */
+		if (a.pos.x + a.xSize >= b.pos.x && a.pos.x <= b.pos.x + b.xSize && a.pos.y + a.ySize >= b.pos.y && a.pos.y <= b.pos.y + b.ySize)
+    		return true;
+		return false;
+	}
+	
+	private static void Print(Vector2 pos) {
+		System.out.println(" x :   ");
+		System.out.println(String.valueOf(pos.x));
+		System.out.println(" y :   ");
+		System.out.println(String.valueOf(pos.y));
 	}
 }

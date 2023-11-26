@@ -11,7 +11,7 @@ public class Map {
 	private Vector2		size;
 	private JLabel		label;
 	private String		imagePath;
-	public	Collider[]	mapCollider = {new Collider(new Vector2(90,130),12,12)};
+	public	Collider[]	mapCollider = {new Collider(new Vector2(70,120),40,20)};
 
     public Map(String imagePath, Vector2 pos, Vector2 size)
     {

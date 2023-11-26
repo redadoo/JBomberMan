@@ -31,11 +31,10 @@ public class GameManager
 		*  Movimento
 		*/
 		newPosPlayer = player.getPos();
-		while (true)
-		{
-			//Posizione iniziale al lancio del programma
-			player.moveEntity(player.getPos());
+		player.moveEntity(player.getPos());
 
+		while (true)
+		{			
 			// Tasto a destra
 			if (Keyboard.isKeyPressed(KeyEvent.VK_D))
 				newPosPlayer = (new Vector2(player.getPos().x + player.returnMoveDistance(), player.getPos().y));			
@@ -48,29 +47,48 @@ public class GameManager
 			// Tasto in basso
 			if (Keyboard.isKeyPressed(KeyEvent.VK_S))
 				newPosPlayer = (new Vector2(player.getPos().x, player.getPos().y + player.returnMoveDistance()));				
-			
 			//Controllo che il personaggio si trovi all'interno della mappa
 			if (newPosPlayer.y >= 100 && newPosPlayer.y <= 350 && newPosPlayer.x >= 60 && newPosPlayer.x <= 410)
 			{
 				//Se sta all'interno, controllo che non passi sopra altri oggetti contenuti in mapCollider
+				//map.mapCollider contiene tutte le caselle non acessibili
 				for(int i = 0; i < map.mapCollider.length; i++)
 				{
-					Collider newPlayerCollider = new Collider(newPosPlayer, player.getSize().x, player.getSize().y);
-					if (Collider.checkCollideBoxes(newPlayerCollider, map.mapCollider[i]))
+					//Se NON collide
+					Collider newPlayCollider = new Collider(newPosPlayer,(float)player.getSize().x,(float)player.getSize().y);
+	
+					if (!Collider.checkCollideBoxes(newPlayCollider, map.mapCollider[i]))
 					{
-						System.out.println("caz");
 						player.moveEntity(newPosPlayer);
-						//Se il personaggio si muove, deve finire il for
 						break;
 					}
+					//Se collide
 					else
 					{
-						System.out.println("caz");
+						System.out.println(" porco  : ");
 						break;
 					}
 				}
 			}
 			Thread.sleep(60);
 		}	
+	}
+
+	private static void PrintPos(Vector2 pos) {
+		System.out.println(" x :   ");
+		System.out.println(String.valueOf(pos.x));
+		System.out.println(" y :   ");
+		System.out.println(String.valueOf(pos.y));
+	}
+
+	private static void PrintSize(Vector2 pos, double x, double y) 
+	{
+		System.out.println("pos :   ");
+		System.out.println(String.valueOf(pos.x));
+		System.out.println(String.valueOf(pos.y));
+		System.out.println("size x :   ");
+		System.out.println(String.valueOf(x));
+		System.out.println("size y :   ");
+		System.out.println(String.valueOf(y));
 	}
 }  

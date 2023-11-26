@@ -65,7 +65,7 @@ public class Player
 
 		//Lunghezza passo del player
 		this.moveDistance = 10;
-		this.collider = new Collider(this.pos,this.size.x,this.size.y);
+		this.collider = new Collider(this.pos,4,4);
 	}
 
 	public void changeSpirte(String imagePath) 
@@ -108,7 +108,8 @@ public class Player
 
  		this.pos = newPos;
         this.sprite.setLocation((int)this.pos.x, (int)this.pos.y);
-		this.sprite.setSize((int)this.size.x, (int)this.size.y);
+		this.collider.box.pos = newPos;
+		/* this.sprite.setSize((int)this.size.x, (int)this.size.y); */
 	}
 
 	public int returnMoveDistance()
@@ -118,6 +119,18 @@ public class Player
 
 	public Vector2 getSize()
 	{
-		return this.size;
+		Vector2 size = new Vector2();
+
+		size.x = this.collider.box.xSize;
+		size.y = this.collider.box.ySize;
+
+		return size;
 	}
+
+	public Collider getCollider()
+	{
+		return this.collider;
+	}
+
+
 }
