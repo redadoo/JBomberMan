@@ -1,53 +1,47 @@
 package src;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class Map 
-{
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
-	private Vector2		pos;
-	private Vector2		size;
-	private JLabel		label;
-	private String		imagePath;
-	public	Collider[]	mapCollider = {new Collider(new Vector2(70,120),40,20),
-									   new Collider(new Vector2(130,120),40,20),
-									   new Collider(new Vector2(190,120),40,20),
-									   new Collider(new Vector2(190,100),40,20),
-									   new Collider(new Vector2(250,120),40,20),
-									   new Collider(new Vector2(310,120),40,20),
-									   new Collider(new Vector2(370,120),40,20),
-									   //2° riga
-									   new Collider(new Vector2(70,170),40,20),
-									   new Collider(new Vector2(130,170),40,20)
-	
-									  };
+public class Map {
 
+	private Vector2			pos;
+	private Vector2			size;
+	private JLabel			label;
+	private String			imagePath;
+	private	BufferedImage	buffImage;
+	public	Collider[]		mapCollider = {new Collider(new Vector2(70,120),40,20)};
 
-	/*
-	 * Costruttore della classe Map -> per la gestione dell'immagine che rappresenta la mappa
-	 */
-    public Map(String imagePath, Vector2 pos, Vector2 size)
+    public Map(String imagePath, Vector2 pos, Vector2 size) throws IOException
     {
         this.pos = pos;
         this.size = size;
         this.imagePath = imagePath;
         this.label = new JLabel();
 
-        ImageIcon mapIcon = new ImageIcon(imagePath);
-		
-		// Ottengo l'immagine dello sprite scalata
-		java.awt.Image newimg = mapIcon.getImage().getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH);
-		 
-		// Riportiamo a ImageIcon
-		ImageIcon newImageIcon = new ImageIcon(newimg);
-		
+
+		File file = new File(imagePath);
+		BufferedImage image = ImageIO.read(file);
+
+
+		BufferedImage resizedImage = new BufferedImage((int)size.x, (int)size.y, BufferedImage.TYPE_INT_ARGB); 
+		Graphics2D g = resizedImage.createGraphics();
+
+		g.drawImage(image, 0, 0, (int)size.x,  (int)size.y, null);
+		g.dispose();
 		// Imposta la posizione
-        this.label.setIcon(newImageIcon);
+
+		buffImage =  resizedImage;
+		this.label.setIcon(new ImageIcon(resizedImage));
+
 
         this.label.setSize((int)size.x, (int)size.y);
         this.label.setLocation((int)this.pos.x, (int)this.pos.y);
@@ -67,6 +61,21 @@ public class Map
 	public Collider[] returnCollider()
 	{
 		return mapCollider;
+	}
+
+	public boolean checkPos(Vector2 pos)
+	{
+		int rgb = buffImage.getRGB((int)pos.x, (int)pos.y);
+
+		int red = (rgb & 0xff0000) >> 16;
+		int green = (rgb & 0xff00) >> 8;
+		int blue = rgb & 0xff;
+
+		int alpha = (rgb & 0xff000000) >>> 24;
+
+		System.out.println(red + " " + green + " " + blue);
+
+		return true;
 	}
 
 }

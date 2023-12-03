@@ -2,7 +2,10 @@ package src;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 
 public class Player 
@@ -35,7 +38,7 @@ public class Player
     /*
      *  Costruttore della classe Player
      */
-	public Player( String imagePath, Vector2 pos, Vector2 size)
+	public Player( String imagePath, Vector2 pos, Vector2 size) throws IOException
 	{
 		this.pos = pos;
 		
@@ -44,16 +47,12 @@ public class Player
         //inizializiamo lo sprite
         this.sprite = new JLabel();
 		
-		ImageIcon playerIcon = new ImageIcon(imagePath);
-		
-		// Ottengo l'immagine dello sprite scalata
-		java.awt.Image newimg = playerIcon.getImage().getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH);
-		 
-		// Riportiamo a ImageIcon
-		ImageIcon newImageIcon = new ImageIcon(newimg);
-		
+	
+		File file = new File(imagePath);
+		BufferedImage image = ImageIO.read(file);
 		// Imposta la posizione
-        this.sprite.setIcon(newImageIcon);
+		this.sprite.setIcon(new ImageIcon(image.getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH)));
+
 
         this.sprite.setLocation((int)this.pos.x, (int)this.pos.y);
         this.sprite.setSize((int)size.x, (int)size.y);
@@ -65,7 +64,7 @@ public class Player
 		this.point = 0;
 
 		//Lunghezza passo del player
-		this.moveDistance = 10;
+		this.moveDistance = 5;
 		this.collider = new Collider(this.pos,4,4);
 	}
 

@@ -3,7 +3,7 @@ package src;
 import javax.swing.JLabel;
 
 /* 
- * Classe che verrà estesa dei personaggi
+ * Classe che verrà estesa dai personaggi
 */
 public abstract class Entity 
 {

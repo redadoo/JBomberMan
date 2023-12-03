@@ -30,7 +30,6 @@ public class GamePanel
 		screen.setLocationRelativeTo(null); 			          //Far partire la window dal centro dello schermo
 		screen.setVisible(true);
 		this.addToScreen(this.returnJPanel());
-
 	}
 
 	void addToPanel(Component comp)

@@ -1,0 +1,36 @@
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
+public class ImageRGB {
+
+    public static void main(String[] args) {
+        try {
+            // Load the image
+            File file = new File("path/to/your/image.jpg");
+            BufferedImage image = ImageIO.read(file);
+
+            // Get image width and height
+            int width = image.getWidth();
+            int height = image.getHeight();
+
+            // Loop through each pixel to get RGB values
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int pixel = image.getRGB(x, y);
+
+                    // Extract RGB values
+                    int red = (pixel >> 16) & 0xff;
+                    int green = (pixel >> 8) & 0xff;
+                    int blue = pixel & 0xff;
+
+                    System.out.println("Pixel at (" + x + "," + y + ") - RGB: " + red + "," + green + "," + blue);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

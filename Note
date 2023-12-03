@@ -20,4 +20,33 @@ Pos Collider:
 
     
 
+Comportamento Player:
 
+    Quando il personaggio muore, per tot secondi lampeggia e può passare attraverso i nemici
+    Quando urta un nemico, muore e fa un salto.
+
+Le posizioni sono Float per dare fluidità nei movimenti
+
+TODO:
+
+    Pensare cosa aggiungere se collider o controllo pixel
+
+    mvc
+ 
+    Animazioni -> Sprites
+        Esplosioni
+
+
+    (Observer Observable)
+    Aggiungere i nemici con tutta la parte del movimento
+        due tipi di nemici con grafica e comportamento di gioco differenti
+
+    power-up(almeno 3)
+    
+
+    Gestione interfaccia punti e vita + tempo
+        Lista png punti
+        Sprite Orologio
+    
+
+    Utilizzo appropriato di stream
