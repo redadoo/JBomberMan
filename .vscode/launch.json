@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GameManager",
+            "request": "launch",
+            "mainClass": "src.GameManager",
+            "projectName": "JavaGame-main_e514f10d"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

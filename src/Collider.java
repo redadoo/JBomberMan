@@ -50,7 +50,7 @@ public class Collider
 		return this.box;
 	}
 
-
+	//Testing
 	static public void PrintPos(Vector2 pos)
 	{
 		System.out.println(" x :   ");
@@ -59,10 +59,9 @@ public class Collider
 		System.out.println(String.valueOf(pos.y));
 	}
 
-	//controllo che due collider non si sovrappongano
+	//Controllo che due collider non si sovrappongano
 	public static Boolean checkCollideBoxes(Collider colliderA, Collider colliderB)
 	{
-		//Se a è dentro b
 		Vector2 bTopRight;
 		Vector2 aTopRight;
 		Vector2 aBottomLeft;

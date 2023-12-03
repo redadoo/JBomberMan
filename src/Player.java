@@ -17,6 +17,7 @@ public class Player
 	private int			moveDistance;
 
 
+	//Funzione di testing
 	static public void Print(String x)
 	{
 		System.out.print(x);
@@ -30,6 +31,7 @@ public class Player
 		Print(String.valueOf(pos.y));
 		Print("\n");
 	}
+
     /*
      *  Costruttore della classe Player
      */
@@ -42,7 +44,6 @@ public class Player
         //inizializiamo lo sprite
         this.sprite = new JLabel();
 		
-		// ? 
 		ImageIcon playerIcon = new ImageIcon(imagePath);
 		
 		// Ottengo l'immagine dello sprite scalata
@@ -97,6 +98,7 @@ public class Player
 /* 		if (newPos != this.getPos())
 			PrintPos(this.getPos()); */
 
+		//Cambiamo l'orientamento dello sprite in base alla direzione presane memorizzo la nuova poszione
 		if (newPos.x > this.getPos().x)
 			this.changeSpirte("src/Resource/PlayerSprite/PlayerRight.png");
 		if (newPos.x < this.getPos().x)
@@ -117,6 +119,7 @@ public class Player
 		return this.moveDistance;
 	}
 
+	//Ritorno la taglia del collider del player
 	public Vector2 getSize()
 	{
 		Vector2 size = new Vector2();
@@ -127,6 +130,7 @@ public class Player
 		return size;
 	}
 
+	//Ritorno il collider
 	public Collider getCollider()
 	{
 		return this.collider;

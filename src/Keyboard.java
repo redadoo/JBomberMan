@@ -5,7 +5,11 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Keyboard {
+/*
+ * Classe per la gestione degli input da tastiera
+ */
+public class Keyboard 
+{
     private static final Map<Integer, Boolean> pressedKeys = new HashMap<>();
 
     static 
@@ -21,7 +25,6 @@ public class Keyboard {
         });
     }
 
-    public static boolean isKeyPressed(int keyCode) { 
-        return pressedKeys.getOrDefault(keyCode, false);
-    }
+    //Ritorna un valore booleano se un tasto viene cliccato
+    public static boolean isKeyPressed(int keyCode) { return pressedKeys.getOrDefault(keyCode, false); }
 }
