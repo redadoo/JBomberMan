@@ -42,7 +42,6 @@ public class Map {
 		buffImage =  resizedImage;
 		this.label.setIcon(new ImageIcon(resizedImage));
 
-
         this.label.setSize((int)size.x, (int)size.y);
         this.label.setLocation((int)this.pos.x, (int)this.pos.y);
 /* 		this.label. */
@@ -63,9 +62,16 @@ public class Map {
 		return mapCollider;
 	}
 
-	public boolean checkPos(Vector2 pos)
+	public boolean checkPos(Vector2 pos, Vector2 Size)
 	{
-		int rgb = buffImage.getRGB((int)pos.x, (int)pos.y);
+		Vector2 RealPos = new Vector2();
+
+
+		RealPos.y = pos.y + Size.y;
+		RealPos.x = pos.x - Size.x;
+
+
+		int rgb = buffImage.getRGB((int)RealPos.x, (int)RealPos.y);
 
 		int red = (rgb & 0xff0000) >> 16;
 		int green = (rgb & 0xff00) >> 8;
@@ -77,5 +83,5 @@ public class Map {
 
 		return true;
 	}
-
+	
 }

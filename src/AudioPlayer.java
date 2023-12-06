@@ -8,15 +8,38 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
+import java.awt.event.KeyEvent;
 
-public class AudioPlayer {
+public class AudioPlayer implements Runnable {
 
-    public void playAudio(String filePath) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File audioFile = new File(filePath);
+    private File audioFile;
+
+
+    public void run()
+    {
+        try {
+            playAudio();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+        System.out.println("test");
+    }
+
+    public AudioPlayer(String filePath)
+    {
+        audioFile = new File(filePath);
+    }
+
+    public void playAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException 
+    {
 
         // Verifica che il file audio esista
         if (!audioFile.exists()) {
-            System.out.println("Il file audio non esiste: " + filePath);
+            System.out.println("Il file audio non esiste: ");
             return;
         }
 

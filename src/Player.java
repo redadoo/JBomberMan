@@ -55,7 +55,8 @@ public class Player
 
 
         this.sprite.setLocation((int)this.pos.x, (int)this.pos.y);
-        this.sprite.setSize((int)size.x, (int)size.y);
+        /* this.sprite.setSize((int)size.x, (int)size.y); */
+		this.sprite.setLayout(null);
 
         // Vita iniziale del player 
 		this.life = 5;
@@ -65,7 +66,7 @@ public class Player
 
 		//Lunghezza passo del player
 		this.moveDistance = 5;
-		this.collider = new Collider(this.pos,4,4);
+		this.collider = new Collider(this.pos,2,2);
 	}
 
 	public void changeSpirte(String imagePath) 
@@ -93,9 +94,11 @@ public class Player
 
 	public void moveEntity(Vector2 newPos) 
 	{
+		/* if (newPos != this.getPos()) */
+		/* PrintPos(this.getPos()); */
 
-/* 		if (newPos != this.getPos())
-			PrintPos(this.getPos()); */
+	/* 	System.out.println("real pos ? forse non vredo");
+		PrintPos(RealPos); */
 
 		//Cambiamo l'orientamento dello sprite in base alla direzione presane memorizzo la nuova poszione
 		if (newPos.x > this.getPos().x)
@@ -126,7 +129,7 @@ public class Player
 		size.x = this.collider.box.xSize;
 		size.y = this.collider.box.ySize;
 
-		return size;
+		return this.size;
 	}
 
 	//Ritorno il collider
