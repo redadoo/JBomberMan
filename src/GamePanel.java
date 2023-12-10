@@ -2,9 +2,15 @@ package src;
 
 import javax.swing.JFrame;
 import java.awt.Component;
+import java.awt.Graphics;
+
 import javax.swing.JPanel;
 import java.awt.Color;
-
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.awt.Graphics2D;
 /*
  * Classe per la gestione del pannello di gioco
  */
@@ -30,6 +36,7 @@ public class GamePanel
 		screen.setLocationRelativeTo(null); 			          //Far partire la window dal centro dello schermo
 		screen.setVisible(true);
 		this.addToScreen(this.returnJPanel());
+
 	}
 
 	void addToPanel(Component comp)
