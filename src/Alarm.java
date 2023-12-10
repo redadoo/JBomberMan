@@ -8,42 +8,40 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /*
- *  Classe per la gestione del nemico del primo livello
+ *  Classe per gli oggetti "allarmi"
  */
-public class FlyHead extends Entity
+public class Alarm extends Entity
 {
-    private int             pointDrop;
     private JLabel		sprite;
     private Vector2		pos;
 	private Vector2		size;
-    
-
+    private String		imagePath;
 
 
     /*
-     * Costruttore della classe FlyHead
+     * Costruttore della classe Alarm
      */
-    public FlyHead(String imagePath, Vector2 pos, Vector2 size) throws IOException
+    public Alarm (String imagePath, Vector2 pos, Vector2 size) throws IOException
     {
         super(pos, size);
-        this.pointDrop = 100;
-    
         //inizializiamo lo sprite
         this.sprite = new JLabel();
 
+        this.pos = pos;
+		
+		this.size = size;
 
-
+ 
+        
         File file = new File(imagePath);
         BufferedImage image = ImageIO.read(file);
-
+        System.out.println("Ciao");
         // Imposta la posizione
         this.sprite.setIcon(new ImageIcon(image.getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH)));
     
         this.sprite.setLocation((int)this.pos.x, (int)this.pos.y);
         /* this.sprite.setSize((int)size.x, (int)size.y); */
         this.sprite.setLayout(null);
-
-        
 
 
     }
@@ -55,8 +53,6 @@ public class FlyHead extends Entity
     public Vector2 getPos() { return this.pos; }
 
 	public JLabel returnLabel() { return this.sprite; }
-
-    public int getPointDrop() { return pointDrop; }
 
 
 

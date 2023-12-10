@@ -29,13 +29,22 @@ public class GameManager
 		
 		// Inizializzazione del Player 
 		Player player = new Player("src/Resource/PlayerSprite/PlayerFront.png", new Vector2(50,65), new Vector2(30, 40));
+
+		// Inizializzazione del primo tipo di nemici
+		//FlyHead flyHead = new FlyHead( "src/Resource/Sprites/EnemySprite1/Png/sprite_00.png", new Vector2(100, 200), new Vector2(30, 40));
+
+		// Inizializzazione del primo tipo di nemici
+		Alarm alarm1 = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(90, 350), new Vector2(30, 40));
 		
 		/*
 		  Aggiungiamo degli elementi allo schermo
-		  La mappa e il player
+		  La mappa e il player ed il primo nemico
 		*/
 		gamePanel.addToPanel(player.returnLabel());
+		//gamePanel.addToPanel(flyHead.returnLabel());
+		gamePanel.addToPanel(alarm1.returnLabel()); 
 		gamePanel.addToPanel(map.returnLabel(), map.getPos());
+		
 
 		/*
 		*  Movimento

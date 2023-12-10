@@ -38,7 +38,7 @@ public class Player
     /*
      *  Costruttore della classe Player
      */
-	public Player( String imagePath, Vector2 pos, Vector2 size) throws IOException
+	public Player( String imagePath, Vector2 pos, Vector2 size) throws IOException 
 	{
 		this.pos = pos;
 		
