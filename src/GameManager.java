@@ -10,17 +10,59 @@ import javax.swing.JPanel;
 
 
 public class GameManager
-{  
+{
+	public static Entity[] InitObjects(GamePanel gamePanel) throws IOException
+	{
+		String []ClockSprites =new String[]{ "src/Resource/Sprites/ClockSprite/sprite_0.png", 
+											 "src/Resource/Sprites/ClockSprite/sprite_1.png",
+											 "src/Resource/Sprites/ClockSprite/sprite_2.png",
+											 "src/Resource/Sprites/ClockSprite/sprite_3.png",
+											 "src/Resource/Sprites/ClockSprite/sprite_4.png",
+											 "src/Resource/Sprites/ClockSprite/sprite_5.png",
+											 "src/Resource/Sprites/ClockSprite/sprite_6.png",
+											 "src/Resource/Sprites/ClockSprite/sprite_7.png",											
+											};
+
+		String []AlarmSprites =new String[]{ "src/Resource/Sprites/OstacoliSprites/sprite_0.png", 
+											"src/Resource/Sprites/OstacoliSprites/sprite_1.png",
+											"src/Resource/Sprites/OstacoliSprites/sprite_2.png",
+											"src/Resource/Sprites/OstacoliSprites/sprite_3.png"};
+
+
+		Entity clock = new Entity(new Vector2(243,10), new Vector2(28,40), "src/Resource/Sprites/ClockSprite/sprite_0.png") {};
+		clock.InitSpriteArray(ClockSprites);
+
+		Alarm alarm = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(49, 160), new Vector2(30, 40));
+
+		alarm.InitSpriteArray(AlarmSprites);
+
+		Alarm alarm2 = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(113, 183), new Vector2(30, 40));
+
+		alarm2.InitSpriteArray(AlarmSprites);
+
+		Alarm alarm3 = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(370, 183), new Vector2(30, 40));
+
+		alarm3.InitSpriteArray(AlarmSprites);
+
+		gamePanel.addToPanel(clock.getLabel());
+		gamePanel.addToPanel(alarm.getLabel());
+		gamePanel.addToPanel(alarm2.getLabel());
+		gamePanel.addToPanel(alarm3.getLabel());
+
+		return (new Entity[]{alarm,alarm2,alarm3,clock});
+
+	}
 	public static void main(String[] args) throws IOException, InterruptedException, UnsupportedAudioFileException, LineUnavailableException 
 	{
-        String filePath = "C:/Users/edoar/Desktop/JavaGame/src/Resource/Fizzy.wav";
+		Entity		clock;
+        Entity[]	ObjectArray;
+		Vector2		newPosPlayer;
 
 		//Creazione di un thread per la gestione della musica
-		Thread MusicThread = new Thread(new AudioPlayer(filePath));
+		Thread MusicThread = new Thread(new AudioPlayer("C:/Users/edoar/Desktop/JavaGame/src/Resource/Fizzy.wav"));
+		MusicThread.start();
 
-		/* MusicThread.start(); */
-
-		Vector2 newPosPlayer;
+		
 		// Inizializzazione del schermo 
 		GamePanel gamePanel = new GamePanel(new JFrame(), new JPanel(), new Vector2(512, 450), "Snes Bomberman");
 
@@ -30,28 +72,20 @@ public class GameManager
 		// Inizializzazione del Player 
 		Player player = new Player("src/Resource/PlayerSprite/PlayerFront.png", new Vector2(50,65), new Vector2(30, 40));
 
-		// Inizializzazione del primo tipo di nemici
-		//FlyHead flyHead = new FlyHead( "src/Resource/Sprites/EnemySprite1/Png/sprite_00.png", new Vector2(100, 200), new Vector2(30, 40));
-
-		// Inizializzazione del primo tipo di nemici
-		Alarm alarm1 = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(90, 350), new Vector2(30, 40));
-		
-		/*
-		  Aggiungiamo degli elementi allo schermo
-		  La mappa e il player ed il primo nemico
-		*/
-		gamePanel.addToPanel(player.returnLabel());
-		//gamePanel.addToPanel(flyHead.returnLabel());
-		gamePanel.addToPanel(alarm1.returnLabel()); 
+		ObjectArray = InitObjects(gamePanel);
+		gamePanel.addToPanel(player.getLabel());
 		gamePanel.addToPanel(map.returnLabel(), map.getPos());
 		
+		newPosPlayer = player.getPos();
+		player.moveEntity(player.getPos());
 
+		for (Entity entity : ObjectArray) {
+			entity.moveEntity(entity.getPos());
+		}
+		
 		/*
 		*  Movimento
 		*/
-		newPosPlayer = player.getPos();
-		player.moveEntity(player.getPos());
-		
 		while (true)
 		{	
 			if (Keyboard.isKeyPressed(KeyEvent.VK_ESCAPE))
@@ -72,25 +106,15 @@ public class GameManager
 			if (Keyboard.isKeyPressed(KeyEvent.VK_S))
 				newPosPlayer = (new Vector2(player.getPos().x, player.getPos().y + player.returnMoveDistance()));
 
-
 			if (newPosPlayer.y >= 60 && newPosPlayer.y <= 340 && newPosPlayer.x >= 50 && newPosPlayer.x <= 440 && map.checkPos(newPosPlayer, player.getSize()))
 				player.moveEntity(newPosPlayer);
 
-		
+			for (Entity entity : ObjectArray) {
+				entity.NextSprite();
+			}
+
 			Thread.sleep(60);
 		}	
 
 	}
-
-	private static void PrintSize(Vector2 pos, double x, double y) 
-	{
-		System.out.println("pos :   ");
-		System.out.println(String.valueOf(pos.x));
-		System.out.println(String.valueOf(pos.y));
-		System.out.println("size x :   ");
-		System.out.println(String.valueOf(x));
-		System.out.println("size y :   ");
-		System.out.println(String.valueOf(y));
-	}
-
 }  

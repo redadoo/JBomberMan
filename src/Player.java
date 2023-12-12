@@ -8,7 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-public class Player 
+public class Player extends Entity
 {
 	private Collider	collider;
 	private int			life;
@@ -16,7 +16,6 @@ public class Player
 	private Vector2		pos;
 	private Vector2		size;
 	private String		imagePath;
-	private JLabel		sprite;
 	private int			moveDistance;
 
 
@@ -40,85 +39,41 @@ public class Player
      */
 	public Player( String imagePath, Vector2 pos, Vector2 size) throws IOException 
 	{
+		super(pos, size, imagePath);
 		this.pos = pos;
 		
 		this.size = size;
 		
-        //inizializiamo lo sprite
-        this.sprite = new JLabel();
+		super.setLabel(new JLabel());
 		
 	
 		File file = new File(imagePath);
 		BufferedImage image = ImageIO.read(file);
-		// Imposta la posizione
-		this.sprite.setIcon(new ImageIcon(image.getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH)));
 
+		super.getLabel().setIcon(new ImageIcon(image.getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH)));
 
-        this.sprite.setLocation((int)this.pos.x, (int)this.pos.y);
-        /* this.sprite.setSize((int)size.x, (int)size.y); */
-		this.sprite.setLayout(null);
+        super.getLabel().setLocation((int)this.pos.x, (int)this.pos.y);
+		super.getLabel().setLayout(null);
 
-        // Vita iniziale del player 
 		this.life = 5;
-
-        //Punti iniziali del player
 		this.point = 0;
 
-		//Lunghezza passo del player
 		this.moveDistance = 5;
 		this.collider = new Collider(this.pos,2,2);
+		this.moveEntity(this.getPos());	
 	}
 
-	public void changeSpirte(String imagePath) 
+	@Override
+	public void moveEntity(Vector2 newPos) throws IOException 
 	{
-		ImageIcon playerIcon = new ImageIcon(imagePath);
-		
-		// Ottengo l'immagine dello sprite scalata
-		java.awt.Image newimg = playerIcon.getImage().getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH);
-		 
-		// Riportiamo a ImageIcon
-		ImageIcon newImageIcon = new ImageIcon(newimg);
-		
-		// Imposta la posizione
-        this.sprite.setSize((int)this.size.x, (int)this.size.y);
-        this.sprite.setIcon(newImageIcon);
-	}
-
-	public Vector2 getPos() { return this.pos; }
-
-	public int returnPoint() { return this.point; }
-
-	public int returnLife() { return this.life; }
-
-	public JLabel returnLabel() { return this.sprite; }
-
-	public void moveEntity(Vector2 newPos) 
-	{
-		/* if (newPos != this.getPos()) */
-		/* PrintPos(this.getPos()); */
-
-	/* 	System.out.println("real pos ? forse non vredo");
-		PrintPos(RealPos); */
-
-		//Cambiamo l'orientamento dello sprite in base alla direzione presane memorizzo la nuova poszione
-		if (newPos.x > this.getPos().x)
-			this.changeSpirte("src/Resource/PlayerSprite/PlayerRight.png");
-		if (newPos.x < this.getPos().x)
-			this.changeSpirte("src/Resource/PlayerSprite/PlayerLeft.png");
-		if (newPos.y < this.getPos().y)
-			this.changeSpirte("src/Resource/PlayerSprite/PlayerBack.png");
-		if (newPos.y > this.getPos().y)
-			this.changeSpirte("src/Resource/PlayerSprite/PlayerFront.png");
+		if (newPos.x > this.getPos().x) this.changeSpirte("src/Resource/PlayerSprite/PlayerRight.png");
+		if (newPos.x < this.getPos().x) this.changeSpirte("src/Resource/PlayerSprite/PlayerLeft.png");
+		if (newPos.y < this.getPos().y) this.changeSpirte("src/Resource/PlayerSprite/PlayerBack.png");
+		if (newPos.y > this.getPos().y) this.changeSpirte("src/Resource/PlayerSprite/PlayerFront.png");
 
  		this.pos = newPos;
-        this.sprite.setLocation((int)this.pos.x, (int)this.pos.y);
+        super.getLabel().setLocation((int)this.pos.x, (int)this.pos.y);
 		this.collider.box.pos = newPos;
-		/* this.sprite.setSize((int)this.size.x, (int)this.size.y); */
-	}
-
-	public int returnMoveDistance()
-	{
-		return this.moveDistance;
 	}
 
 	//Ritorno la taglia del collider del player
@@ -131,12 +86,16 @@ public class Player
 
 		return this.size;
 	}
+	
+	public Vector2 getPos() { return this.pos; }
+	
+	public int returnPoint() { return this.point; }
+	
+	public int returnLife() { return this.life; }
+		
+	public int returnMoveDistance() { return this.moveDistance; }
 
-	//Ritorno il collider
-	public Collider getCollider()
-	{
-		return this.collider;
-	}
+	public Collider getCollider() { return this.collider; }
 
 
 }

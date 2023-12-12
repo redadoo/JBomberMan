@@ -25,13 +25,11 @@ public class FlyHead extends Entity
      */
     public FlyHead(String imagePath, Vector2 pos, Vector2 size) throws IOException
     {
-        super(pos, size);
+        super(pos, size,imagePath);
         this.pointDrop = 100;
     
         //inizializiamo lo sprite
         this.sprite = new JLabel();
-
-
 
         File file = new File(imagePath);
         BufferedImage image = ImageIO.read(file);
@@ -43,31 +41,8 @@ public class FlyHead extends Entity
         /* this.sprite.setSize((int)size.x, (int)size.y); */
         this.sprite.setLayout(null);
 
-        
-
-
     }
-
-    public void changeSpirte(String imagePath) 
-	{
-    }
-
-    public Vector2 getPos() { return this.pos; }
-
-	public JLabel returnLabel() { return this.sprite; }
 
     public int getPointDrop() { return pointDrop; }
-
-
-
-
-    @Override
-    public void moveEntity(Vector2 pos) 
-    {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'moveEntity'");
-
-        
-    }
     
 }
