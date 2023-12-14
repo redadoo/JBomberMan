@@ -17,6 +17,7 @@ public abstract class Entity
 	private Vector2         size;
 	private JLabel	        jlabel;
 	private int             Index = 0;
+	private Collider		collider;
 	private BufferedImage	StartSprite;
 	private String          []SpriteArray;
 
@@ -37,6 +38,9 @@ public abstract class Entity
 
 	public void InitSpriteArray(String []spriteAr) { SpriteArray = spriteAr; }
 
+	// return Size
+	public Vector2 getSize() {return this.size;}
+
 	// return pos
 	public Vector2 getPos() {return this.pos;}
  
@@ -49,6 +53,13 @@ public abstract class Entity
 	// set size
 	public void setSize(Vector2 v) { this.size = v; }
 	
+	public Collider getCollider() { return this.collider;}
+
+	public void setCollider(Vector2 pos, float xWidth, float yHeight)
+	{
+		this.collider = new Collider(pos, xWidth, yHeight);
+	}
+
 	// change sprite
 	public void changeSpirte(String imagePath) throws IOException
 	{

@@ -18,8 +18,17 @@ public class Map {
 	private JLabel			label;
 	private String			imagePath;
 	private	BufferedImage	buffImage;
-	public	Collider[]		mapCollider = {new Collider(new Vector2(70,120),40,20)};
-
+	public	Collider[]		mapCollider = { new Collider(new Vector2(90,115),12,2)
+/* 											new Collider(new Vector2(130,120),40,20),
+											new Collider(new Vector2(190,120),40,20),
+											new Collider(new Vector2(190,100),40,20),
+											new Collider(new Vector2(250,120),40,20),
+											new Collider(new Vector2(310,120),40,20),
+											new Collider(new Vector2(370,120),40,20),
+											//2° riga
+											new Collider(new Vector2(70,170),40,20), */
+/* 											new Collider(new Vector2(130,170),40,20) */
+										};
     public Map(String imagePath, Vector2 pos, Vector2 size) throws IOException
     {
         this.pos = pos;
@@ -60,28 +69,5 @@ public class Map {
 	public Collider[] returnCollider()
 	{
 		return mapCollider;
-	}
-
-	public boolean checkPos(Vector2 pos, Vector2 Size)
-	{
-		Vector2 RealPos = new Vector2();
-
-
-		RealPos.y = pos.y + Size.y;
-		RealPos.x = pos.x - Size.x;
-
-
-		int rgb = buffImage.getRGB((int)RealPos.x, (int)RealPos.y);
-
-		int red = (rgb & 0xff0000) >> 16;
-		int green = (rgb & 0xff00) >> 8;
-		int blue = rgb & 0xff;
-
-		int alpha = (rgb & 0xff000000) >>> 24;
-
-		System.out.println(red + " " + green + " " + blue);
-
-		return true;
-	}
-	
+	}	
 }

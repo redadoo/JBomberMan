@@ -16,18 +16,6 @@ public class ImageRGB {
             int height = image.getHeight();
 
             // Loop through each pixel to get RGB values
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    int pixel = image.getRGB(x, y);
-
-                    // Extract RGB values
-                    int red = (pixel >> 16) & 0xff;
-                    int green = (pixel >> 8) & 0xff;
-                    int blue = pixel & 0xff;
-
-                    System.out.println("Pixel at (" + x + "," + y + ") - RGB: " + red + "," + green + "," + blue);
-                }
-            }
 
         } catch (IOException e) {
             e.printStackTrace();

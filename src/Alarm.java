@@ -28,6 +28,8 @@ public class Alarm extends Entity
 		super.getLabel().setLocation((int)this.pos.x, (int)this.pos.y);
 		/* this.sprite.setSize((int)size.x, (int)size.y); */
 		super.getLabel().setLayout(null);
+		Vector2 n = new Vector2(pos.x + 4,pos.y + 5);
+		super.setCollider(n, 24, 10);
 	}
 	
 }
