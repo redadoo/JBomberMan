@@ -62,7 +62,7 @@ public class GameManager
 		Vector<Collider>	colliderArray = new Vector<Collider>();
 
 		//Creazione di un thread per la gestione della musica
-		Thread MusicThread = new Thread(new AudioPlayer("C:/Users/edoar/Desktop/JavaGame/src/Resource/Fizzy.wav"));
+		Thread MusicThread = new Thread(new AudioPlayer("C:/Users/banan/Desktop/Gioco/src/Resource/Fizzy.wav"));
 		
 		// Inizializzazione del schermo 
 		GamePanel gamePanel = new GamePanel(new JFrame(), new JPanel(), new Vector2(512, 450), "Snes Bomberman");
@@ -151,6 +151,9 @@ public class GameManager
 					i = 0;
 				}
 			}
+
+			//System.out.println(player.getPos().x);
+			System.out.println(player.getPos().y);
 
 			i++;
 			isPlayerCollide = false;

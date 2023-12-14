@@ -18,16 +18,22 @@ public class Map {
 	private JLabel			label;
 	private String			imagePath;
 	private	BufferedImage	buffImage;
-	public	Collider[]		mapCollider = { new Collider(new Vector2(90,115),12,2)
-/* 											new Collider(new Vector2(130,120),40,20),
-											new Collider(new Vector2(190,120),40,20),
-											new Collider(new Vector2(190,100),40,20),
-											new Collider(new Vector2(250,120),40,20),
-											new Collider(new Vector2(310,120),40,20),
-											new Collider(new Vector2(370,120),40,20),
-											//2° riga
-											new Collider(new Vector2(70,170),40,20), */
-/* 											new Collider(new Vector2(130,170),40,20) */
+public	Collider[]		mapCollider = {	new Collider(new Vector2(90 ,115),12,2),
+										new Collider(new Vector2(155,115),12,2),
+										new Collider(new Vector2(220,115),12,2),
+										new Collider(new Vector2(285,115),12,2),
+										new Collider(new Vector2(255,115),12,2),
+										new Collider(new Vector2(345,115),12,2),
+										new Collider(new Vector2(410,115),12,2), 
+										// 2° riga
+										new Collider(new Vector2(90 ,160),12,2),
+										new Collider(new Vector2(155,160),12,2),
+										new Collider(new Vector2(220,160),12,2),
+										new Collider(new Vector2(285,160),12,2),
+										new Collider(new Vector2(255,160),12,2),
+										new Collider(new Vector2(345,160),12,2),
+										new Collider(new Vector2(410,160),12,2),
+
 										};
     public Map(String imagePath, Vector2 pos, Vector2 size) throws IOException
     {
