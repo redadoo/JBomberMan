@@ -9,6 +9,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import src.lib.Collider;
+import src.lib.Vector2;
+
 
 public class GameManager
 {
@@ -50,7 +53,6 @@ public class GameManager
 		gamePanel.addToPanel(alarm3.getLabel());
 
 		return (new Entity[]{alarm,alarm2,alarm3,clock});
-
 	}
 	public static void main(String[] args) throws IOException, InterruptedException, UnsupportedAudioFileException, LineUnavailableException {
 		
@@ -62,7 +64,7 @@ public class GameManager
 		Vector<Collider>	colliderArray = new Vector<Collider>();
 
 		//Creazione di un thread per la gestione della musica
-		Thread MusicThread = new Thread(new AudioPlayer("C:/Users/banan/Desktop/Gioco/src/Resource/Fizzy.wav"));
+		Thread MusicThread = new Thread(new AudioPlayer("src/Resource/Fizzy.wav"));
 		
 		// Inizializzazione del schermo 
 		GamePanel gamePanel = new GamePanel(new JFrame(), new JPanel(), new Vector2(512, 450), "Snes Bomberman");
@@ -71,10 +73,13 @@ public class GameManager
 		Map map = new Map("src/Resource/Maps/map_1.png", new Vector2(0, 0), new Vector2(512, 410));
 		
 		// Inizializzazione del Player 
-		Player player = new Player("src/Resource/PlayerSprite/PlayerFront.png", new Vector2(50,65), new Vector2(30, 40));
+		Player player = new Player("src/Resource/PlayerSprite/PlayerFront.png", new Vector2(50,65), new Vector2(35, 45));
 
-		gamePanel.addToPanel(player.getLabel());
+		Bomb bomb = new Bomb("src/Resource/BombSprite/BombSprite0.png",new Vector2(25,25));
+
 		ObjectArray = InitObjects(gamePanel);
+		gamePanel.addToPanel(player.getLabel());
+		gamePanel.addToPanel(bomb.getLabel(), false);
 		gamePanel.addToPanel(map.returnLabel(), map.getPos());
 		
 		newPosPlayer = player.getPos();
@@ -84,7 +89,7 @@ public class GameManager
 			entity.moveEntity(entity.getPos());
 
 		for (int j = 0; j < ObjectArray.length; j++) {
-			if (j < ObjectArray.length -1)
+			if (j < ObjectArray.length - 1)
 				colliderArray.add(ObjectArray[j].getCollider());
 		}
 		
@@ -92,8 +97,16 @@ public class GameManager
 		*  Movimento
 		*/
 		MusicThread.start();
+		
 		while (true)
 		{	
+			bomb.pos.PrintPos();
+	
+			if (Keyboard.isKeyPressed(KeyEvent.VK_SPACE) && player.getNumbBomb() >= 1)
+			{
+				bomb.placeBomb(player.getPos());
+			}
+			//close game with escape key
 			if (Keyboard.isKeyPressed(KeyEvent.VK_ESCAPE))
 				System.exit(1);
 			
@@ -124,7 +137,7 @@ public class GameManager
 
 				if (checkCollideBoxes(newPlayerCollider, colliderArray.elementAt(j)) == true)
 				{
-					System.out.println("testc");
+					/* System.out.println("testc"); */
 					isPlayerCollide = true;
 				}	
 			}
@@ -133,19 +146,19 @@ public class GameManager
 			for (int j = 0; j < map.mapCollider.length; j++) {
 				if (checkCollideBoxes(newPlayerCollider, map.mapCollider[j]) == true)
 				{
-					System.out.println("a");
+					/* System.out.println("a"); */
 					isPlayerCollide = true;
 				}	
 			}
 			
-			if (isPlayerCollide == false && newPosPlayer.y >= 60 && newPosPlayer.y <= 340 && newPosPlayer.x >= 50 && newPosPlayer.x <= 440)
+			if (isPlayerCollide == false && newPosPlayer.y >= 60 && newPosPlayer.y <= 340 && newPosPlayer.x >= 50 && newPosPlayer.x <= 430)
 				player.moveEntity(newPosPlayer);
 				
 			// Adjust the update frequency of sprites
 			for(int x = 0; x < ObjectArray.length; x++) {
 				if (x < ObjectArray.length -1)
 				ObjectArray[x].NextSprite();
-				else if (x >= ObjectArray.length -1 && i == 15)
+				else if (x >= ObjectArray.length -1 && i == 18)
 				{
 					ObjectArray[x].NextSprite();
 					i = 0;
@@ -153,7 +166,7 @@ public class GameManager
 			}
 
 			//System.out.println(player.getPos().x);
-			System.out.println(player.getPos().y);
+			/* System.out.println(player.getPos().y); */
 
 			i++;
 			isPlayerCollide = false;
@@ -162,9 +175,8 @@ public class GameManager
 			
 		}
 
-		public static Boolean checkCollideBoxes(Collider colliderA, Collider colliderB) {
-			boxCollider a = colliderA.returnBoxCollider();
-			boxCollider b = colliderB.returnBoxCollider();
+		public static Boolean checkCollideBoxes(Collider a, Collider b) {
+
 			if (a.pos.x + a.xSize >= b.pos.x && a.pos.x <= b.pos.x + b.xSize && a.pos.y + a.ySize >= b.pos.y && a.pos.y <= b.pos.y + b.ySize)
     		return true;
 		return false;

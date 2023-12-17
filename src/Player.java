@@ -2,6 +2,9 @@ package src;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import src.lib.Vector2;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,10 +13,12 @@ import javax.imageio.ImageIO;
 
 public class Player extends Entity
 {
+	public	Bomb		bomb;
 	private int			life;
 	private int			point;
+	private int			numBomb;
+	private int			numBombMax;
 	private int			moveDistance;
-
 
 	//Funzione di testing
 	static public void Print(String x)
@@ -47,6 +52,8 @@ public class Player extends Entity
 		this.life = 5;
 		this.point = 0;
 		this.moveDistance = 5;
+		this.numBomb = 1;
+		this.numBombMax = 1;		
 	}
 
 	@Override
@@ -54,7 +61,7 @@ public class Player extends Entity
 	{
 		this.pos = newPos;
         super.getLabel().setLocation((int)this.pos.x, (int)this.pos.y);
-		super.getCollider().box.pos = newPos;
+		super.getCollider().pos = newPos;
 	}
 		
 	public int returnPoint() { return this.point; }
@@ -63,4 +70,11 @@ public class Player extends Entity
 		
 	public int returnMoveDistance() { return this.moveDistance; }
 
+	public void setNumbBomb(int x) { this.numBomb = x;}
+
+	public int	getNumbBomb() { return this.numBomb;}
+
+	public void setNumbBombMax(int x) { this.numBombMax = x;}
+
+	public int	getNumbBombMax() { return this.numBombMax;}
 }

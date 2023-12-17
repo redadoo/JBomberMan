@@ -48,6 +48,8 @@ TODO:
 		Problema: La posizione del player è la testa, deve essere il centro.
 		Controllare i 5 pixel successivi.
 
+	Nella classe Player implementare il contatore di bombe.
+
 	mvc
 
 	Esplosioni

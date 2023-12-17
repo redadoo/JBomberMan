@@ -2,9 +2,13 @@ package src;
 
 import javax.swing.JFrame;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
+
+import src.lib.Vector2;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -35,8 +39,16 @@ public class GamePanel
 		screen.setTitle(name); 					              	  //Titolo in alto a sinistra -> della window
 		screen.setLocationRelativeTo(null); 			          //Far partire la window dal centro dello schermo
 		screen.setVisible(true);
+		/* screen.getContentPane().setLayout( new FlowLayout() ); */
 		this.addToScreen(this.returnJPanel());
 
+	}
+
+	void addToPanel(Component comp, boolean Visible)
+	{
+		this.panel.add(comp);
+		comp.setVisible(true);
+		screen.setVisible(true);
 	}
 
 	void addToPanel(Component comp)

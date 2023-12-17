@@ -2,6 +2,9 @@ package src;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import src.lib.Vector2;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package src;
+package src.lib;
 
 /**
  *  Classe per la gestione della posizione del personaggio
@@ -42,4 +42,12 @@ public class Vector2
 
         return (dir);
     }
+
+	public void PrintPos()
+	{
+		System.out.println(" x :   ");
+		System.out.println(String.valueOf(this.x));
+		System.out.println(" y :   ");
+		System.out.println(String.valueOf(this.y));
+	}
 }
