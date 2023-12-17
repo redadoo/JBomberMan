@@ -8,7 +8,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
-import java.awt.event.KeyEvent;
 
 public class AudioPlayer implements Runnable {
 

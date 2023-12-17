@@ -3,18 +3,10 @@ package src;
 import javax.swing.JFrame;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 
 import javax.swing.JPanel;
-
 import src.lib.Vector2;
-
 import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Timer;
-import java.awt.Graphics2D;
 /*
  * Classe per la gestione del pannello di gioco
  */

@@ -3,22 +3,25 @@ package src;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import src.lib.Collider;
 import src.lib.Vector2;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
+
 import javax.imageio.ImageIO;
 
 
 public class Player extends Entity
 {
-	public	Bomb		bomb;
-	private int			life;
-	private int			point;
-	private int			numBomb;
-	private int			numBombMax;
-	private int			moveDistance;
+	private int				life;
+	private int				point;
+	public	Vector<Bomb>	bombs;  // container for player's bomb
+	private int				numBomb;
+	private int				numBombMax;
+	private int				moveDistance;
 
 	//Funzione di testing
 	static public void Print(String x)
@@ -54,6 +57,10 @@ public class Player extends Entity
 		this.moveDistance = 5;
 		this.numBomb = 1;
 		this.numBombMax = 1;		
+		
+		bombs = new Vector<Bomb>();
+		for(int i = 0; i < numBombMax; i++)
+			bombs.add(new Bomb());
 	}
 
 	@Override
@@ -77,4 +84,19 @@ public class Player extends Entity
 	public void setNumbBombMax(int x) { this.numBombMax = x;}
 
 	public int	getNumbBombMax() { return this.numBombMax;}
+
+	public boolean PlaceBomb(GamePanel panel) throws IOException
+	{
+		for (Bomb bomb : bombs) 
+		{
+			if (bomb.ReturnStatus() == true)
+			{
+				bomb.SetPanel(panel);
+				bomb.SetStatus(false);
+				bomb.placeBomb(new Vector2(super.getPos().x + 2, super.getPos().y + 8), panel);
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -1,5 +1,6 @@
 package src;
 
+import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Vector;
@@ -15,7 +16,8 @@ import src.lib.Vector2;
 
 public class GameManager
 {
-	public static Entity[] InitObjects(GamePanel gamePanel) throws IOException {
+	public static Entity[] InitObjects(GamePanel gamePanel) throws IOException 
+	{
 		String []ClockSprites =new String[]{ "src/Resource/Sprites/ClockSprite/sprite_0.png", 
 											 "src/Resource/Sprites/ClockSprite/sprite_1.png",
 											 "src/Resource/Sprites/ClockSprite/sprite_2.png",
@@ -32,18 +34,18 @@ public class GameManager
 											"src/Resource/Sprites/OstacoliSprites/sprite_3.png"};
 
 
-		Entity clock = new Entity(new Vector2(243,10), new Vector2(28,40), "src/Resource/Sprites/ClockSprite/sprite_0.png") {};
+		Entity clock = new Entity(new Vector2(243,-175), new Vector2(28,40), "src/Resource/Sprites/ClockSprite/sprite_0.png") {};
 		clock.InitSpriteArray(ClockSprites);
 
-		Alarm alarm = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(49, 160), new Vector2(30, 40));
+		Alarm alarm = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(49, -20), new Vector2(30, 40));
 
 		alarm.InitSpriteArray(AlarmSprites);
 
-		Alarm alarm2 = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(113, 183), new Vector2(30, 40));
+		Alarm alarm2 = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(113, -3), new Vector2(30, 40));
 
 		alarm2.InitSpriteArray(AlarmSprites);
 
-		Alarm alarm3 = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(370, 183), new Vector2(30, 40));
+		Alarm alarm3 = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(370, -3), new Vector2(30, 40));
 
 		alarm3.InitSpriteArray(AlarmSprites);
 
@@ -57,6 +59,7 @@ public class GameManager
 	public static void main(String[] args) throws IOException, InterruptedException, UnsupportedAudioFileException, LineUnavailableException {
 		
 		int					i = 0;
+		int					j = 0;
 		boolean				isPlayerCollide = false;
 		Collider			newPlayerCollider;
 		Entity[]			ObjectArray;
@@ -67,64 +70,64 @@ public class GameManager
 		Thread MusicThread = new Thread(new AudioPlayer("src/Resource/Fizzy.wav"));
 		
 		// Inizializzazione del schermo 
-		GamePanel gamePanel = new GamePanel(new JFrame(), new JPanel(), new Vector2(512, 450), "Snes Bomberman");
+		GamePanel gamePanel = new GamePanel(new JFrame(), new JPanel(new BorderLayout()), new Vector2(512, 450), "Snes Bomberman");
 
 		// Inizializzazione della mappa
 		Map map = new Map("src/Resource/Maps/map_1.png", new Vector2(0, 0), new Vector2(512, 410));
 		
 		// Inizializzazione del Player 
-		Player player = new Player("src/Resource/PlayerSprite/PlayerFront.png", new Vector2(50,65), new Vector2(35, 45));
-
-		Bomb bomb = new Bomb("src/Resource/BombSprite/BombSprite0.png",new Vector2(25,25));
+		Player player = new Player("src/Resource/PlayerSprite/PlayerFront.png", new Vector2(50,-120), new Vector2(35, 45));
 
 		ObjectArray = InitObjects(gamePanel);
 		gamePanel.addToPanel(player.getLabel());
-		gamePanel.addToPanel(bomb.getLabel(), false);
-		gamePanel.addToPanel(map.returnLabel(), map.getPos());
-		
+		gamePanel.addToPanel(map.returnLabel());
 		newPosPlayer = player.getPos();
 		player.moveEntity(player.getPos());
 
 		for (Entity entity : ObjectArray) 
 			entity.moveEntity(entity.getPos());
 
-		for (int j = 0; j < ObjectArray.length; j++) {
-			if (j < ObjectArray.length - 1)
-				colliderArray.add(ObjectArray[j].getCollider());
+		for (int z = 0; z < ObjectArray.length; z++) {
+			if (z < ObjectArray.length - 1)
+				colliderArray.add(ObjectArray[z].getCollider());
 		}
 		
-		/*
-		*  Movimento
+
+/* 		map.returnLabel().setLayout(new FlowLayout());
+ */		/*
+		*  Moviment
 		*/
 		MusicThread.start();
 		
 		while (true)
-		{	
-			bomb.pos.PrintPos();
-	
+		{		
+			if (i == 2147483647) i = 0;
 			if (Keyboard.isKeyPressed(KeyEvent.VK_SPACE) && player.getNumbBomb() >= 1)
 			{
-				bomb.placeBomb(player.getPos());
+				if (player.PlaceBomb(gamePanel) == true)
+				{
+					gamePanel.panel.remove(map.returnLabel());
+					gamePanel.addToPanel(map.returnLabel());
+				}
 			}
 			//close game with escape key
 			if (Keyboard.isKeyPressed(KeyEvent.VK_ESCAPE))
 				System.exit(1);
 			
-			// Tasto a destra
+			// Right button
 			if (Keyboard.isKeyPressed(KeyEvent.VK_D))
 				newPosPlayer = (new Vector2(player.getPos().x + player.returnMoveDistance(), player.getPos().y));
-			// Tasto in alto
+			// Up button
 			if (Keyboard.isKeyPressed(KeyEvent.VK_W))
 				newPosPlayer = (new Vector2(player.getPos().x ,player.getPos().y - player.returnMoveDistance()));
-		
-			// Tasto a sinistra
+			// Left button
 			if (Keyboard.isKeyPressed(KeyEvent.VK_A))
 				newPosPlayer = (new Vector2(player.getPos().x - player.returnMoveDistance(), player.getPos().y));
-		
-			// Tasto in basso
+			// Down button
 			if (Keyboard.isKeyPressed(KeyEvent.VK_S))
 				newPosPlayer = (new Vector2(player.getPos().x, player.getPos().y + player.returnMoveDistance()));
 			
+			// Player's collider of the next step
 			newPlayerCollider = new Collider(newPosPlayer, player.getSize().x, player.getSize().y);
 
 			if (newPosPlayer.x > player.getPos().x) player.changeSpirte("src/Resource/PlayerSprite/PlayerRight.png");
@@ -133,9 +136,9 @@ public class GameManager
 			if (newPosPlayer.y > player.getPos().y) player.changeSpirte("src/Resource/PlayerSprite/PlayerFront.png");
 			
 			// Colider Alarm
-			for (int j = 0; j < colliderArray.size(); j++) {
+			for (int w = 0; w < colliderArray.size(); w++) {
 
-				if (checkCollideBoxes(newPlayerCollider, colliderArray.elementAt(j)) == true)
+				if (checkCollideBoxes(newPlayerCollider, colliderArray.elementAt(w)) == true)
 				{
 					/* System.out.println("testc"); */
 					isPlayerCollide = true;
@@ -143,30 +146,31 @@ public class GameManager
 			}
 			
 			// Collider internal objec
-			for (int j = 0; j < map.mapCollider.length; j++) {
-				if (checkCollideBoxes(newPlayerCollider, map.mapCollider[j]) == true)
+			for (int v = 0; v < map.mapCollider.length; v++) {
+				if (checkCollideBoxes(newPlayerCollider, map.mapCollider[v]) == true)
 				{
 					/* System.out.println("a"); */
 					isPlayerCollide = true;
 				}	
 			}
 			
-			if (isPlayerCollide == false && newPosPlayer.y >= 60 && newPosPlayer.y <= 340 && newPosPlayer.x >= 50 && newPosPlayer.x <= 430)
+			if (isPlayerCollide == false && newPosPlayer.y >= -130 && newPosPlayer.y <= 150 && newPosPlayer.x >= 50 && newPosPlayer.x <= 430)
 				player.moveEntity(newPosPlayer);
 				
 			// Adjust the update frequency of sprites
 			for(int x = 0; x < ObjectArray.length; x++) {
 				if (x < ObjectArray.length -1)
-				ObjectArray[x].NextSprite();
-				else if (x >= ObjectArray.length -1 && i == 18)
-				{
 					ObjectArray[x].NextSprite();
-					i = 0;
-				}
+
+				else if (x >= ObjectArray.length -1 && i % 18 == 0)
+					ObjectArray[x].NextSprite();
 			}
 
-			//System.out.println(player.getPos().x);
-			/* System.out.println(player.getPos().y); */
+			for(int x = 0; x < player.bombs.size(); x++) 
+			{
+				if (i % 5 == 0 && player.bombs.elementAt(x).ReturnStatus() == false) 
+					player.bombs.elementAt(x).NextSprite();
+			}
 
 			i++;
 			isPlayerCollide = false;
@@ -178,7 +182,7 @@ public class GameManager
 		public static Boolean checkCollideBoxes(Collider a, Collider b) {
 
 			if (a.pos.x + a.xSize >= b.pos.x && a.pos.x <= b.pos.x + b.xSize && a.pos.y + a.ySize >= b.pos.y && a.pos.y <= b.pos.y + b.ySize)
-    		return true;
-		return false;
+    			return true;
+			return false;
 		}
 }  

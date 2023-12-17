@@ -1,6 +1,5 @@
 package src;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +19,7 @@ public abstract class Entity
 	public  Vector2         pos;
 	private Vector2         size;
 	private JLabel	        jlabel;
-	private int             Index = 0;
+	public	int             Index = 0;
 	private Collider		collider;
 	private BufferedImage	StartSprite;
 	private String			ImagePath;
@@ -49,6 +48,8 @@ public abstract class Entity
 
 	public void InitSpriteArray(String []sprite) { SpriteArray = sprite; }
 
+
+	public String [] getSpriteArray() {return SpriteArray;}
 	// return Size
 	public Vector2 getSize() {return this.size;}
 
@@ -78,7 +79,8 @@ public abstract class Entity
 	{
 		File file = new File(imagePath);
 		BufferedImage image = ImageIO.read(file);
-		this.jlabel.setIcon(new ImageIcon(image.getScaledInstance((int)this.size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH)));
+		if (this.jlabel != null)
+			this.jlabel.setIcon(new ImageIcon(image.getScaledInstance((int)this.size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH)));
 	}
 	
 	public void moveEntity(Vector2 pos) throws IOException
@@ -100,4 +102,5 @@ public abstract class Entity
 		changeSpirte(SpriteArray[Index]);
 		Index++;
 	}
+
 }

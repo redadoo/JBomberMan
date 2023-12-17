@@ -18,11 +18,7 @@ public class FlyHead extends Entity
     private int             pointDrop;
     private JLabel		sprite;
     private Vector2		pos;
-	private Vector2		size;
     
-
-
-
     /*
      * Costruttore della classe FlyHead
      */

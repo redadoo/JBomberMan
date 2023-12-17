@@ -1,6 +1,5 @@
 package src;
 
-import java.io.*;
 import java.util.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,7 +12,6 @@ import javax.imageio.ImageIO;
  */
 public class HUD 
 {
-    private BufferedImage Menu;
     private Vector<BufferedImage> numberImage;
     
     public HUD() throws IOException
