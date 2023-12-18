@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
- * Classe per la gestione degli input da tastiera
+ * Class to manage interaction Keyboards
  */
 public class Keyboard 
 {
@@ -25,6 +25,8 @@ public class Keyboard
         });
     }
 
-    //Ritorna un valore booleano se un tasto viene cliccato
+    /*
+     *  Returns a boolean value if a key is clicked 
+     */
     public static boolean isKeyPressed(int keyCode) { return pressedKeys.getOrDefault(keyCode, false); }
 }

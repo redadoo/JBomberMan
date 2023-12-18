@@ -11,7 +11,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /*
- *  Classe per la gestione del nemico del primo livello
+ *  Class to manage the first enemy
  */
 public class FlyHead extends Entity
 {
@@ -20,20 +20,20 @@ public class FlyHead extends Entity
     private Vector2		pos;
     
     /*
-     * Costruttore della classe FlyHead
+     * Costructor class FlyHead
      */
     public FlyHead(String imagePath, Vector2 pos, Vector2 size) throws IOException
     {
         super(pos, size,imagePath);
         this.pointDrop = 100;
     
-        //inizializiamo lo sprite
+        //init sprite
         this.sprite = new JLabel();
 
         File file = new File(imagePath);
         BufferedImage image = ImageIO.read(file);
 
-        // Imposta la posizione
+        // Set position
         this.sprite.setIcon(new ImageIcon(image.getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH)));
     
         this.sprite.setLocation((int)this.pos.x, (int)this.pos.y);
@@ -42,6 +42,9 @@ public class FlyHead extends Entity
 
     }
 
+    /*
+     *  Remain enemy's life -> ?? 
+     */
     public int getPointDrop() { return pointDrop; }
     
 }

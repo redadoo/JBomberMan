@@ -11,12 +11,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /*
- *  Classe per gli oggetti "allarmi"
+ *  Class for the Alarms
  */
 public class Alarm extends Entity
 {
 	/*
-	 * Costruttore della classe Alarm
+	 * Costructor class Alarm
 	 */
 	public Alarm (String imagePath, Vector2 pos, Vector2 size) throws IOException
 	{

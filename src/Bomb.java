@@ -15,11 +15,13 @@ import src.lib.Vector2;
  */
 public class Bomb extends Entity 
 {
-    public  GamePanel   panel;
+    public  GamePanel   gamePanel;
     private boolean     Isavailable;
     public  int         TimerExplosion = 0;
     
-    //Costructor class Bomb
+    /* 
+     *  Costructor class Bomb
+    */
     public Bomb() throws IOException
     {        
         super(new Vector2(-100 , -100), new Vector2(25,25), "src/Resource/BombSprite/BombSprite0.png");
@@ -41,33 +43,64 @@ public class Bomb extends Entity
                                                 "src/Resource/BombSprite/BombSprite2.png"});
     }
 
-    //Function to place the bomb
+
+    public static int RoundUpInt(int n, int d) 
+    {
+        int div = n / d;
+        int rest = n % d;
+
+        int res = div * d;
+
+        if (rest < d / 2) 
+            return res; 
+        else 
+            return res + d; 
+    }
+
+    /*
+    * Function to place the bomb
+    */
     public void placeBomb(Vector2 pos, GamePanel panel) throws IOException
     {
+        pos.x = RoundUpInt((int)pos.x, 30);
+
         panel.addToPanel(super.getLabel());
         super.getLabel().setVisible(true);
         super.setPos(pos);
-		super.getLabel().setLocation((int)this.pos.x, (int)this.pos.y);
-        super.moveEntity(pos);
-/*         System.out.println("bomba!!!!!!");
- */    
+		super.getLabel().setLocation(((int)this.pos.x), ((int)this.pos.y));
+        super.moveEntity(pos);   
     }
+    /*
+	 *  OSet the panel
+	 */
+    public void SetPanel(GamePanel panel) {this.gamePanel = panel;}
 
-    public void SetPanel(GamePanel panel) {this.panel = panel;}
-
-    public void Explosion()
+	/*
+	 *  ?
+	 */
+    public void Explosion() throws IOException
     {
+        /* super.changeSpirte("src/Resource/BombExplosion/sprite_0.png"); */
         super.setSize(new Vector2(25,25));
-        panel.panel.remove(getLabel());
+        gamePanel.panel.remove(getLabel());
         Isavailable = true;
         TimerExplosion = 0;
         Index = 0;
     }
 
+	/*
+	 *  Set the status of bomb
+	 */
     public void     SetStatus(Boolean x) {  Isavailable = x; }
+
+    /*
+	 *  Get the status of bomb
+	 */
     public Boolean  ReturnStatus() { return Isavailable; }
 
-    //Function to change the size of the bomb's sprite
+    /*
+     * Function to change the size of the bomb's sprite
+     */
     @Override
     public void NextSprite() throws IOException
     {

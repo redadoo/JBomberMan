@@ -12,7 +12,7 @@ import src.lib.Collider;
 import src.lib.Vector2;
 
 /* 
- * Classe che verrà estesa dai personaggi
+ * Class Entity that will be extended by the characters
 */
 public abstract class Entity 
 {
@@ -26,6 +26,9 @@ public abstract class Entity
 	private String          []SpriteArray;
 	private String          []effectArray;
 
+	/*
+	 * Entity costructor
+	 */
 	public Entity(Vector2 pos, Vector2 size, String SpritePath) throws IOException 
 	{
 		this.pos = pos;
@@ -40,41 +43,82 @@ public abstract class Entity
 		this.jlabel.setLayout(null);
 	}
 
+	/*
+	 *  Get image path
+	 */
 	public String GetImagePath () {return this.ImagePath; }
 
+	/*
+	 *  Set laber of the Entity
+	 */
 	public void	setLabel(JLabel jl) { this.jlabel = jl; }
 
+	/*
+	 *  Init the effect of the Entity
+	 */
 	public void InitEffectArray(String []effect) { effectArray = effect; }
 
+	/*
+	 *  ?
+	 */
 	public void InitSpriteArray(String []sprite) { SpriteArray = sprite; }
 
-
+	/*
+	 *  Obtain all sprite of Entity
+	 */
 	public String [] getSpriteArray() {return SpriteArray;}
-	// return Size
+
+	/*
+	 *  Get the effect of Entity
+	 */
+	public String [] getEffectArray() {return effectArray;}
+	
+	/*
+	 *  Get the size of Entity
+	 */
 	public Vector2 getSize() {return this.size;}
 
-	// return pos
+	/*
+	 *  Get the position of Entity
+	 */
 	public Vector2 getPos() {return this.pos;}
  
-	// return label
+	/*
+	 *  Get the label of Entity
+	 */
 	public JLabel getLabel() { return this.jlabel; }
 	
-	// set pos
+	/*
+	 *  Set the position of Entity
+	 */
 	public void setPos(Vector2 v) { this.pos = v; }
 	
-	// set size
+	/*
+	 *  Set the size of Entity
+	 */
 	public void setSize(Vector2 v) { this.size = v; }
 	
+	/*
+	 *  Get the collider of Entity
+	 */
 	public Collider getCollider() { return this.collider;}
 
+	/*
+	 *  Get the image of Entity
+	 */
 	public BufferedImage GetImage() {return this.StartSprite;}
 
+	/*
+	 *  Set the Collider of Entity
+	 */
 	public void setCollider(Vector2 pos, float xWidth, float yHeight)
 	{
 		this.collider = new Collider(pos, xWidth, yHeight);
 	}
 
-	// change sprite
+	/*
+	 *  Change sprite of Entity
+	 */
 	public void changeSpirte(String imagePath) throws IOException
 	{
 		File file = new File(imagePath);
@@ -83,12 +127,18 @@ public abstract class Entity
 			this.jlabel.setIcon(new ImageIcon(image.getScaledInstance((int)this.size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH)));
 	}
 	
+	/*
+	 *  Move the Entity
+	 */
 	public void moveEntity(Vector2 pos) throws IOException
 	{
 		this.pos = pos;
 		this.jlabel.setLocation((int)this.pos.x, (int)this.pos.y);
 	}
 
+	/*
+	 *  Obtain the next sprite of the Entity
+	 */
 	public void NextSprite() throws IOException
 	{
 		if (Index > SpriteArray.length - 1) Index = 0;
@@ -96,6 +146,9 @@ public abstract class Entity
 		Index++;
 	}
 
+	/*
+	 *  Obtain the next effect of the Entity
+	 */
 	public void NextEffect() throws IOException
 	{
 		if (Index > effectArray.length - 1) Index = 0;
