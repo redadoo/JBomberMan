@@ -21,10 +21,10 @@ public class Player extends Entity
 	private int				life;
 	private int				point;
 	public	Vector<Bomb>	bombs;  // container for player's bomb
-	public	Vector<String>	RightArray; 
-	public	Vector<String>	LeftArray; 
-	public	Vector<String>	UpArray; 
-	public	Vector<String>	DownArray; 
+	public	String[]		RightArray; 
+	public	String[]		LeftArray; 
+	public	String[]		FrontArray; 
+	public	String[]		BackArray; 
 	private int				numBomb;
 	private int				numBombMax;
 	private int				moveDistance;
@@ -67,21 +67,63 @@ public class Player extends Entity
 		bombs = new Vector<Bomb>();
 		for(int i = 0; i < numBombMax; i++)
 			bombs.add(new Bomb());
+		
+		RightArray = new String[]{	"src/Resource/Player/RightSprite/PlayerRight_0.png",
+									"src/Resource/Player/RightSprite/PlayerRight_1.png",
+									"src/Resource/Player/RightSprite/PlayerRight_2.png",
+									"src/Resource/Player/RightSprite/PlayerRight_1.png"};
+		
+		LeftArray = new String[]{	"src/Resource/Player/LeftSprite/PlayerLeft_0.png",
+									"src/Resource/Player/LeftSprite/PlayerLeft_1.png",
+									"src/Resource/Player/LeftSprite/PlayerLeft_2.png",
+									"src/Resource/Player/LeftSprite/PlayerLeft_1.png",};
+		
+		FrontArray = new String[]{	"src/Resource/Player/FrontSprite/PlayerFront_0.png",
+									"src/Resource/Player/FrontSprite/PlayerFront_1.png",
+									"src/Resource/Player/FrontSprite/PlayerFront_2.png",
+									"src/Resource/Player/FrontSprite/PlayerFront_1.png"};
+									
+		BackArray = new String[]{	"src/Resource/Player/BackSprite/PlayerBack_0.png",
+									"src/Resource/Player/BackSprite/PlayerBack_1.png",
+									"src/Resource/Player/BackSprite/PlayerBack_2.png",
+									"src/Resource/Player/BackSprite/PlayerBack_1.png"};
 	}
 
 	/*
 	 *  Move the Entity
-	 */
+	*/
 	@Override
 	public void moveEntity(Vector2 newPos) throws IOException 
 	{
-		if (this.pos != newPos)
-			newPos.PrintPos();
+/* 		if (this.pos != newPos)
+			newPos.PrintPos(); */
 		this.pos = newPos;
         super.getLabel().setLocation((int)this.pos.x, (int)this.pos.y);
 		super.getCollider().pos = newPos;
 	}
 
+	
+	public void walkSprite(int dir, int index) throws IOException
+	{
+		if (index == 4) index = 0;
+		if (dir == 0)
+		{
+			changeSpirte(RightArray[index]);
+		}
+		else if (dir == 1)
+		{	
+			changeSpirte(BackArray[index]);
+		}
+		else if (dir == 2)
+		{
+			changeSpirte(LeftArray[index]);
+		}
+		else if (dir == 3)
+		{
+			changeSpirte(FrontArray[index]);
+		}
+	}
+	
 	/*
 	 *  Get the point of Player
 	 */

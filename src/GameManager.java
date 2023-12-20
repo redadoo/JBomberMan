@@ -16,6 +16,7 @@ import src.lib.Vector2;
 
 public class GameManager
 {
+	static int					j = 0;
 	/*
 	 *	Function to check if happen a collision
 	 */
@@ -40,8 +41,8 @@ public class GameManager
 
 	/*
 	 *	Function to manage the input from keyboards 
-	 */
-	public static Vector2 InputHandler(Player player, GamePanel gamePanel, Map map) throws IOException
+	*/
+	public static Vector2 InputHandler(Player player, GamePanel gamePanel, Map map, int i) throws IOException
 	{
 		Vector2				newPosPlayer;
 
@@ -56,55 +57,82 @@ public class GameManager
 					gamePanel.addToPanel(map.returnLabel());
 			}
 		}
-		
+
 		// Escape button to close game
 		if (Keyboard.isKeyPressed(KeyEvent.VK_ESCAPE))
 			System.exit(1);
-		
-		if (Keyboard.isKeyPressed(KeyEvent.VK_SHIFT))
+			
+			
+		if (j == 4)
+			j = 0;
+		// Right button
+		if (Keyboard.isKeyPressed(KeyEvent.VK_D))
 		{
-			// Right button
-			if (Keyboard.isKeyPressed(KeyEvent.VK_D))
-				newPosPlayer = (new Vector2(player.getPos().x + player.returnMoveDistance() + 5, player.getPos().y));
-			// Up button
-			if (Keyboard.isKeyPressed(KeyEvent.VK_W))
-				newPosPlayer = (new Vector2(player.getPos().x ,player.getPos().y - player.returnMoveDistance() - 5));
-			// Left button
-			if (Keyboard.isKeyPressed(KeyEvent.VK_A))
-				newPosPlayer = (new Vector2(player.getPos().x - player.returnMoveDistance() - 5, player.getPos().y));
-			// Down button
-			if (Keyboard.isKeyPressed(KeyEvent.VK_S))
-				newPosPlayer = (new Vector2(player.getPos().x, player.getPos().y + player.returnMoveDistance() + 5));
+			// Frequency update sprites
+			if (i % 3 == 0)
+			{
+				player.walkSprite(0,j);
+				j++;
+			}
+			newPosPlayer = (new Vector2(player.getPos().x + player.returnMoveDistance(), player.getPos().y));
 		}
-		else
+		else if (Keyboard.isKeyJustReleased(KeyEvent.VK_D))
 		{
-			// Right button
-			if (Keyboard.isKeyPressed(KeyEvent.VK_D))
-				newPosPlayer = (new Vector2(player.getPos().x + player.returnMoveDistance(), player.getPos().y));
-			// Up button
-			if (Keyboard.isKeyPressed(KeyEvent.VK_W))
-				newPosPlayer = (new Vector2(player.getPos().x ,player.getPos().y - player.returnMoveDistance()));
-			// Left button
-			if (Keyboard.isKeyPressed(KeyEvent.VK_A))
-				newPosPlayer = (new Vector2(player.getPos().x - player.returnMoveDistance(), player.getPos().y));
-			// Down button
-			if (Keyboard.isKeyPressed(KeyEvent.VK_S))
-				newPosPlayer = (new Vector2(player.getPos().x, player.getPos().y + player.returnMoveDistance()));
+			j = 0;
+			player.changeSpirte(player.RightArray[1]);
 		}
-
-
-	
-		if (newPosPlayer.x > player.getPos().x) player.changeSpirte("src/Resource/PlayerSprite/PlayerRight.png");
-		if (newPosPlayer.x < player.getPos().x) player.changeSpirte("src/Resource/PlayerSprite/PlayerLeft.png");
-		if (newPosPlayer.y < player.getPos().y) player.changeSpirte("src/Resource/PlayerSprite/PlayerBack.png");
-		if (newPosPlayer.y > player.getPos().y) player.changeSpirte("src/Resource/PlayerSprite/PlayerFront.png");
-
+		// Up button
+		if (Keyboard.isKeyPressed(KeyEvent.VK_W))
+		{
+			if (i % 3 == 0)
+			{
+				player.walkSprite(1,j);
+				j++;
+			}			
+			newPosPlayer = (new Vector2(player.getPos().x ,player.getPos().y - player.returnMoveDistance()));
+		}
+		else if (Keyboard.isKeyJustReleased(KeyEvent.VK_W))
+		{
+			j = 0;
+			player.changeSpirte(player.BackArray[1]);
+		}
+		// Left button
+		if (Keyboard.isKeyPressed(KeyEvent.VK_A))
+		{
+			if (i % 3 == 0)
+			{
+				player.walkSprite(2,j);
+				j++;
+			}	
+			newPosPlayer = (new Vector2(player.getPos().x - player.returnMoveDistance(), player.getPos().y));
+		}
+		else if (Keyboard.isKeyJustReleased(KeyEvent.VK_A))
+		{
+			j = 0;
+			player.changeSpirte(player.LeftArray[1]);
+		}
+		// Down button
+		if (Keyboard.isKeyPressed(KeyEvent.VK_S))
+		{
+			if (i % 3 == 0)
+			{
+				player.walkSprite(3,j);
+				j++;
+			}	
+			newPosPlayer = (new Vector2(player.getPos().x, player.getPos().y + player.returnMoveDistance()));
+		}
+		else if (Keyboard.isKeyJustReleased(KeyEvent.VK_S))
+		{
+			j = 0;
+			player.changeSpirte(player.FrontArray[1]);
+		}
+		System.out.println(j);
 		return newPosPlayer;
 	}
 
 	/*
 	 *	Function to change sprite of Entity 
-	 */
+	*/
 	public static void SpriteChanges(Entity[] ObjectArray, Player player, int i) throws IOException
 	{
 		// Adjust the update frequency of sprites
@@ -126,7 +154,7 @@ public class GameManager
 	
 	/*
 	 *	Init the sprite of the different Entity 
-	 */
+	*/
 	public static Entity[] InitObjects(GamePanel gamePanel) throws IOException 
 	{
 		String []ClockSprites =new String[]{ "src/Resource/Sprites/ClockSprite/sprite_0.png", 
@@ -148,7 +176,7 @@ public class GameManager
 		Entity clock = new Entity(new Vector2(243,-175), new Vector2(28,40), "src/Resource/Sprites/ClockSprite/sprite_0.png") {};
 		clock.InitSpriteArray(ClockSprites);
 
-		Alarm alarm = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(49, -20), new Vector2(30, 40));
+		Alarm alarm = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(49, -27), new Vector2(30, 40));
 
 		alarm.InitSpriteArray(AlarmSprites);
 
@@ -170,7 +198,7 @@ public class GameManager
 	
 	/*
 	 *	Controller Function
-	 */
+	*/
 	public static void main(String[] args) throws IOException, InterruptedException, UnsupportedAudioFileException, LineUnavailableException {
 		
 		int					i = 0;
@@ -189,13 +217,13 @@ public class GameManager
 		Map map = new Map("src/Resource/Maps/map_1.png", new Vector2(0, 0), new Vector2(512, 410));
 		
 		// Init Player 
-		Player player = new Player("src/Resource/PlayerSprite/PlayerFront.png", new Vector2(50,-120), new Vector2(30, 40));
+		Player player = new Player("src/Resource/Player/BackSprite/PlayerBack_1.png", new Vector2(50,-120), new Vector2(30, 40));
 
 		// Init the object in the map
-		ObjectArray = InitObjects(gamePanel);
-
-
+		
+		
 		gamePanel.addToPanel(player.getLabel());
+		ObjectArray = InitObjects(gamePanel);
 		gamePanel.addToPanel(map.returnLabel());
 
 		newPosPlayer = player.getPos();
@@ -205,10 +233,10 @@ public class GameManager
 		for (Entity entity : ObjectArray) 
 			entity.moveEntity(entity.getPos());
 
-		for (int j = 0; j < ObjectArray.length; j++) 
+		for (int  z = 0; z < ObjectArray.length; z++) 
 		{
-			if (j < ObjectArray.length - 1)
-				colliderArray.add(ObjectArray[j].getCollider());
+			if (z < ObjectArray.length - 1)
+				colliderArray.add(ObjectArray[z].getCollider());
 		}
 		
 		/* MusicThread.start(); */
@@ -219,10 +247,10 @@ public class GameManager
 			if (i == 1000) 
 				i = 0;
 
-			newPosPlayer = InputHandler(player, gamePanel, map);
-			
+			newPosPlayer = InputHandler(player, gamePanel, map, i);
 			isPlayerCollide = CheckCollision(new Collider(newPosPlayer, player.getSize().x, player.getSize().y), colliderArray,map);
 		
+			// Check perimeter
 			if (isPlayerCollide == false && newPosPlayer.y >= -120 && newPosPlayer.y <= 150 && newPosPlayer.x >= 50 && newPosPlayer.x <= 435)
 				player.moveEntity(newPosPlayer);
 						
@@ -233,12 +261,11 @@ public class GameManager
 			Thread.sleep(60);
 			i++;
 		}
-			
 		}
 
 		/*
 		 * Check if 2 collider make contact
-		 */
+		*/
 		public static Boolean checkCollideBoxes(Collider a, Collider b) {
 
 			if (a.pos.x + a.xSize >= b.pos.x && a.pos.x <= b.pos.x + b.xSize && a.pos.y + a.ySize >= b.pos.y && a.pos.y <= b.pos.y + b.ySize)

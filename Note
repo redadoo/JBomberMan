@@ -1,26 +1,3 @@
-Pos Collider:
-
-	1° line:            2° line:            3° line:            4° line:            5° line:            6° line:            7° line:            8° line:            9° line:
-
-		y: 120.0        y: 170.0            y: 200.0            y: 220.0            y: 250.0            y: 270.0            y: 300.0            y: 320.0            y: 350.0
-		x: 70.0
-
-		x: 150.0
-
-		x: 210.0
-
-		y: 100.0
-		x: 210.0
-
-		x: 260.0
-
-		x: 320.0
-		
-		x: 380.0
-
-
-
-
 Colore blocchi non accessibili: (248,248,232)
 								(144,128,72)
 								(136,104,56)
@@ -70,3 +47,44 @@ TODO:
 
 
 	Piazzare la bomba + calcolo degli sprite dell'esplosione che deve comporre
+
+
+	import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+/*
+ * Class to manage interaction with Keyboards
+ */
+public class Keyboard {
+    private static final Map<Integer, Boolean> pressedKeys = new ConcurrentHashMap<>();
+    private static final Map<Integer, Boolean> justReleasedKeys = new ConcurrentHashMap<>();
+
+    static {
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(event -> {
+            switch (event.getID()) {
+                case KeyEvent.KEY_PRESSED:
+                    pressedKeys.put(event.getKeyCode(), true);
+                    justReleasedKeys.remove(event.getKeyCode());
+                    break;
+                case KeyEvent.KEY_RELEASED:
+                    pressedKeys.remove(event.getKeyCode());
+                    justReleasedKeys.put(event.getKeyCode(), true);
+                    break;
+            }
+            return false;
+        });
+    }
+
+    /*
+     *  Returns a boolean value if a key is clicked 
+     */
+    public static boolean isKeyPressed(int keyCode) {
+        return pressedKeys.containsKey(keyCode);
+    }
+
+    public static boolean isKeyJustReleased(int keyCode) {
+        return justReleasedKeys.remove(keyCode) != null;
+    }
+}

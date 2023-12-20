@@ -21,12 +21,12 @@ public class Alarm extends Entity
 	public Alarm (String imagePath, Vector2 pos, Vector2 size) throws IOException
 	{
 		super(pos, size,imagePath);
-		//inizializiamo lo sprite
+		// Init the sprite
 		super.setLabel(new JLabel());
 		File file = new File(imagePath);
 		BufferedImage image = ImageIO.read(file);
 
-		// Imposta la posizione
+		// Set position
 		super.getLabel().setIcon(new ImageIcon(image.getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH)));
 		super.getLabel().setLocation((int)this.pos.x, (int)this.pos.y);
 		/* this.sprite.setSize((int)size.x, (int)size.y); */

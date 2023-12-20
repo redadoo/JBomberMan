@@ -23,20 +23,41 @@ public class Map {
 	private JLabel			label;
 	private String			imagePath;
 	private	BufferedImage	buffImage;
-	public	Collider[]		mapCollider = {	new Collider(new Vector2(82 ,-78), 30,2),
+	public	Collider[]		mapCollider = {	
+										// 1° riga
+											new Collider(new Vector2(82 ,-78), 30,2),
 											new Collider(new Vector2(145,-78), 30,2),
 											new Collider(new Vector2(208,-78), 32,2),
 											new Collider(new Vector2(275,-78), 27,2),
  											new Collider(new Vector2(338,-78), 27,2),
 											new Collider(new Vector2(402,-78), 30,2),
 										// 2° riga
-										/*new Collider(new Vector2(90 ,160),12,2),
-										new Collider(new Vector2(155,160),12,2),
-										new Collider(new Vector2(220,160),12,2),
-										new Collider(new Vector2(285,160),12,2),
-										new Collider(new Vector2(255,160),12,2),
-										new Collider(new Vector2(345,160),12,2),
-										new Collider(new Vector2(410,160),12,2), */
+										/* 
+											new Collider(new Vector2(82 ,-39), 30,2),
+											new Collider(new Vector2(145,-39), 30,2),
+											new Collider(new Vector2(208,-39), 32,2),
+											new Collider(new Vector2(275,-39), 27,2),
+ 											new Collider(new Vector2(338,-39), 27,2),
+											new Collider(new Vector2(402,-39), 30,2),
+										 */
+										// 3° riga
+										/*
+											new Collider(new Vector2(82 ,-12), 30,2),
+											new Collider(new Vector2(145,-12), 30,2),
+											new Collider(new Vector2(208,-12), 32,2),
+											new Collider(new Vector2(275,-12), 27,2),
+ 											new Collider(new Vector2(338,-12), 27,2),
+											new Collider(new Vector2(402,-12), 30,2),										
+										*/
+										// 4° riga
+										/*
+											new Collider(new Vector2(82 ,-12), 30,2),
+											new Collider(new Vector2(145,-12), 30,2),
+											new Collider(new Vector2(208,-12), 32,2),
+											new Collider(new Vector2(275,-12), 27,2),
+ 											new Collider(new Vector2(338,-12), 27,2),
+											new Collider(new Vector2(402,-12), 30,2),										
+										*/
 
 										};
 
