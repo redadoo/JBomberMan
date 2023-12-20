@@ -21,19 +21,18 @@ Le posizioni sono Float per dare fluidità nei movimenti
 
 TODO:
 
-	Movimento in base ai colori. 
-		Problema: La posizione del player è la testa, deve essere il centro.
-		Controllare i 5 pixel successivi.
+	capire come far esplodere la bomba e quindi calcolare se nel esplosione ci sono dei collider di mezzo
 
-	Nella classe Player implementare il contatore di bombe.
+	aggiungere collider per la mappa
+
+	aggiungere nemico
+
+	far si che si possa creare un utente con nickname , numero game totali , persi e vinti, livello mappa , avatar.
+	gestione degli input del utente tramite terminale/file
 
 	mvc
 
-	Esplosioni
-
 	(Observer Observable)
-	Aggiungere i nemici con tutta la parte del movimento
-		due tipi di nemici con grafica e comportamento di gioco differenti
 
 	power-up(almeno 3)
 
@@ -45,46 +44,3 @@ TODO:
 
 	Utilizzo appropriato di stream
 
-
-	Piazzare la bomba + calcolo degli sprite dell'esplosione che deve comporre
-
-
-	import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-/*
- * Class to manage interaction with Keyboards
- */
-public class Keyboard {
-    private static final Map<Integer, Boolean> pressedKeys = new ConcurrentHashMap<>();
-    private static final Map<Integer, Boolean> justReleasedKeys = new ConcurrentHashMap<>();
-
-    static {
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(event -> {
-            switch (event.getID()) {
-                case KeyEvent.KEY_PRESSED:
-                    pressedKeys.put(event.getKeyCode(), true);
-                    justReleasedKeys.remove(event.getKeyCode());
-                    break;
-                case KeyEvent.KEY_RELEASED:
-                    pressedKeys.remove(event.getKeyCode());
-                    justReleasedKeys.put(event.getKeyCode(), true);
-                    break;
-            }
-            return false;
-        });
-    }
-
-    /*
-     *  Returns a boolean value if a key is clicked 
-     */
-    public static boolean isKeyPressed(int keyCode) {
-        return pressedKeys.containsKey(keyCode);
-    }
-
-    public static boolean isKeyJustReleased(int keyCode) {
-        return justReleasedKeys.remove(keyCode) != null;
-    }
-}
