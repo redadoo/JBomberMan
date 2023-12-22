@@ -9,6 +9,20 @@
             "name": "GameManager",
             "request": "launch",
             "mainClass": "src.GameManager",
+            "projectName": "Gioco_4f021a54"
+        },
+        {
+            "type": "java",
+            "name": "Main2",
+            "request": "launch",
+            "mainClass": "src.Main2",
+            "projectName": "JavaGame_9531f934"
+        },
+        {
+            "type": "java",
+            "name": "GameManager",
+            "request": "launch",
+            "mainClass": "src.GameManager",
             "projectName": "JavaGame-main_e514f10d"
         },
         {

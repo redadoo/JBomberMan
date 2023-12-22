@@ -1,23 +1,43 @@
-Pos Collider:
+Colore blocchi non accessibili: (248,248,232)
+								(144,128,72)
+								(136,104,56)
+								(104,72,40)
+								(56,32,16)
+								(64,40,24)
 
-    1° line:            2° line:            3° line:            4° line:            5° line:            6° line:            7° line:            8° line:            9° line:
+								(248,248,248)
+								(112,112,112)
+								(80,80,80)
+								(40,64,80)
 
-        y: 120.0        y: 170.0            y: 200.0            y: 220.0            y: 250.0            y: 270.0            y: 300.0            y: 320.0            y: 350.0
-        x: 70.0
+	
 
-        x: 150.0
+Comportamento Player:
 
-        x: 210.0
+	Quando il personaggio muore, per tot secondi lampeggia e può passare attraverso i nemici
+	Quando urta un nemico, muore e fa un salto.
 
-        y: 100.0
-        x: 210.0
+Le posizioni sono Float per dare fluidità nei movimenti
 
-        x: 260.0
+TODO:
 
-        x: 320.0
-        
-        x: 380.0
+	capire come far esplodere la bomba e quindi calcolare se nel esplosione ci sono dei collider di mezzo
 
-    
+	nemico "c'è" ma bisogna aggiungere animazioni e punteggio
+
+	far si che si possa creare un utente con nickname , numero game totali , persi e vinti, livello mappa , avatar.
+	gestione degli input del utente tramite terminale/file
+
+	mvc
+
+	(Observer Observable)
+
+	power-up(almeno 3)
 
 
+	Gestione interfaccia punti e vita + tempo
+		Lista png punti
+		Sprite Orologio
+
+
+	Utilizzo appropriato di stream

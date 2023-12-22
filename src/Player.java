@@ -3,21 +3,33 @@ package src;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import src.lib.Collider;
+import src.lib.Vector2;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Vector;
 
-public class Player 
+import javax.imageio.ImageIO;
+
+/*
+ * Class to manage class Player
+ */
+public class Player extends Entity
 {
-	private Collider	collider;
-	private int			life;
-	private int			point;
-	private Vector2		pos;
-	private Vector2		size;
-	private String		imagePath;
-	private JLabel		sprite;
-	private int			moveDistance;
+	private int				life;
+	private int				point;
+	public	Vector<Bomb>	bombs;  // container for player's bomb
+	public	String[]		RightArray; 
+	public	String[]		LeftArray; 
+	public	String[]		FrontArray; 
+	public	String[]		BackArray; 
+	private int				numBomb;
+	private int				numBombMax;
+	private int				moveDistance;
 
-
-	//Funzione di testing
+	//Funzioni di testing
 	static public void Print(String x)
 	{
 		System.out.print(x);
@@ -32,109 +44,136 @@ public class Player
 		Print("\n");
 	}
 
-    /*
-     *  Costruttore della classe Player
-     */
-	public Player( String imagePath, Vector2 pos, Vector2 size)
+	/*
+	*  Costructor class Player
+	*/
+	public Player( String imagePath, Vector2 pos, Vector2 size) throws IOException 
 	{
-		this.pos = pos;
-		
-		this.size = size;
-		
-        //inizializiamo lo sprite
-        this.sprite = new JLabel();
-		
-		ImageIcon playerIcon = new ImageIcon(imagePath);
-		
-		// Ottengo l'immagine dello sprite scalata
-		java.awt.Image newimg = playerIcon.getImage().getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH);
-		 
-		// Riportiamo a ImageIcon
-		ImageIcon newImageIcon = new ImageIcon(newimg);
-		
-		// Imposta la posizione
-        this.sprite.setIcon(newImageIcon);
-
-        this.sprite.setLocation((int)this.pos.x, (int)this.pos.y);
-        this.sprite.setSize((int)size.x, (int)size.y);
-
-        // Vita iniziale del player 
+		super(pos, size, imagePath);		
+		super.setLabel(new JLabel());
+	
+		File file = new File(imagePath);
+		BufferedImage image = ImageIO.read(file);
+		super.getLabel().setIcon(new ImageIcon(image.getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH)));
+		super.getLabel().setLocation((int)this.pos.x, (int)this.pos.y);
+		super.getLabel().setLayout(null);
+		super.setCollider(pos,12,12);
 		this.life = 5;
-
-        //Punti iniziali del player
 		this.point = 0;
-
-		//Lunghezza passo del player
-		this.moveDistance = 10;
-		this.collider = new Collider(this.pos,4,4);
+		this.moveDistance = 3;
+		this.numBomb = 1;
+		this.numBombMax = 1;		
+		
+		bombs = new Vector<Bomb>();
+		for(int i = 0; i < numBombMax; i++)
+			bombs.add(new Bomb());
+		
+		RightArray = new String[]{	"src/Resource/Player/RightSprite/PlayerRight_0.png",
+									"src/Resource/Player/RightSprite/PlayerRight_1.png",
+									"src/Resource/Player/RightSprite/PlayerRight_2.png",
+									"src/Resource/Player/RightSprite/PlayerRight_1.png"};
+		
+		LeftArray = new String[]{	"src/Resource/Player/LeftSprite/PlayerLeft_0.png",
+									"src/Resource/Player/LeftSprite/PlayerLeft_1.png",
+									"src/Resource/Player/LeftSprite/PlayerLeft_2.png",
+									"src/Resource/Player/LeftSprite/PlayerLeft_1.png",};
+		
+		FrontArray = new String[]{	"src/Resource/Player/FrontSprite/PlayerFront_0.png",
+									"src/Resource/Player/FrontSprite/PlayerFront_1.png",
+									"src/Resource/Player/FrontSprite/PlayerFront_2.png",
+									"src/Resource/Player/FrontSprite/PlayerFront_1.png"};
+									
+		BackArray = new String[]{	"src/Resource/Player/BackSprite/PlayerBack_0.png",
+									"src/Resource/Player/BackSprite/PlayerBack_1.png",
+									"src/Resource/Player/BackSprite/PlayerBack_2.png",
+									"src/Resource/Player/BackSprite/PlayerBack_1.png"};
 	}
 
-	public void changeSpirte(String imagePath) 
+	/*
+	 *  Move the Entity
+	*/
+	@Override
+	public void moveEntity(Vector2 newPos) throws IOException 
 	{
-		ImageIcon playerIcon = new ImageIcon(imagePath);
-		
-		// Ottengo l'immagine dello sprite scalata
-		java.awt.Image newimg = playerIcon.getImage().getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH);
-		 
-		// Riportiamo a ImageIcon
-		ImageIcon newImageIcon = new ImageIcon(newimg);
-		
-		// Imposta la posizione
-        this.sprite.setSize((int)this.size.x, (int)this.size.y);
-        this.sprite.setIcon(newImageIcon);
+/* 		if (this.pos != newPos)
+			newPos.PrintPos(); */
+		this.pos = newPos;
+        super.getLabel().setLocation((int)this.pos.x, (int)this.pos.y);
+		super.getCollider().pos = newPos;
 	}
 
-	public Vector2 getPos() { return this.pos; }
-
+	
+	public void walkSprite(int dir, int index) throws IOException
+	{
+		if (index >= 4) index = 0;
+		if (dir == 0)
+		{
+			changeSpirte(RightArray[index]);
+		}
+		else if (dir == 1)
+		{	
+			changeSpirte(BackArray[index]);
+		}
+		else if (dir == 2)
+		{
+			changeSpirte(LeftArray[index]);
+		}
+		else if (dir == 3)
+		{
+			changeSpirte(FrontArray[index]);
+		}
+	}
+	
+	/*
+	 *  Get the point of Player
+	 */
 	public int returnPoint() { return this.point; }
-
+	
+	/*
+	 *  Get the life of Player
+	 */
 	public int returnLife() { return this.life; }
+	
+	/*
+	 *  Get the distance of Player's moviment
+	 */
+	public int returnMoveDistance() { return this.moveDistance; }
 
-	public JLabel returnLabel() { return this.sprite; }
+	/*
+	 *  Set the number of bomb
+	 */
+	public void setNumbBomb(int x) { this.numBomb = x;}
 
-	public void moveEntity(Vector2 newPos) 
+	/*
+	 *  Get the number of bomb
+	 */
+	public int	getNumbBomb() { return this.numBomb;}
+
+	/*
+	 *  Set the max number of bomb
+	 */
+	public void setNumbBombMax(int x) { this.numBombMax = x;}
+
+	/*
+	 *  Get the max number of bomb
+	 */
+	public int	getNumbBombMax() { return this.numBombMax;}
+
+	/*
+	 *  Place the bomb
+	 */
+	public boolean PlaceBomb(GamePanel panel) throws IOException
 	{
-
-/* 		if (newPos != this.getPos())
-			PrintPos(this.getPos()); */
-
-		//Cambiamo l'orientamento dello sprite in base alla direzione presane memorizzo la nuova poszione
-		if (newPos.x > this.getPos().x)
-			this.changeSpirte("src/Resource/PlayerSprite/PlayerRight.png");
-		if (newPos.x < this.getPos().x)
-			this.changeSpirte("src/Resource/PlayerSprite/PlayerLeft.png");
-		if (newPos.y < this.getPos().y)
-			this.changeSpirte("src/Resource/PlayerSprite/PlayerBack.png");
-		if (newPos.y > this.getPos().y)
-			this.changeSpirte("src/Resource/PlayerSprite/PlayerFront.png");
-
- 		this.pos = newPos;
-        this.sprite.setLocation((int)this.pos.x, (int)this.pos.y);
-		this.collider.box.pos = newPos;
-		/* this.sprite.setSize((int)this.size.x, (int)this.size.y); */
+		for (Bomb bomb : bombs) 
+		{
+			if (bomb.ReturnStatus() == true)
+			{
+				bomb.SetPanel(panel);
+				bomb.SetStatus(false);
+				bomb.placeBomb(new Vector2(super.getPos().x + 2, super.getPos().y + 8), panel);
+				return true;
+			}
+		}
+		return false;
 	}
-
-	public int returnMoveDistance()
-	{
-		return this.moveDistance;
-	}
-
-	//Ritorno la taglia del collider del player
-	public Vector2 getSize()
-	{
-		Vector2 size = new Vector2();
-
-		size.x = this.collider.box.xSize;
-		size.y = this.collider.box.ySize;
-
-		return size;
-	}
-
-	//Ritorno il collider
-	public Collider getCollider()
-	{
-		return this.collider;
-	}
-
-
 }
