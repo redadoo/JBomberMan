@@ -45,7 +45,6 @@ public class Vector2
 
 	public void PrintPos()
 	{
-        System.out.println("gay :");
 		System.out.println(" x :   ");
 		System.out.println(String.valueOf(this.x));
 		System.out.println(" y :   ");

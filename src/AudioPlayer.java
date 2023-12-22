@@ -25,7 +25,6 @@ public class AudioPlayer implements Runnable {
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
-        System.out.println("test");
     }
 
     public AudioPlayer(String filePath)

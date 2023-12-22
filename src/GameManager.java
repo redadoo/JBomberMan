@@ -20,19 +20,20 @@ public class GameManager
 	/*
 	 *	Function to check if happen a collision
 	 */
-	public static boolean CheckCollision(Collider newPlayerCollider, Vector<Collider> colliderArray, Map map)
+	public static boolean CheckCollision(Collider newCollider,Vector<Collider> colliderArray, Map map)
 	{
 		boolean	isPlayerCollide = false;
 
 		// Collider Alarm
 		for (int w = 0; w < colliderArray.size(); w++) {
-			if (checkCollideBoxes(newPlayerCollider, colliderArray.elementAt(w)) == true)
+			if (checkCollideBoxes(newCollider, colliderArray.elementAt(w)) == true)
 				isPlayerCollide = true;
 		}
 		
 		// Collider internal objec
-		for (int v = 0; v < map.mapCollider.length; v++) {
-			if (checkCollideBoxes(newPlayerCollider, map.mapCollider[v]) == true)
+		for (int v = 0; v < map.mapCollider.length; v++) 
+		{
+			if (checkCollideBoxes(newCollider, map.mapCollider[v]) == true)
 				isPlayerCollide = true;
 		}
 
@@ -126,7 +127,6 @@ public class GameManager
 			j = 0;
 			player.changeSpirte(player.FrontArray[1]);
 		}
-		System.out.println(j);
 		return newPosPlayer;
 	}
 
@@ -173,10 +173,10 @@ public class GameManager
 											"src/Resource/Sprites/OstacoliSprites/sprite_3.png"};
 
 
-		Entity clock = new Entity(new Vector2(243,-175), new Vector2(28,40), "src/Resource/Sprites/ClockSprite/sprite_0.png") {};
+		Entity clock = new Entity(new Vector2(243,-177), new Vector2(28,40), "src/Resource/Sprites/ClockSprite/sprite_0.png") {};
 		clock.InitSpriteArray(ClockSprites);
 
-		Alarm alarm = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(49, -27), new Vector2(30, 40));
+		Alarm alarm = new Alarm( "src/Resource/Sprites/OstacoliSprites/sprite_0.png", new Vector2(49, -30), new Vector2(30, 40));
 
 		alarm.InitSpriteArray(AlarmSprites);
 
@@ -219,9 +219,12 @@ public class GameManager
 		// Init Player 
 		Player player = new Player("src/Resource/Player/BackSprite/PlayerBack_1.png", new Vector2(50,-120), new Vector2(30, 40));
 
+		
+
+		FlyHead enemy1 = new FlyHead("src/Resource/FlyHead/FlyHead_0.png", new Vector2(50,140), new Vector2(30, 40));
+
 		// Init the object in the map
-		
-		
+		gamePanel.addToPanel(enemy1.getLabel());
 		gamePanel.addToPanel(player.getLabel());
 		ObjectArray = InitObjects(gamePanel);
 		gamePanel.addToPanel(map.returnLabel());
@@ -229,13 +232,13 @@ public class GameManager
 		newPosPlayer = player.getPos();
 		
 		player.moveEntity(player.getPos());
-
+		enemy1.moveEntity(enemy1.getPos());
 		for (Entity entity : ObjectArray) 
 			entity.moveEntity(entity.getPos());
 
 		for (int  z = 0; z < ObjectArray.length; z++) 
 		{
-			if (z < ObjectArray.length - 1)
+			if (z < ObjectArray.length - 2)
 				colliderArray.add(ObjectArray[z].getCollider());
 		}
 		
@@ -243,9 +246,15 @@ public class GameManager
 
  		//Moviment
 		while (true)
-		{		
+		{
+			enemy1.EnemyRoutine();
+
 			if (i == 1000) 
 				i = 0;
+
+			Vector2 newEnemyPos = new Vector2(enemy1.getPos().x,enemy1.getPos().y - enemy1.getDir().y);
+			enemy1.isCollided = CheckCollision(new Collider(newEnemyPos, enemy1.getSize().x, enemy1.getSize().y), colliderArray,map); 
+
 
 			newPosPlayer = InputHandler(player, gamePanel, map, i);
 			isPlayerCollide = CheckCollision(new Collider(newPosPlayer, player.getSize().x, player.getSize().y), colliderArray,map);
@@ -253,11 +262,15 @@ public class GameManager
 			// Check perimeter
 			if (isPlayerCollide == false && newPosPlayer.y >= -120 && newPosPlayer.y <= 150 && newPosPlayer.x >= 50 && newPosPlayer.x <= 435)
 				player.moveEntity(newPosPlayer);
-						
+			if (enemy1.isCollided == false && newEnemyPos.y >= -120 && newEnemyPos.y <= 150 && newEnemyPos.x >= 50 && newEnemyPos.x <= 435)
+				enemy1.moveEntity(newEnemyPos);
+			else
+				enemy1.changeDir();
+				
 			SpriteChanges(ObjectArray,player,i);
 
 			isPlayerCollide = false;
-			
+
 			Thread.sleep(60);
 			i++;
 		}

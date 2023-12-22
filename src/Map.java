@@ -25,6 +25,8 @@ public class Map {
 	private	BufferedImage	buffImage;
 	public	Collider[]		mapCollider = {	
 										// 1° riga
+											new Collider(new Vector2(208 ,-120), 30,2),
+
 											new Collider(new Vector2(82 ,-78), 30,2),
 											new Collider(new Vector2(145,-78), 30,2),
 											new Collider(new Vector2(208,-78), 32,2),
@@ -32,35 +34,63 @@ public class Map {
  											new Collider(new Vector2(338,-78), 27,2),
 											new Collider(new Vector2(402,-78), 30,2),
 										// 2° riga
-										/* 
-											new Collider(new Vector2(82 ,-39), 30,2),
-											new Collider(new Vector2(145,-39), 30,2),
-											new Collider(new Vector2(208,-39), 32,2),
-											new Collider(new Vector2(275,-39), 27,2),
- 											new Collider(new Vector2(338,-39), 27,2),
-											new Collider(new Vector2(402,-39), 30,2),
-										 */
+										
+											new Collider(new Vector2(82 ,-24), 30,2),
+											new Collider(new Vector2(145,-24), 30,2),
+											new Collider(new Vector2(208,-24), 32,2),
+											new Collider(new Vector2(275,-24), 27,2),
+ 											new Collider(new Vector2(338,-24), 27,2),
+											new Collider(new Vector2(402,-24), 30,2),
+
+										// 2/3° riga
+
+											new Collider(new Vector2(402,-6), 30,2),
+
+										
 										// 3° riga
-										/*
-											new Collider(new Vector2(82 ,-12), 30,2),
-											new Collider(new Vector2(145,-12), 30,2),
-											new Collider(new Vector2(208,-12), 32,2),
-											new Collider(new Vector2(275,-12), 27,2),
- 											new Collider(new Vector2(338,-12), 27,2),
-											new Collider(new Vector2(402,-12), 30,2),										
-										*/
+										
+											new Collider(new Vector2(82 ,29), 30,2),
+											new Collider(new Vector2(145,29), 30,2),
+											new Collider(new Vector2(208,29), 32,2),
+											new Collider(new Vector2(275,29), 27,2),
+ 											new Collider(new Vector2(338,29), 27,2),
+											new Collider(new Vector2(305,29), 27,2),
+											new Collider(new Vector2(402,29), 30,2),	
+											
+										// 3/2° riga
+
+											new Collider(new Vector2(275,48), 27,2),
+ 											new Collider(new Vector2(338,48), 27,2),
+										
 										// 4° riga
-										/*
-											new Collider(new Vector2(82 ,-12), 30,2),
-											new Collider(new Vector2(145,-12), 30,2),
-											new Collider(new Vector2(208,-12), 32,2),
-											new Collider(new Vector2(275,-12), 27,2),
- 											new Collider(new Vector2(338,-12), 27,2),
-											new Collider(new Vector2(402,-12), 30,2),										
-										*/
+										
+											new Collider(new Vector2(82 ,83), 30,2),
+											new Collider(new Vector2(145,83), 30,2),
+											new Collider(new Vector2(208,83), 32,2),
+											new Collider(new Vector2(275,83), 27,2),
+ 											new Collider(new Vector2(338,83), 27,2),
+											new Collider(new Vector2(402,83), 30,2),	
+
+										// 4/5° riga
+
+											new Collider(new Vector2(434,114), 30,2),
+											
+										// 5° riga
+										
+											new Collider(new Vector2(82 ,140), 30,2),
+											new Collider(new Vector2(145,140), 30,2),
+											new Collider(new Vector2(208,140), 32,2),
+											new Collider(new Vector2(275,140), 27,2),
+ 											new Collider(new Vector2(338,140), 27,2),
+											new Collider(new Vector2(402,140), 30,2),
+
+										// 6° riga
+										
+											new Collider(new Vector2(145,160), 30,2),
+											new Collider(new Vector2(208,160), 32,2),
+											new Collider(new Vector2(275,160), 27,2),
 
 										};
-
 	/*
 	 * Costructor class Map
 	 */

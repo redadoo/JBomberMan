@@ -23,9 +23,7 @@ TODO:
 
 	capire come far esplodere la bomba e quindi calcolare se nel esplosione ci sono dei collider di mezzo
 
-	aggiungere collider per la mappa
-
-	aggiungere nemico
+	nemico "c'è" ma bisogna aggiungere animazioni e punteggio
 
 	far si che si possa creare un utente con nickname , numero game totali , persi e vinti, livello mappa , avatar.
 	gestione degli input del utente tramite terminale/file
@@ -43,4 +41,3 @@ TODO:
 
 
 	Utilizzo appropriato di stream
-

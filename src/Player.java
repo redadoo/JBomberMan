@@ -105,7 +105,7 @@ public class Player extends Entity
 	
 	public void walkSprite(int dir, int index) throws IOException
 	{
-		if (index == 4) index = 0;
+		if (index >= 4) index = 0;
 		if (dir == 0)
 		{
 			changeSpirte(RightArray[index]);
