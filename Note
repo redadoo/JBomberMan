@@ -27,17 +27,13 @@ TODO:
 
 	far si che si possa creare un utente con nickname , numero game totali , persi e vinti, livello mappa , avatar.
 	gestione degli input del utente tramite terminale/file
-
+	
 	mvc
-
+	
 	(Observer Observable)
-
+	
 	power-up(almeno 3)
-
-
+	
 	Gestione interfaccia punti e vita + tempo
-		Lista png punti
-		Sprite Orologio
-
 
 	Utilizzo appropriato di stream

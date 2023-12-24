@@ -219,8 +219,6 @@ public class GameManager
 		// Init Player 
 		Player player = new Player("src/Resource/Player/BackSprite/PlayerBack_1.png", new Vector2(50,-120), new Vector2(30, 40));
 
-		
-
 		FlyHead enemy1 = new FlyHead("src/Resource/FlyHead/FlyHead_0.png", new Vector2(50,140), new Vector2(30, 40));
 
 		// Init the object in the map
@@ -252,7 +250,7 @@ public class GameManager
 			if (i == 1000) 
 				i = 0;
 
-			Vector2 newEnemyPos = new Vector2(enemy1.getPos().x,enemy1.getPos().y - enemy1.getDir().y);
+			Vector2 newEnemyPos = new Vector2(enemy1.getPos().x,enemy1.getPos().y - enemy1.getDir().y * 2);
 			enemy1.isCollided = CheckCollision(new Collider(newEnemyPos, enemy1.getSize().x, enemy1.getSize().y), colliderArray,map); 
 
 
