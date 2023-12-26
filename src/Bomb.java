@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 
 import src.lib.Vector2;
 
-/*
+/**
  * Class to manage class Bomb 
  */
 public class Bomb extends Entity 
@@ -19,8 +19,9 @@ public class Bomb extends Entity
     private boolean     Isavailable;
     public  int         TimerExplosion = 0;
     
-    /* 
-     *  Costructor class Bomb
+    /** 
+     * Costructor class Bomb
+     * @throws IOException
     */
     public Bomb() throws IOException
     {        
@@ -43,7 +44,11 @@ public class Bomb extends Entity
                                                 "src/Resource/BombSprite/BombSprite2.png"});
     }
 
-
+    /**
+     * To round the number
+     * @param n numbet to round
+     * @param d  the tenth to reach
+     */
     public static int RoundUpInt(int n, int d) 
     {
         int div = n / d;
@@ -57,8 +62,11 @@ public class Bomb extends Entity
             return res + d; 
     }
 
-    /*
+    /**
     * Function to place the bomb
+    * @param pos the position to place the bomb
+    * @param panel the panel where place the bomb
+    * @throws IOException
     */
     public void placeBomb(Vector2 pos, GamePanel panel) throws IOException
     {
@@ -70,17 +78,19 @@ public class Bomb extends Entity
 		super.getLabel().setLocation(((int)this.pos.x), ((int)this.pos.y));
         super.moveEntity(pos);   
     }
-    /*
-	 *  OSet the panel
+    /**
+	 * Set the panel
+     * @param panel to set the panel
 	 */
     public void SetPanel(GamePanel panel) {this.gamePanel = panel;}
 
-	/*
-	 *  ?
+	/**
+	 * Handle the explosion
+     * @throws IOException
 	 */
     public void Explosion() throws IOException
     {
-        /* super.changeSpirte("src/Resource/BombExplosion/sprite_0.png"); */
+        /** super.changeSpirte("src/Resource/BombExplosion/sprite_0.png"); */
         super.setSize(new Vector2(25,25));
         gamePanel.panel.remove(getLabel());
         Isavailable = true;
@@ -88,18 +98,21 @@ public class Bomb extends Entity
         Index = 0;
     }
 
-	/*
+	/**
 	 *  Set the status of bomb
+     * @param status to set the visibility of bomb
 	 */
-    public void     SetStatus(Boolean x) {  Isavailable = x; }
+    public void SetStatus(Boolean status) {  Isavailable = status; }
 
-    /*
+    /**
 	 *  Get the status of bomb
+     * @return the status of the bomb
 	 */
-    public Boolean  ReturnStatus() { return Isavailable; }
+    public Boolean ReturnStatus() { return Isavailable; }
 
-    /*
+    /**
      * Function to change the size of the bomb's sprite
+     * @throws IOException
      */
     @Override
     public void NextSprite() throws IOException

@@ -10,7 +10,7 @@ Colore blocchi non accessibili: (248,248,232)
 								(80,80,80)
 								(40,64,80)
 
-	
+Esplosione allarme da non mettere
 
 Comportamento Player:
 
@@ -37,3 +37,5 @@ TODO:
 	Gestione interfaccia punti e vita + tempo
 
 	Utilizzo appropriato di stream
+
+	

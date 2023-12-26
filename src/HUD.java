@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*
+/**
  * Classe per la gestione della grafica
  * Tempo che scorre, punti vita e  score
  */

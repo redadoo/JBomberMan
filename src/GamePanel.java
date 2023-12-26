@@ -2,12 +2,12 @@ package src;
 
 import javax.swing.JFrame;
 import java.awt.Component;
-import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 import src.lib.Vector2;
 import java.awt.Color;
-/*
+
+/**
  * Class to manage the Panel of game
  */
 public class GamePanel 
@@ -17,7 +17,7 @@ public class GamePanel
 	JPanel  panel;
 	JFrame	screen;
 	
-	/*
+	/**
 	 * Costructor class GamePanel
 	 */
 	public GamePanel(JFrame	screen, JPanel  panel, Vector2 size, String name)
@@ -34,12 +34,12 @@ public class GamePanel
 		screen.setTitle(name);									// Title in the upper left -> of the window
 		screen.setLocationRelativeTo(null);						// Start the window from the center of the screen
 		screen.setVisible(true);
-		/* screen.getContentPane().setLayout( new FlowLayout() ); */
+		/** screen.getContentPane().setLayout( new FlowLayout() ); */
 		this.addToScreen(this.returnJPanel());
 
 	}
 
-	/*
+	/**
 	 * Add elements to the Panel
 	 */
 	void addToPanel(Component comp, boolean Visible)
@@ -49,7 +49,7 @@ public class GamePanel
 		screen.setVisible(true);
 	}
 
-	/*
+	/**
 	 * Add elements to the Panel
 	 */
 	void addToPanel(Component comp)
@@ -58,7 +58,7 @@ public class GamePanel
 		screen.setVisible(true);
 	}
 
-	/*
+	/**
 	 * Add elements to the Panel
 	 */
 	void addToPanel(Component comp, Vector2 pos)
@@ -68,7 +68,7 @@ public class GamePanel
 		comp.setLocation((int)pos.x, (int)pos.y);
 	}
 
-	/*
+	/**
 	 * Add elements to the Screen
 	 */
 	void addToScreen(Component comp)
@@ -77,7 +77,7 @@ public class GamePanel
 		screen.setVisible(true);
 	}
 
-	/*
+	/**
 	 * Set size of panel
 	 */
 	void setSize(Vector2 size)
@@ -85,7 +85,7 @@ public class GamePanel
 		this.screen.setSize((int)size.x, (int)size.y);
 	}
 
-	/*
+	/**
 	 * Get JPanel
 	 */
 	JPanel returnJPanel()
@@ -93,7 +93,7 @@ public class GamePanel
 		return panel;
 	}
 
-	/*
+	/**
 	 * Get JFrame
 	 */
 	JFrame returnJFrame()

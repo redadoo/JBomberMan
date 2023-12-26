@@ -1,6 +1,5 @@
 package src;
 
-// Classe per la gestione dell'audio (AudioPlayer.java)
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -9,6 +8,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Classe per la gestione dell'audio (AudioPlayer.java)
+ */
 public class AudioPlayer implements Runnable {
 
     private File audioFile;

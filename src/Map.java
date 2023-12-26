@@ -13,16 +13,14 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*
+/**
  * Class to manage the Map
  */
-public class Map {
+public class Map 
+{
 
 	private Vector2			pos;
-	private Vector2			size;
 	private JLabel			label;
-	private String			imagePath;
-	private	BufferedImage	buffImage;
 	public	Collider[]		mapCollider = {	
 										// 1° riga
 											new Collider(new Vector2(208 ,-120), 30,2),
@@ -91,14 +89,15 @@ public class Map {
 											new Collider(new Vector2(275,160), 27,2),
 
 										};
-	/*
+	/**
 	 * Costructor class Map
+	 * @param imagePath the Path of Map's sprite
+	 * @param pos the position to set the Map
+	 * @param  size the size to set the Map
 	 */
     public Map(String imagePath, Vector2 pos, Vector2 size) throws IOException
     {
         this.pos = pos;
-        this.size = size;
-        this.imagePath = imagePath;
         this.label = new JLabel();
 
 
@@ -112,27 +111,28 @@ public class Map {
 		g.drawImage(image, 0, 0, (int)size.x,  (int)size.y, null);
 		g.dispose();
 
-		buffImage =  resizedImage;
 		this.label.setIcon(new ImageIcon(resizedImage));
 
         this.label.setSize((int)size.x, (int)size.y);
         this.label.setLocation((int)this.pos.x, (int)this.pos.y);
 		this.label.setLayout(new FlowLayout()); 
-/* 		this.label. */
     }
 
-	/*
+	/**
 	 * Get the position of the Map
+	 * @return Map's position
 	 */
     public Vector2 getPos() { return this.pos; }
 
-	/*
+	/**
 	 *  Get the label
+	 * @return label Map's label
 	 */
 	public JLabel returnLabel() { return this.label; }
 
-	/*
+	/**
 	 * Chekc if we use it
+	 * @param newPos the new pos of Map
 	 */
 	public void moveEntity(Vector2 newPos) 
 	{
@@ -140,8 +140,9 @@ public class Map {
         this.label.setLocation((int)this.pos.x, (int)this.pos.y);
 	}
 
-	/*
+	/**
 	 * Get collider of the Map
+	 * @return the Map's collider
 	 */
 	public Collider[] returnCollider()
 	{

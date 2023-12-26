@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
+/**
  * Class to manage interaction Keyboards
  */
 public class Keyboard 
@@ -29,7 +29,7 @@ public class Keyboard
         });
     }
 
-    /*
+    /**
      *  Returns a boolean value if a key is clicked 
      */
     public static boolean isKeyPressed(int keyCode) { return pressedKeys.getOrDefault(keyCode, false); }

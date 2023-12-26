@@ -2,6 +2,9 @@ package src;
 
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -13,13 +16,18 @@ import javax.swing.JPanel;
 import src.lib.Collider;
 import src.lib.Vector2;
 
+import java.util.Scanner; 
 
+/**
+ * Class to manage the Bomberman Game
+ */
 public class GameManager
 {
 	static int					j = 0;
-	/*
+
+	/**
 	 *	Function to check if happen a collision
-	 */
+	*/
 	public static boolean CheckCollision(Collider newCollider,Vector<Collider> colliderArray, Map map)
 	{
 		boolean	isPlayerCollide = false;
@@ -40,7 +48,7 @@ public class GameManager
 		return isPlayerCollide;
 	}
 
-	/*
+	/**
 	 *	Function to manage the input from keyboards 
 	*/
 	public static Vector2 InputHandler(Player player, GamePanel gamePanel, Map map, int i) throws IOException
@@ -130,7 +138,7 @@ public class GameManager
 		return newPosPlayer;
 	}
 
-	/*
+	/**
 	 *	Function to change sprite of Entity 
 	*/
 	public static void SpriteChanges(Entity[] ObjectArray, Player player, int i) throws IOException
@@ -152,7 +160,7 @@ public class GameManager
 		}
 	}
 	
-	/*
+	/**
 	 *	Init the sprite of the different Entity 
 	*/
 	public static Entity[] InitObjects(GamePanel gamePanel) throws IOException 
@@ -196,7 +204,7 @@ public class GameManager
 		return (new Entity[]{alarm,alarm2,alarm3,clock});
 	}
 	
-	/*
+	/**
 	 *	Controller Function
 	*/
 	public static void main(String[] args) throws IOException, InterruptedException, UnsupportedAudioFileException, LineUnavailableException {
@@ -205,9 +213,18 @@ public class GameManager
 		boolean				isPlayerCollide = false;
 		Entity[]			ObjectArray;
 		Vector2				newPosPlayer;
+		Vector<Entity>		enemyArray = new Vector<Entity>();
 		Vector<Collider>	colliderArray = new Vector<Collider>();
+		ManageFile 			manageFile = new ManageFile("saves/save");
+		User				user = new User("");
 
-		// Thread to manage the music
+		if (manageFile.haveSave() == true)
+			manageFile.returnUserValue(user);
+		else
+			manageFile.initFile(user);
+			
+		
+ 		// Thread to manage the music
 		Thread MusicThread = new Thread(new AudioPlayer("src/Resource/Fizzy.wav"));
 		
 		// Init screen
@@ -221,7 +238,7 @@ public class GameManager
 
 		FlyHead enemy1 = new FlyHead("src/Resource/FlyHead/FlyHead_0.png", new Vector2(50,140), new Vector2(30, 40));
 
-		// Init the object in the map
+		// Init the objects in the map
 		gamePanel.addToPanel(enemy1.getLabel());
 		gamePanel.addToPanel(player.getLabel());
 		ObjectArray = InitObjects(gamePanel);
@@ -231,6 +248,7 @@ public class GameManager
 		
 		player.moveEntity(player.getPos());
 		enemy1.moveEntity(enemy1.getPos());
+
 		for (Entity entity : ObjectArray) 
 			entity.moveEntity(entity.getPos());
 
@@ -240,7 +258,7 @@ public class GameManager
 				colliderArray.add(ObjectArray[z].getCollider());
 		}
 		
-		/* MusicThread.start(); */
+		MusicThread.start();
 
  		//Moviment
 		while (true)
@@ -251,6 +269,7 @@ public class GameManager
 				i = 0;
 
 			Vector2 newEnemyPos = new Vector2(enemy1.getPos().x,enemy1.getPos().y - enemy1.getDir().y * 2);
+			// Check if enemy collide with something
 			enemy1.isCollided = CheckCollision(new Collider(newEnemyPos, enemy1.getSize().x, enemy1.getSize().y), colliderArray,map); 
 
 
@@ -272,9 +291,9 @@ public class GameManager
 			Thread.sleep(60);
 			i++;
 		}
-		}
+}
 
-		/*
+		/**
 		 * Check if 2 collider make contact
 		*/
 		public static Boolean checkCollideBoxes(Collider a, Collider b) {

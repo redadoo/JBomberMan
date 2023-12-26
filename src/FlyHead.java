@@ -1,7 +1,6 @@
 package src;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 import src.lib.Vector2;
 
@@ -12,7 +11,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-/*
+/**
  *  Class to manage the first enemy
 */
 public class FlyHead extends Entity
@@ -20,7 +19,7 @@ public class FlyHead extends Entity
 	private Vector2     dir;
 	private int         pointDrop;
 	public	boolean		isCollided;
-	/*
+	/**
 	 * Costructor class FlyHead
 	*/
 	public FlyHead(String imagePath, Vector2 pos, Vector2 size) throws IOException
@@ -39,7 +38,7 @@ public class FlyHead extends Entity
 		super.getLabel().setIcon(new ImageIcon(image.getScaledInstance((int)size.x, (int)size.y,  java.awt.Image.SCALE_SMOOTH)));    
 		
 		super.getLabel().setLocation((int)this.pos.x, (int)this.pos.y);
-		/* this.sprite.setSize((int)size.x, (int)size.y); */
+		/** this.sprite.setSize((int)size.x, (int)size.y); */
 		super.getLabel().setLayout(null);
 
 		int randomNumber = new Random().nextInt(2) + 1;
@@ -48,7 +47,7 @@ public class FlyHead extends Entity
 		dir.x = 0;
 	}
 
-	/*
+	/**
 	 *  Remain enemy's life -> ?? 
 	*/
 	public int getPointDrop() { return pointDrop; }
