@@ -25,8 +25,7 @@ TODO:
 
 	nemico "c'è" ma bisogna aggiungere animazioni e punteggio
 
-	far si che si possa creare un utente con nickname , numero game totali , persi e vinti, livello mappa , avatar.
-	gestione degli input del utente tramite terminale/file
+	far si che si possa creare un utente con avatar.
 	
 	mvc
 	
@@ -38,4 +37,4 @@ TODO:
 
 	Utilizzo appropriato di stream
 
-	
+

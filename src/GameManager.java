@@ -2,10 +2,8 @@ package src;
 
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Observable;
 import java.util.Vector;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -16,14 +14,13 @@ import javax.swing.JPanel;
 import src.lib.Collider;
 import src.lib.Vector2;
 
-import java.util.Scanner; 
 
 /**
  * Class to manage the Bomberman Game
  */
 public class GameManager
 {
-	static int					j = 0;
+	static int	j = 0;
 
 	/**
 	 *	Function to check if happen a collision
@@ -31,9 +28,8 @@ public class GameManager
 	public static boolean CheckCollision(Collider newCollider,Vector<Collider> colliderArray, Map map)
 	{
 		boolean	isPlayerCollide = false;
-
 		// Collider Alarm
-		for (int w = 0; w < colliderArray.size(); w++) {
+		for (int w = 0; w < 3; w++) {
 			if (checkCollideBoxes(newCollider, colliderArray.elementAt(w)) == true)
 				isPlayerCollide = true;
 		}
@@ -203,6 +199,22 @@ public class GameManager
 
 		return (new Entity[]{alarm,alarm2,alarm3,clock});
 	}
+
+	public static FlyHead[] InitEnemy(GamePanel gamePanel) throws IOException
+	{
+		FlyHead flyHead0 = new FlyHead(new Vector2(50,140), new Vector2(30, 40));
+
+		FlyHead flyHead1 = new FlyHead(new Vector2(241,140), new Vector2(30, 40));
+
+		FlyHead flyHead2 = new FlyHead(new Vector2(370,140), new Vector2(30, 40));
+
+
+		gamePanel.addToPanel(flyHead0.getLabel());
+		gamePanel.addToPanel(flyHead1.getLabel());
+		gamePanel.addToPanel(flyHead2.getLabel());
+
+		return (new FlyHead[]{flyHead0,flyHead1,flyHead2});
+	} 
 	
 	/**
 	 *	Controller Function
@@ -213,7 +225,7 @@ public class GameManager
 		boolean				isPlayerCollide = false;
 		Entity[]			ObjectArray;
 		Vector2				newPosPlayer;
-		Vector<Entity>		enemyArray = new Vector<Entity>();
+		FlyHead[]			enemyArray;
 		Vector<Collider>	colliderArray = new Vector<Collider>();
 		ManageFile 			manageFile = new ManageFile("saves/save");
 		User				user = new User("");
@@ -236,10 +248,9 @@ public class GameManager
 		// Init Player 
 		Player player = new Player("src/Resource/Player/BackSprite/PlayerBack_1.png", new Vector2(50,-120), new Vector2(30, 40));
 
-		FlyHead enemy1 = new FlyHead("src/Resource/FlyHead/FlyHead_0.png", new Vector2(50,140), new Vector2(30, 40));
 
 		// Init the objects in the map
-		gamePanel.addToPanel(enemy1.getLabel());
+		enemyArray = InitEnemy(gamePanel);
 		gamePanel.addToPanel(player.getLabel());
 		ObjectArray = InitObjects(gamePanel);
 		gamePanel.addToPanel(map.returnLabel());
@@ -247,15 +258,19 @@ public class GameManager
 		newPosPlayer = player.getPos();
 		
 		player.moveEntity(player.getPos());
-		enemy1.moveEntity(enemy1.getPos());
 
+		// Init the enemy
+		for (Entity enemy : enemyArray) 
+			enemy.moveEntity(enemy.getPos());
+
+		// Init all the object (alarms clock)
 		for (Entity entity : ObjectArray) 
 			entity.moveEntity(entity.getPos());
 
+		// Add to colliderArray all the object to check during the gameplay
 		for (int  z = 0; z < ObjectArray.length; z++) 
 		{
-			if (z < ObjectArray.length - 2)
-				colliderArray.add(ObjectArray[z].getCollider());
+			colliderArray.add(ObjectArray[z].getCollider());
 		}
 		
 		MusicThread.start();
@@ -263,14 +278,22 @@ public class GameManager
  		//Moviment
 		while (true)
 		{
-			enemy1.EnemyRoutine();
 
 			if (i == 1000) 
 				i = 0;
 
-			Vector2 newEnemyPos = new Vector2(enemy1.getPos().x,enemy1.getPos().y - enemy1.getDir().y * 2);
-			// Check if enemy collide with something
-			enemy1.isCollided = CheckCollision(new Collider(newEnemyPos, enemy1.getSize().x, enemy1.getSize().y), colliderArray,map); 
+			for (FlyHead enemy : enemyArray) 
+			{
+				enemy.EnemyRoutine();
+				Vector2 newEnemyPos = new Vector2(enemy.getPos().x, enemy.getPos().y - enemy.getDir().y * 2);
+				enemy.isCollided = CheckCollision(new Collider(newEnemyPos, enemy.getSize().x, enemy.getSize().y), colliderArray,map); 
+
+				if (enemy.isCollided == false && newEnemyPos.y >= -120 && newEnemyPos.y <= 150 && newEnemyPos.x >= 50 && newEnemyPos.x <= 435)
+					enemy.moveEntity(newEnemyPos);
+				else
+					enemy.changeDir();
+				
+			}
 
 
 			newPosPlayer = InputHandler(player, gamePanel, map, i);
@@ -279,10 +302,7 @@ public class GameManager
 			// Check perimeter
 			if (isPlayerCollide == false && newPosPlayer.y >= -120 && newPosPlayer.y <= 150 && newPosPlayer.x >= 50 && newPosPlayer.x <= 435)
 				player.moveEntity(newPosPlayer);
-			if (enemy1.isCollided == false && newEnemyPos.y >= -120 && newEnemyPos.y <= 150 && newEnemyPos.x >= 50 && newEnemyPos.x <= 435)
-				enemy1.moveEntity(newEnemyPos);
-			else
-				enemy1.changeDir();
+				
 				
 			SpriteChanges(ObjectArray,player,i);
 

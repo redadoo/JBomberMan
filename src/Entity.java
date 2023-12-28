@@ -22,7 +22,7 @@ public abstract class Entity
 	public	int             Index = 0;
 	private Collider		collider;
 	private BufferedImage	StartSprite;
-	private String			ImagePath;
+	public	String			imagePath;
 	private String          []SpriteArray;
 	private String          []effectArray;
 
@@ -37,7 +37,7 @@ public abstract class Entity
 		this.pos = pos;
 		this.size = size;
 		this.jlabel = new JLabel();
-		this.ImagePath = SpritePath;
+		this.imagePath = SpritePath;
 		
 		File file = new File(SpritePath);
 		this.StartSprite = ImageIO.read(file);
@@ -50,7 +50,7 @@ public abstract class Entity
 	 *  Get image path
 	 * @return the image path 
 	 */
-	public String GetImagePath () {return this.ImagePath; }
+	public String GetImagePath () {return this.imagePath; }
 
 	/**
 	 * Set laber of the Entity
@@ -111,6 +111,13 @@ public abstract class Entity
 	 */
 	public void setSize(Vector2 size) { this.size = size; }
 	
+	/**
+	 * Set all sprite of Entity
+	 * @param array to set all the sprite of entity
+	 */
+	public void setSpriteArray(String[] array) {SpriteArray = array;}
+
+
 	/**
 	 * Get the collider of Entity
 	 * @return the collider of entity
