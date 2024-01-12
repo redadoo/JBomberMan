@@ -2,15 +2,28 @@ package Src.Main;
 
 import Src.lib.Collider;
 
-public class CollisionChecker {
+/**
+ * Class CollisionChecker to check if two entity/Collider make contact
+ */
+public class CollisionChecker 
+{
 	
 	GamePanel gp;
 
+	/**
+	 * Costructor class CollisionChecker
+	 * @param gp
+	 */
 	public CollisionChecker(GamePanel gp)
 	{
 		this.gp = gp;
 	}
 
+	/**
+	 * Class CheckTitle to check if two title make an intersect
+	 * @param coll
+	 * @return
+	 */
 	public Boolean CheckTitle(Collider coll)
 	{
 		for (int i = 0; i < gp.mapManager.mapTitleNum.length; i++) 
@@ -29,6 +42,11 @@ public class CollisionChecker {
 		return false;
 	}
 
+	/**
+	 * Class CheckTitleForEnenmy to check if two enemies make contact
+	 * @param coll
+	 * @return
+	 */
 	public Boolean CheckTitleForEnenmy(Collider coll)
 	{
 		for (int i = 0; i < gp.mapManager.mapTitleNum.length; i++) 

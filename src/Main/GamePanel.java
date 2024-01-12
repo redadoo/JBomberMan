@@ -13,11 +13,11 @@ import Src.Entity.Player;
 import Src.Title.TitleManager;
 
 /**
- * The GamePanel class extends JPanel and implements Runnable, serving as the main panel for the game.
- * It handles the game loop, player input, and rendering. This class also manages the game's title map,
+ * GamePanel class that handles the game loop, player input, and rendering. This class also manages the game's title map,
  * player entity, and collision checking.
  */
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable
+{
 
 	private int                 FPS = 60;
 	private Thread              gameThread;
@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public double				elapsedTime = 0;  // Aggiunta della variabile per il tempo trascorso in secondi
 
     /**
-     * Constructor for the GamePanel class.
+     * Costructor class GamePanel
      * Initializes the panel properties, sets up the game's dimensions, background color,
      * and key listener for player input.
      */
@@ -45,8 +45,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
     /**
-     * Starts the game thread.
-     * Creates a new thread for the game loop and starts it.
+     * Starts the game thread for the game loop
      */
 	public void StartGameThread()
 	{
@@ -61,7 +60,7 @@ public class GamePanel extends JPanel implements Runnable{
 	@Override
 	public void run() 
 	{
-		double drawInterval = 1000000000/FPS;
+		double drawInterval = 1000000000/FPS; //To choose the frame rate
 		double delta = 0;
 		lastTime = System.nanoTime();
 
@@ -100,8 +99,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
     /**
-     * Overrides the paintComponent method to render the game components.
-     *
+     * Overrides the paintComponent method to render the game components
      * @param g The Graphics object used for rendering.
      */
 	public void paintComponent(Graphics g)
