@@ -21,6 +21,7 @@ public class Bomb extends Entity
 	public	BombState							myState;
 	public 	Map<BufferedImage, Vector2>			myExplosionSprite;
 
+	// The various state of bomb
 	public static enum BombState
 	{
 		Available,
@@ -39,6 +40,7 @@ public class Bomb extends Entity
 		spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite0.png")));
  		spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite1.png")));
  		spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite2.png")));
+
 		sprite = spriteVector.elementAt(0);
 		myExplosionSprite = new HashMap<BufferedImage,Vector2>();
 		myState = BombState.Available;
@@ -73,6 +75,9 @@ public class Bomb extends Entity
 		}
 	}
 
+	/**
+	 * Function to change sprite of the bomb
+	 */
 	@Override
     public void nextSprite()
     {

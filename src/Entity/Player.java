@@ -14,11 +14,11 @@ import Src.lib.Collider;
 import Src.lib.Vector2;
 
 /**
- * The Player class represents a game character with movement and animation capabilities.
- * It contains fields for handling animation frames, storing sprite images for different directions,
+ * Class Player that contains fields for handling animation frames, storing sprite images for different directions,
  * and references to the game panel and key handler for input processing.
  */
-public class Player extends Entity{
+public class Player extends Entity
+{
 	
 	private int							life;
 	private int							point;
@@ -32,10 +32,9 @@ public class Player extends Entity{
 	public	BombManager					bombManager;
 
 	/**
-	 * Constructor for the Player class.
+	 * Constructor class Player 
 	 * Initializes a player object with the specified parameters, including the game panel,
 	 * key handler, and title manager. Sets the initial position, size, and other properties of the player.
-	 *
 	 * @param gp The GamePanel instance to which the player belongs.
 	 * @param keyH The KeyHandler responsible for handling player input.
 	 * @param mapManager The TitleManager providing map-related functionality.

@@ -12,7 +12,7 @@ import Src.Main.GamePanel;
 import Src.lib.Vector2;
 
 /**
- *  Class to manage the first enemy
+ *  Class to manage the FlyHead enemy
 */
 public class FlyHead extends Entity
 {
@@ -34,6 +34,9 @@ public class FlyHead extends Entity
 		initFlyHead();
 	}
 
+	/**
+	 * Init the FlyHead
+	 */
 	public void initFlyHead()
 	{
 		int randomNumber = new Random().nextInt(2) + 1;
@@ -81,11 +84,17 @@ public class FlyHead extends Entity
 		}
 	}
 
+	/**
+	 * Function to set the sprite
+	 */
 	public void setSprite(BufferedImage sprite)
 	{
 		this.sprite = sprite;
 	}
 	
+	/**
+	 * Function to update the status of enemy
+	 */
 	public void Update(GamePanel gp)
 	{
 		coll.setPos(new Vector2((pos.x + (dir.x * speed)) + 3, (pos.y + (dir.y * speed)) + 20));
@@ -121,7 +130,7 @@ public class FlyHead extends Entity
 	}
 
 	/**
-	 * Draws the player on the provided Graphics2D object.
+	 * Draws the FlyHead on the provided Graphics2D object.
 	 * @param g2 The Graphics2D object on which the player will be drawn.
 	 */
 	public void Draw(Graphics2D g2)

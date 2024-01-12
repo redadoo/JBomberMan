@@ -6,7 +6,11 @@ import java.util.Vector;
 import Src.lib.Collider;
 import Src.lib.Vector2;
 
-public class Entity {
+/**
+ * Class to manage the generic type of Entity
+ */
+public class Entity 
+{
 	
 	public Vector2					dir;
 	public Vector2					pos;
@@ -20,7 +24,7 @@ public class Entity {
 	public boolean					isCollided = false;
 
 	/**
-	* Entity costructor
+	* Costructor class Entity 
 	* @param pos the pos to set the entity
 	* @param size the size for the entity
 	* @param sprite the sprite
@@ -38,6 +42,11 @@ public class Entity {
 		spriteVector = new Vector<BufferedImage>();
 	}
 
+	/**
+	 * Costructor class Entity
+	 * @param pos
+	 * @param size
+	 */
 	public Entity(Vector2 pos, Vector2 size)
 	{
 		this.pos = pos;
@@ -50,11 +59,18 @@ public class Entity {
 		spriteVector = new Vector<BufferedImage>();
 	}
 
+	/**
+	 * Function to set the sprite
+	 * @param sprite
+	 */
 	public void setSprite(BufferedImage sprite)
 	{
 		this.sprite = sprite;
 	}
 
+	/**
+	 * Function to change the sprites
+	 */
 	public void nextSprite()
 	{
 		if(spriteIndex + 1 < spriteVector.size())

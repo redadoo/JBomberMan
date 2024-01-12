@@ -14,6 +14,9 @@ import Src.Main.GamePanel;
 import Src.Title.Title;
 import Src.lib.Vector2;
 
+/**
+ * Class to manage the class bomb
+ */
 public class BombManager 
 {
 	private GamePanel       			gp;
@@ -21,6 +24,10 @@ public class BombManager
 	private int             			frameCount;
 	public	ArrayList<BufferedImage>	explosionSpriteList;
 
+	/**
+	 * Costructor class BombManager
+	 * @param gp
+	*/
 	public BombManager(GamePanel gp)
 	{
 		this.gp = gp;
@@ -64,7 +71,7 @@ public class BombManager
 
 	/**
 	 * Manage the behavior of bombs
-	 */
+	*/
 	public void Update()
 	{
 		for (Bomb bomb : bombsList) {

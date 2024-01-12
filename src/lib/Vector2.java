@@ -1,35 +1,51 @@
 package Src.lib;
 
 /**
- *  Classe per la gestione della posizione del personaggio
+ * Class to manage double object
  */
 public class Vector2
 {              
-	// Members
 	public int x;
 	public int y;
 	
 	public static Vector2 zero = new Vector2();
 
-	// Constructors
+	/**
+	 * Costructor class Vector2
+	 */
 	public Vector2() 
 	{
 		this.x = 0;
 		this.y = 0;
 	}
-	   
+	  
+	/**
+	 * Costructor class Vector2
+	 * @param x
+	 * @param y
+	 */
 	public Vector2(int x, int y) 
 	{
 		this.x = x;
 		this.y = y;
 	}
 	
-	// Compare two vectors
+	/**
+	 * Compare two vectors
+	 * @param other
+	 * @return
+	 */
 	public boolean equals(Vector2 other) 
 	{
 		return (this.x == other.x && this.y == other.y);
 	}
 
+	/**
+	 * Function to return difference
+	 * @param v1
+	 * @param v2
+	 * @return
+	 */
 	public Vector2 dir(Vector2 v1, Vector2 v2) 
 	{
 		Vector2 dir = new Vector2();
@@ -40,6 +56,9 @@ public class Vector2
 		return (dir);
 	}
 
+	/**
+	 * Testing Function
+	 */
 	public void PrintPos()
 	{
 		System.out.print(" x :   ");

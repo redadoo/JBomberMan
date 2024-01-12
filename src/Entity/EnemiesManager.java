@@ -9,13 +9,22 @@ import Src.Title.TitleManager;
 import Src.Title.TitleManager.TitleType;
 import Src.lib.Vector2;
 
-public class EnemiesManager {
+/**
+ * Class to manage the enemies
+ */
+public class EnemiesManager 
+{
     
     private GamePanel               gp;
     private TitleManager            mapManager;
     private ArrayList<FlyHead>      listFlyHeads;
     private ArrayList<Entity>       enemy;
 
+    /**
+     * Costructor class EnemiesManager
+     * @param gp
+     * @param mapManager
+     */
     public EnemiesManager(GamePanel gp,TitleManager mapManager)
     {
         this.gp = gp;
@@ -25,6 +34,9 @@ public class EnemiesManager {
         initEnemy();
     }
 
+    /**
+     * Function to init the enemy
+     */
     private void initEnemy()
     {
         for (Vector2 posFlyhead : mapManager.returnEnemyPos(TitleType.FlyHead)) {
@@ -36,7 +48,9 @@ public class EnemiesManager {
         }
     }
 
-
+    /**
+     * Function to update the enemies during the game
+     */
     public void Update()
     {
         for (FlyHead flyHead : listFlyHeads) {
@@ -44,6 +58,10 @@ public class EnemiesManager {
         }
     }
 
+    /**
+     * Function to draw the anemys sprites
+     * @param g2
+     */
     public void Draw(Graphics2D g2)
     {
         for (FlyHead flyHead : listFlyHeads) {

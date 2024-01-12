@@ -3,16 +3,15 @@ package Src.Main;
 import javax.swing.JFrame;
 
 /**
- * The Window class extends JFrame and represents the main window of the game.
- * It sets up the window properties such as close operation, resizability, and title.
- * The class also provides a method for initializing the window's layout and visibility.
+ * The Window class extends JFrame and represents the main window of the game
+ * It sets up the window properties such as close operation, resizability, and title
+ * The class also provides a method for initializing the window's layout and visibility
  */
-public class Window extends JFrame{
-	
+public class Window extends JFrame
+{
 
 	/**
-     * Constructor for the Window class.
-     * Initializes JFrame properties, including default close operation, resizable status, and title.
+     * Constructor class Window initializes JFrame properties, including default close operation, resizable status, and title
      */
 	public Window()
 	{
@@ -22,7 +21,7 @@ public class Window extends JFrame{
 	}
 	
     /**
-     * Initializes the window's layout and makes it visible.
+     * Initializes the window's layout and makes it visible
      * Packs the components, centers the window on the screen, and sets it to be visible.
      */
 	public void iniWindow()

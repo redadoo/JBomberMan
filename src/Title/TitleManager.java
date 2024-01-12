@@ -14,25 +14,27 @@ import Src.Main.GamePanel;
 import Src.lib.Vector2;
 
 /**
- * The TitleManager class manages the game map and titles.
- * It handles loading map data, drawing the map, and providing player position
- * information.
+ * Class TitleManager manages the game map and titles.
+ * It handles loading map data, drawing the map, and providing player position information.
  */
-public class TitleManager {
+public class TitleManager 
+{
 
-	/** Reference to the GamePanel instance. */
+	// Reference to the GamePanel instance.
 	public GamePanel gp;
 
-	/** List of Title objects representing different map titles. */
+	// List of Title objects representing different map titles.
 	public ArrayList<Title> titles;
 
-	/** 2D array representing the game map based on map titles. */
+	// 2D array representing the game map based on map titles.
 	public Title[][] mapTitleNum;
 
-	/** Starting position for map tile rendering. */
+	// Starting position for map tile rendering.
 	private Vector2 StartPos = new Vector2(48, 118);
 
-	public static enum TitleType {
+	// The differt tyoe of title
+	public static enum TitleType 
+	{
 		Grass,
 		Obstacle,
 		Player,
@@ -42,13 +44,12 @@ public class TitleManager {
 	}
 
 	/**
-	 * Constructor for the TitleManager class.
-	 * Initializes the GamePanel reference, loads title images, and sets up the
+	 * Constructor class TitleManager that initializes the GamePanel reference, loads title images, and sets up the
 	 * initial map.
-	 *
 	 * @param gp The GamePanel instance associated with the TitleManager.
 	 */
-	public TitleManager(GamePanel gp) {
+	public TitleManager(GamePanel gp) 
+	{
 		this.gp = gp;
 		titles = new ArrayList<Title>();
 		getTitleImage();
@@ -60,7 +61,8 @@ public class TitleManager {
 	 * Loads images for different map titles and initializes the 'titles' list.
 	 * Assumes specific titles and their corresponding images.
 	 */
-	public void getTitleImage() {
+	public void getTitleImage() 
+	{
 		try {
 			titles.add(new Title());
 			titles.get(0).sprite = ImageIO.read(getClass().getResourceAsStream("/Resource/MapTitles/perimeter.png"));
@@ -86,12 +88,10 @@ public class TitleManager {
 	/**
 	 * Loads a game map from a specified file path and populates the 'mapTitleNum'
 	 * array.
-	 * Assumes a specific format in the file, where numbers represent different map
-	 * titles.
-	 * 
 	 * @param filePath The file path of the map data to be loaded.
 	 */
-	public void LoadMap(String filePath) {
+	public void LoadMap(String filePath) 
+	{
 		try {
 			InputStream is = getClass().getResourceAsStream(filePath);
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -136,11 +136,10 @@ public class TitleManager {
 
 	/**
 	 * Draws the game map and its titles on the provided Graphics2D object.
-	 * 
-	 * @param g2 The Graphics2D object on which the game map and titles will be
-	 *           drawn.
+	 * @param g2 The Graphics2D object on which the game map and titles will be drawn.
 	 */
-	public void Draw(Graphics2D g2) {
+	public void Draw(Graphics2D g2) 
+	{
 		// Draw the background tile (assuming it's the first tile in the 'titles' list).
 		g2.drawImage(titles.get(0).sprite, 0, 85, 512, 412, null);
 
@@ -156,7 +155,8 @@ public class TitleManager {
 		}
 	}
 
-	public Vector2 getTitleIndex(Title title) {
+	public Vector2 getTitleIndex(Title title) 
+	{
 		for (int i = 0; i < mapTitleNum.length; i++) {
 			for (int j = 0; j < mapTitleNum[i].length; j++) {
 				if (mapTitleNum[i][j] == title) {
@@ -168,12 +168,8 @@ public class TitleManager {
 	}
 
 	/**
-	 * Returns the position (Vector2) of the player on the game map.
-	 * Searches for the player's position by iterating through the map tiles.
-	 * Assumes that the player is represented by the map title value 2.
-	 * 
-	 * @return The Vector2 representing the player's position. If not found, returns
-	 *         a default Vector2.
+	 * Function to returns the position (Vector2) of the player on the game map.
+	 * @return The Vector2 representing the player's position. If not found, returns a default Vector2.
 	 */
 	public Vector2 ReturnPlayerPos() {
 		for (int i = 0; i < mapTitleNum.length; i++) {
