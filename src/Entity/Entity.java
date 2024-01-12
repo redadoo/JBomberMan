@@ -11,12 +11,14 @@ public class Entity {
 	public Vector2					dir;
 	public Vector2					pos;
 	public Vector2					size;
+	public Collider					coll;
 	public int						speed;
 	public BufferedImage			sprite;
-	public Collider					coll;
+	public int						frameCount;
 	public int						spriteIndex;
 	public Vector<BufferedImage>	spriteVector;
 	public boolean					isCollided = false;
+
 	/**
 	* Entity costructor
 	* @param pos the pos to set the entity
@@ -30,6 +32,9 @@ public class Entity {
 		this.sprite = sprite;
 		this.dir = new Vector2();
 		this.coll = new Collider(pos, size.x, size.y);
+		this.spriteIndex = 0;
+		this.frameCount = 0;
+		this.speed = 1;
 		spriteVector = new Vector<BufferedImage>();
 	}
 
@@ -39,6 +44,9 @@ public class Entity {
 		this.size = size;
 		this.dir = new Vector2();
 		this.coll = new Collider(pos, size.x, size.y);
+		this.spriteIndex = 0;
+		this.speed = 1;
+		this.frameCount = 0;
 		spriteVector = new Vector<BufferedImage>();
 	}
 
@@ -49,10 +57,13 @@ public class Entity {
 
 	public void nextSprite()
 	{
-		if(spriteIndex + 1 > spriteVector.size())
+		if(spriteIndex + 1 < spriteVector.size())
+		{
 			setSprite(spriteVector.elementAt(++spriteIndex));
+		}
 		else
 			spriteIndex = 0;
 	}
 
+	
 }

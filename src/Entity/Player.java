@@ -1,7 +1,6 @@
 package Src.Entity;
 
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Vector;
@@ -157,8 +156,6 @@ public class Player extends Entity{
 		{
 			pos.x += (dir.x * speed);
 			pos.y += (dir.y * speed);
-/* 			coll.rec.x = pos.x;
-			coll.rec.y = pos.y; */
 		}
 
     	// Perform sprite animation every 15 frames.
@@ -166,12 +163,13 @@ public class Player extends Entity{
 		{
 			spriteIndex++;
 			if(spriteIndex == 3)
-			spriteIndex = 0;
+				spriteIndex = 0;
 			frameCount = 0;
 		}
     	// Increment frame count for animation.
 		frameCount++;
 		dir = new Vector2(0,0);
+		bombManager.Update();
 
 	}
 

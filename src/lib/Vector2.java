@@ -42,9 +42,9 @@ public class Vector2
 
 	public void PrintPos()
 	{
-		System.out.println(" x :   ");
-		System.out.println(String.valueOf(this.x));
-		System.out.println(" y :   ");
+		System.out.print(" x :   ");
+		System.out.print(String.valueOf(this.x));
+		System.out.print(" y :   ");
 		System.out.println(String.valueOf(this.y));
 	}
 }

@@ -9,9 +9,7 @@ Colore blocchi non accessibili: (248,248,232)
 								(112,112,112)
 								(80,80,80)
 								(40,64,80)
-
-Esplosione allarme da non mettere
-
+								
 Comportamento Player:
 
 	Quando il personaggio muore, per tot secondi lampeggia e può passare attraverso i nemici

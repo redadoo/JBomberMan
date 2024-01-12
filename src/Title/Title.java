@@ -2,6 +2,7 @@ package Src.Title;
 
 import java.awt.image.BufferedImage;
 
+import Src.Title.TitleManager.TitleType;
 import Src.lib.Collider;
 import Src.lib.Vector2;
 
@@ -29,6 +30,7 @@ public class Title {
 	/** Collider representing the Collider area of the title. */
 	public Collider			coll;
 
+	public TitleType		titleType;
    	/**
      * Default constructor for the Title class.
      * Initializes position and size vectors.

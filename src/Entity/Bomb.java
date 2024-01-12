@@ -1,13 +1,12 @@
 package Src.Entity;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 import Src.Main.GamePanel;
 import Src.lib.Vector2;
@@ -17,10 +16,18 @@ import Src.lib.Vector2;
  */
 public class Bomb extends Entity 
 {
-	public  GamePanel   gp;
-	private boolean     Isavailable;
-	public  int         TimerExplosion = 0;
-	
+	public  GamePanel   						gp;
+	public	double								timerExplosion;
+	public	BombState							myState;
+	public 	Map<BufferedImage, Vector2>			myExplosionSprite;
+
+	public static enum BombState
+	{
+		Available,
+		NotAvailable,
+		Exploded	
+	}
+
 	/** 
 	 * Costructor class Bomb
 	 * @throws IOException
@@ -28,69 +35,61 @@ public class Bomb extends Entity
 	public Bomb(GamePanel gp, Vector2 pos) throws IOException
 	{        
 		super(pos, new Vector2(25,25));
+		this.gp = gp;
 		spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite0.png")));
  		spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite1.png")));
  		spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite2.png")));
 		sprite = spriteVector.elementAt(0);
+		myExplosionSprite = new HashMap<BufferedImage,Vector2>();
+		myState = BombState.Available;
+		timerExplosion = 0;
 	}
-
-	/**
-	* Function to place the bomb
-	* @param pos the position to place the bomb
-	* @param panel the panel where place the bomb
-	* @throws IOException
-	*/
-/* 	public void placeBomb(Vector2 pos, GamePanel panel) throws IOException
-	{
-		
-	} */
 
 	/**
 	 * Handle the explosion
 	 * @throws IOException
 	 */
-	public void Explosion()
+	public void InitExplosion(ArrayList<Vector2> rangeTitle, ArrayList<BufferedImage> explosionSpriteList, Vector2 myTitlePos)
 	{
-/* 		super.setSize(new Vector2(25,25));
-		gamePanel.panel.remove(getLabel());
-		Isavailable = true;
-		TimerExplosion = 0;
-		Index = 0; */
+		myExplosionSprite.put(explosionSpriteList.get(0), this.pos);
+
+		myTitlePos.PrintPos();
+
+		for (Vector2 titlePos :  rangeTitle) {
+
+			Vector2 newTitlePos = gp.mapManager.returnPosFromIndex(titlePos);
+			// Down
+			if (titlePos.y == myTitlePos.y - 1)
+				myExplosionSprite.put(explosionSpriteList.get(2), new Vector2(newTitlePos.x - 1,newTitlePos.y + 5));
+			// Up
+			if (titlePos.y == myTitlePos.y + 1)
+				myExplosionSprite.put(explosionSpriteList.get(1), gp.mapManager.returnPosFromIndex(titlePos));
+			// Right
+			if (titlePos.x == myTitlePos.x - 1)
+				myExplosionSprite.put(explosionSpriteList.get(3), gp.mapManager.returnPosFromIndex(titlePos));
+			// Left
+			if (titlePos.x == myTitlePos.x + 1)
+				myExplosionSprite.put(explosionSpriteList.get(4), gp.mapManager.returnPosFromIndex(titlePos));
+		}
 	}
-
-	/**
-	 *  Set the status of bomb
-	 * @param status to set the visibility of bomb
-	 */
-	public void SetStatus(Boolean status) {  Isavailable = status; }
-
-	/**
-	 *  Get the status of bomb
-	 * @return the status of the bomb
-	 */
-	public Boolean ReturnStatus() { return Isavailable; }
-
-	/**
-	 * Function to change the size of the bomb's sprite
-	 * @throws IOException
-	 */
 
 	@Override
-	public void nextSprite()
-	{
-/* 		super.setSize(new Vector2(getSize().x + Index, getSize().y + Index));
-		
-		if (super.Index > super.getSpriteArray().length - 1)
+    public void nextSprite()
+    {
+		if(spriteIndex + 1 < spriteVector.size())
 		{
-			TimerExplosion++;
-			super.setSize(new Vector2(25,25));
-			Index = 0;
+			int multiply;
+			multiply = spriteIndex * 2;
+			if(multiply == 0)
+				multiply = 2;
+			size = new Vector2(size.x + multiply,size.y + multiply);
+			setSprite(spriteVector.elementAt(++spriteIndex));
 		}
-		changeSpirte(super.getSpriteArray()[Index]);
-		if (TimerExplosion == 2)
+		else
 		{
-			Explosion();
+			size = new Vector2(25,25);
+			spriteIndex = 0;
 		}
-		Index++; */
 	}
+
 }

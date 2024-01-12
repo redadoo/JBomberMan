@@ -27,4 +27,11 @@ public class Collider
 		this.rec.width = width;
 		this.rec.height = height;
 	}
+
+	public void setPos(Vector2 pos)
+	{
+		this.pos = pos;
+		this.rec.x = pos.x;
+		this.rec.y = pos.y;		
+	}
 }

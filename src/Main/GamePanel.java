@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.swing.JPanel;
 
+import Src.Entity.EnemiesManager;
 import Src.Entity.Player;
 import Src.Title.TitleManager;
 
@@ -24,6 +25,10 @@ public class GamePanel extends JPanel implements Runnable{
 	public 	TitleManager        mapManager = new TitleManager(this);
 	public 	CollisionChecker	cChecker = new CollisionChecker(this);
 	private Player              player = new Player(this, keyh,mapManager);
+	private EnemiesManager		enemiesManager = new EnemiesManager(this,mapManager);
+	public long 				lastTime;
+	public long 				currentTime;
+	public double				elapsedTime = 0;  // Aggiunta della variabile per il tempo trascorso in secondi
 
     /**
      * Constructor for the GamePanel class.
@@ -58,8 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
 	{
 		double drawInterval = 1000000000/FPS;
 		double delta = 0;
-		long lastTime = System.nanoTime();
-		long currentTime;
+		lastTime = System.nanoTime();
 
 		while (gameThread != null) 
 		{
@@ -72,10 +76,10 @@ public class GamePanel extends JPanel implements Runnable{
 				try {
 					Update();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	
+				elapsedTime += delta / FPS;
+
 				//repaint call paintComponent on each iteration 
 				repaint();
 				delta--;
@@ -91,6 +95,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public void Update() throws IOException
 	{
 		player.Update();
+
+		enemiesManager.Update();
 	}
 
     /**
@@ -108,6 +114,8 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		player.Draw(g2);
 
+		enemiesManager.Draw(g2);
+		
 		g2.dispose();
 	}
 }
