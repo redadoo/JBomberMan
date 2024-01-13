@@ -9,7 +9,8 @@ import javax.imageio.ImageIO;
 
 import Src.Main.GamePanel;
 import Src.Main.KeyHandler;
-import Src.Title.TitleManager;
+import Src.Manager.BombManager;
+import Src.Manager.TitleManager;
 import Src.lib.Collider;
 import Src.lib.Vector2;
 

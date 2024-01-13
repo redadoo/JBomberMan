@@ -1,12 +1,13 @@
-package Src.Entity;
+package Src.Manager;
 
 import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Src.Entity.Entity;
+import Src.Entity.FlyHead;
 import Src.Main.GamePanel;
-import Src.Title.TitleManager;
-import Src.Title.TitleManager.TitleType;
+import Src.Manager.TitleManager.TitleType;
 import Src.lib.Vector2;
 
 /**

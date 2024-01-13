@@ -10,14 +10,14 @@ import javax.imageio.ImageIO;
 
 import Src.Main.GamePanel;
 import Src.Main.KeyHandler;
-import Src.Title.TitleManager;
+import Src.Manager.TitleManager;
 import Src.lib.Collider;
 import Src.lib.Vector2;
 
 /**
  * Class for the Alarms
  */
-public class Alarm extends Entity
+public class Alarm /* extends Entity */
 {
 	/**
 	 * Costructor class Alarm
@@ -25,10 +25,10 @@ public class Alarm extends Entity
 	 * @param pos the pos to set the entity
 	 * @param size the size for the entity
 	 */
-	public Alarm (String imagePath, Vector2 pos, Vector2 size) throws IOException
+/* 	public Alarm (String imagePath, Vector2 pos, Vector2 size) throws IOException
 	{
 		
-	}
+	} */
 
 		/**
 	 * Draws the alarm on the provided Graphics2D object.
@@ -36,10 +36,9 @@ public class Alarm extends Entity
 	 */
 	public void Draw(Graphics2D g2)
 	{
-		g2.drawImage(sprite,pos.x,pos.y,size.x,size.y,null);
+/* 		g2.drawImage(sprite,pos.x,pos.y,size.x,size.y,null);
 		
-		g2.drawRect(coll.rec.x, coll.rec.y, coll.rec.width , coll.rec.height);
-
+		g2.drawRect(coll.rec.x, coll.rec.y, coll.rec.width , coll.rec.height); */
 	}
 	
 }

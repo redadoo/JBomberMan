@@ -1,6 +1,5 @@
 package Src.Entity;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +8,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import Src.Main.GamePanel;
+import Src.lib.Sprite;
 import Src.lib.Vector2;
 
 /**
@@ -16,10 +16,10 @@ import Src.lib.Vector2;
  */
 public class Bomb extends Entity 
 {
-	public  GamePanel   						gp;
-	public	double								timerExplosion;
-	public	BombState							myState;
-	public 	Map<BufferedImage, Vector2>			myExplosionSprite;
+	public  GamePanel   			gp;
+	public	double					timerExplosion;
+	public	BombState				myState;
+	public 	Map<Sprite, Vector2>	myExplosionSprite;
 
 	// The various state of bomb
 	public static enum BombState
@@ -42,7 +42,7 @@ public class Bomb extends Entity
  		spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite2.png")));
 
 		sprite = spriteVector.elementAt(0);
-		myExplosionSprite = new HashMap<BufferedImage,Vector2>();
+		myExplosionSprite = new HashMap<Sprite, Vector2>();
 		myState = BombState.Available;
 		timerExplosion = 0;
 	}
@@ -51,27 +51,25 @@ public class Bomb extends Entity
 	 * Handle the explosion
 	 * @throws IOException
 	 */
-	public void InitExplosion(ArrayList<Vector2> rangeTitle, ArrayList<BufferedImage> explosionSpriteList, Vector2 myTitlePos)
+	public void InitExplosion(ArrayList<Vector2> rangeTitle, ArrayList<Sprite> explosionSpriteList, Vector2 myTitlePos)
 	{
-		myExplosionSprite.put(explosionSpriteList.get(0), this.pos);
+		myExplosionSprite.put(explosionSpriteList.get(0),new Vector2(pos.x,pos.y - 5));
 
-		myTitlePos.PrintPos();
-
-		for (Vector2 titlePos :  rangeTitle) {
-
-			Vector2 newTitlePos = gp.mapManager.returnPosFromIndex(titlePos);
+		for (Vector2 titlePos :  rangeTitle) 
+		{
+			//Place the explosions			
 			// Down
-			if (titlePos.y == myTitlePos.y - 1)
-				myExplosionSprite.put(explosionSpriteList.get(2), new Vector2(newTitlePos.x - 1,newTitlePos.y + 5));
-			// Up
 			if (titlePos.y == myTitlePos.y + 1)
-				myExplosionSprite.put(explosionSpriteList.get(1), gp.mapManager.returnPosFromIndex(titlePos));
-			// Right
-			if (titlePos.x == myTitlePos.x - 1)
-				myExplosionSprite.put(explosionSpriteList.get(3), gp.mapManager.returnPosFromIndex(titlePos));
+				myExplosionSprite.put(explosionSpriteList.get(3), new Vector2(pos.x - 1, pos.y + 20));
+			// Up
+			if (titlePos.y == myTitlePos.y - 1)
+				myExplosionSprite.put(explosionSpriteList.get(4),  new Vector2(pos.x - 1, pos.y - 30));
 			// Left
+			if (titlePos.x == myTitlePos.x - 1)
+				myExplosionSprite.put(explosionSpriteList.get(2), new Vector2(pos.x - 30,pos.y - 5));
+			// Right
 			if (titlePos.x == myTitlePos.x + 1)
-				myExplosionSprite.put(explosionSpriteList.get(4), gp.mapManager.returnPosFromIndex(titlePos));
+				myExplosionSprite.put(explosionSpriteList.get(1), new Vector2(pos.x + 30, pos.y - 5));
 		}
 	}
 

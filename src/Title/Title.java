@@ -2,7 +2,7 @@ package Src.Title;
 
 import java.awt.image.BufferedImage;
 
-import Src.Title.TitleManager.TitleType;
+import Src.Manager.TitleManager.TitleType;
 import Src.lib.Collider;
 import Src.lib.Vector2;
 

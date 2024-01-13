@@ -8,9 +8,9 @@ import java.io.IOException;
 
 import javax.swing.JPanel;
 
-import Src.Entity.EnemiesManager;
 import Src.Entity.Player;
-import Src.Title.TitleManager;
+import Src.Manager.EnemiesManager;
+import Src.Manager.TitleManager;
 
 /**
  * GamePanel class that handles the game loop, player input, and rendering. This class also manages the game's title map,

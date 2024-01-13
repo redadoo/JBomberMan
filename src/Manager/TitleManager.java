@@ -1,4 +1,4 @@
-package Src.Title;
+package Src.Manager;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import Src.Main.GamePanel;
+import Src.Title.Title;
 import Src.lib.Vector2;
 
 /**
