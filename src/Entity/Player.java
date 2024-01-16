@@ -257,4 +257,8 @@ public class Player extends Entity implements Observer
 			takeDamage = true;
 		}
 	}
+
+	public void addPoint(int point){this.point += point;}
+
+	public int getPoint(){return this.point;}
 }

@@ -14,14 +14,16 @@ import Src.Main.GamePanel;
 public class HUD
 {
 	private GamePanel					gp;
+	private BufferedImage				hud;
+	private int							offset;
 	private ArrayList<BufferedImage>	numbers;
-	BufferedImage hud;
+	private int							lenghtInt;
 
 	public HUD(GamePanel gp)
 	{
 		this.gp = gp;
 		numbers = new ArrayList<BufferedImage>();
-
+		offset = 170;
 		try {
 
 			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_00.png")));
@@ -40,7 +42,6 @@ public class HUD
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 
@@ -56,9 +57,23 @@ public class HUD
 	public void Draw(Graphics2D g2)
 	{
 		int index = gp.player.life;
+		// Draw hud
 		g2.drawImage(hud,0,0,520,60,null);
 
-
+		// Draw player life
 		g2.drawImage(numbers.get(index),50,15,15,30,null);
+	
+		//Draw point
+
+		if (gp.player.getPoint() > 0)
+		{
+			String pointString = String.valueOf(gp.player.getPoint());
+			for (int i = 0; i < pointString.length(); i++) 
+			{	
+				char c = pointString.charAt(i);
+				int indexPoint = Integer.parseInt(String.valueOf(c)); // Rapresent the point
+				g2.drawImage(numbers.get(indexPoint),offset + i * 20,17,17,28,null);
+			}
+		}
 	}
 }

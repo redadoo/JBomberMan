@@ -80,6 +80,7 @@ public class EnemiesManager implements Observer
         for (FlyHead flyHead : listFlyHeads) {
             if ((FlyHead)arg == flyHead)
             {
+                gp.player.addPoint(flyHead.getPointDrop());
                 listFlyHeads.remove(flyHead);
                 return ;
             } 

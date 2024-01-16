@@ -3,8 +3,6 @@ package Src.Entity;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Random;
 import java.util.Vector;
 
