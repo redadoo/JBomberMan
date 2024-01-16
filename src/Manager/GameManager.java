@@ -10,7 +10,8 @@ import Src.Utils.ManageFile;
 /**
  * GameManger
  */
-public class GameManager {
+public class GameManager 
+{
 
     GamePanel   gp;
     User		user = new User("");
@@ -36,11 +37,9 @@ public class GameManager {
     public void initData()
     {
         try {
-
             if (manageFile.haveSave() == false)
                 manageFile.initFile(user);
             manageFile.returnUserValue(user);
-        
         } catch (IOException e) {
             e.printStackTrace();
         }

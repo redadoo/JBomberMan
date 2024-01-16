@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import Src.Entity.Player;
 import Src.Manager.EnemiesManager;
 import Src.Manager.GameManager;
+import Src.Manager.ObjectManager;
 import Src.Manager.TitleManager;
 import Src.Utils.CollisionChecker;
 import Src.Utils.HUD;
@@ -25,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable
 
 	public	HUD					hud;
 	private int                 FPS;
-	private KeyHandler          keyh;
+	public	KeyHandler          keyh;
 	public	Player              player;
 	public	long 				lastTime;
 	public 	CollisionChecker	cChecker;
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable
 	public	long 				currentTime;
 	public	double				elapsedTime;
 	public	EnemiesManager		enemiesManager;
-
+	public	ObjectManager		ObjectManager;
     /**
      * Costructor class GamePanel
      * Initializes the panel properties, sets up the game's dimensions, background color,
@@ -49,10 +50,11 @@ public class GamePanel extends JPanel implements Runnable
 		keyh = new KeyHandler();
 		mapManager = new TitleManager(this);
 		gameManager = new GameManager(this);
-		player = new Player(this, keyh,mapManager);
-		enemiesManager = new EnemiesManager(this,mapManager);
+		player = new Player(this);
+		enemiesManager = new EnemiesManager(this);
 		cChecker = new CollisionChecker(this);
 		hud = new HUD(this);
+		ObjectManager = new ObjectManager(this);
 
 		this.setPreferredSize(new Dimension(512, 470));
 		this.setBackground(Color.BLACK);
@@ -115,6 +117,9 @@ public class GamePanel extends JPanel implements Runnable
 		player.Update();
 
 		enemiesManager.Update();
+
+		ObjectManager.Update();
+
 	}
 
     /**
@@ -125,16 +130,18 @@ public class GamePanel extends JPanel implements Runnable
 	{
 		super.paintComponent(g);
 
-		
 		Graphics2D g2 = (Graphics2D)g;
 		
 		hud.Draw(g2);
 		
 		mapManager.Draw(g2);
 		
-		player.Draw(g2);
+		ObjectManager.Draw(g2);
 
+		player.Draw(g2);
+		
 		enemiesManager.Draw(g2);
+		
 		
 		g2.dispose();
 	}

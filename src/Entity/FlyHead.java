@@ -25,7 +25,7 @@ public class FlyHead extends Entity
 	*/
 	public FlyHead(Vector2 pos, Vector2 size) throws IOException
 	{
-		super(pos, size);
+		super(new Vector2(pos.x,pos.y - 10), size);
 		FrontVector = new Vector<BufferedImage>();
 		BackVector = new Vector<BufferedImage>();
 		getflyHeadImage();

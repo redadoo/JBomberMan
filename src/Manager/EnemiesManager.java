@@ -28,10 +28,10 @@ public class EnemiesManager implements Observer
      * @param gp
      * @param mapManager
      */
-    public EnemiesManager(GamePanel gp,TitleManager mapManager)
+    public EnemiesManager(GamePanel gp)
     {
         this.gp = gp;
-        this.mapManager = mapManager;
+        this.mapManager = gp.mapManager;
         listFlyHeads = new ArrayList<FlyHead>();
         enemy =  new ArrayList<Entity>();
         initEnemy();
@@ -42,7 +42,7 @@ public class EnemiesManager implements Observer
      */
     private void initEnemy()
     {
-        for (Vector2 posFlyhead : mapManager.returnEnemyPos(TitleType.FlyHead)) {
+        for (Vector2 posFlyhead : mapManager.returnTitlePos(TitleType.FlyHead)) {
             try {
                 listFlyHeads.add(new FlyHead(posFlyhead, new Vector2(32,42)));
             } catch (IOException e) {

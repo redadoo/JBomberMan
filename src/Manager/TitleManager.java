@@ -20,7 +20,8 @@ import Src.lib.Vector2;
  * It handles loading map data, drawing the map, and providing player position
  * information.
  */
-public class TitleManager {
+public class TitleManager 
+{
 
 	// Reference to the GamePanel instance.
 	public GamePanel gp;
@@ -44,7 +45,8 @@ public class TitleManager {
 		Player,
 		Alarm,
 		FlyHead,
-		NewEnemy
+		NewEnemy,
+		Tunnel
 	}
 
 	/**
@@ -118,15 +120,16 @@ public class TitleManager {
 							new Vector2(32, 32));
 
 					if (num == 0 || num >= 2)
-						mapTitleNum[col][row].sprite = ImageIO
-								.read(getClass().getResourceAsStream("/Resource/MapTitles/grass_title.png"));
-
-					else if (num == 1) {
-						mapTitleNum[col][row].sprite = ImageIO
-								.read(getClass().getResourceAsStream("/Resource/MapTitles/obstacle.png"));
+						mapTitleNum[col][row].sprite = ImageIO.read(getClass().getResourceAsStream("/Resource/MapTitles/grass_title.png"));
+					if (num == 1) 
+					{
+						mapTitleNum[col][row].sprite = ImageIO.read(getClass().getResourceAsStream("/Resource/MapTitles/obstacle.png"));
 						mapTitleNum[col][row].collision = true;
 					}
-
+					if (num == 3)
+					{
+						mapTitleNum[col][row].collision = true;
+					}
 					mapTitleNum[col][row].mapTitle = num;
 					mapTitleNum[col][row].titleType = TitleType.values()[num];
 					mapTitleNum[col][row].matrixPos = new Vector2(col,row);
@@ -158,6 +161,7 @@ public class TitleManager {
 		// Draw individual map tiles based on their positions in the 'mapTitleNum'
 		// matrix.
 
+		
 		for (int i = 0; i < mapTitleNum.length; i++) 
 		{
 			for (int j = 0; j < mapTitleNum[i].length; j++) 
@@ -213,7 +217,7 @@ public class TitleManager {
 		return null;
 	}
 
-	public ArrayList<Vector2> returnEnemyPos(TitleType indexEnemy) 
+	public ArrayList<Vector2> returnTitlePos(TitleType indexEnemy) 
 	{
 		ArrayList<Vector2> enemiesPos = new ArrayList<Vector2>();
 

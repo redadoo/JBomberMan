@@ -44,11 +44,13 @@ public class Player extends Entity implements Observer
 	 * @param mapManager The TitleManager providing map-related functionality.
 	 * @throws IOException
 	 */
-	public Player(GamePanel gp, KeyHandler keyH,TitleManager mapManager)
+	public Player(GamePanel gp)
 	{
-		super(mapManager.ReturnPlayerPos(), new Vector2(32,42), null);
+		super(gp.mapManager.ReturnPlayerPos(), new Vector2(32,42), null);
+		
 		this.gp = gp;
-		this.keyH = keyH;
+		this.keyH = gp.keyh;
+
 		cooldownDamage = 0;
 		InitPlayer();
 	}
