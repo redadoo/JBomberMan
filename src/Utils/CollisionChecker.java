@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.Observable;
 import java.util.Observer;
 
+import Src.Entity.Alarm;
 import Src.Entity.Bomb;
 import Src.Entity.FlyHead;
 import Src.Entity.Player;
@@ -86,6 +87,15 @@ public class CollisionChecker extends Observable
 						if(titleManager.GetTitleFromPos(titlePos).coll.rec.intersects(flyHead.coll.rec) == true)
 						{
 							enemiesManager.update(this, flyHead);
+							break ;
+						}
+					}
+
+					for (Alarm alarm : gp.ObjectManager.getAlarmList()) 
+					{
+						if(titleManager.GetTitleFromPos(titlePos).coll.rec.intersects(alarm.coll.rec) == true)
+						{
+							gp.ObjectManager.update(this, alarm);
 							break ;
 						}
 					}
