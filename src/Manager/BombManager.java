@@ -138,7 +138,7 @@ public class BombManager
 				// Bomb explosion
 				if(gp.elapsedTime >= bomb.timerExplosion + 2.5)
 				{
-					bomb.InitExplosion(gp.mapManager.getRangedTitle(bomb.pos), explosionSpriteList, gp.mapManager.getTitleIndex(gp.mapManager.GetTitleFromPos(bomb.pos)));
+					bomb.InitExplosion(gp.mapManager.getRangedTitleIndex(bomb.pos), explosionSpriteList,gp.mapManager.GetTitleFromPos(bomb.pos).matrixPos);
 					bomb.timerExplosion = 0;
 					bomb.myState = BombState.Exploded;
 				}
@@ -178,5 +178,7 @@ public class BombManager
 			}
 		}
 	}
+
+	public ArrayList<Bomb> getBombList() { return bombsList; }
 
 }

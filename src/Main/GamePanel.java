@@ -10,7 +10,11 @@ import javax.swing.JPanel;
 
 import Src.Entity.Player;
 import Src.Manager.EnemiesManager;
+import Src.Manager.GameManager;
 import Src.Manager.TitleManager;
+import Src.Utils.CollisionChecker;
+import Src.Utils.HUD;
+import Src.Utils.KeyHandler;
 
 /**
  * GamePanel class that handles the game loop, player input, and rendering. This class also manages the game's title map,
@@ -19,16 +23,18 @@ import Src.Manager.TitleManager;
 public class GamePanel extends JPanel implements Runnable
 {
 
-	private int                 FPS = 60;
+	public	HUD					hud;
+	private int                 FPS;
+	private KeyHandler          keyh;
+	public	Player              player;
+	public	long 				lastTime;
+	public 	CollisionChecker	cChecker;
 	private Thread              gameThread;
-	private KeyHandler          keyh = new KeyHandler();
-	public 	TitleManager        mapManager = new TitleManager(this);
-	public 	CollisionChecker	cChecker = new CollisionChecker(this);
-	private Player              player = new Player(this, keyh,mapManager);
-	private EnemiesManager		enemiesManager = new EnemiesManager(this,mapManager);
-	public long 				lastTime;
-	public long 				currentTime;
-	public double				elapsedTime = 0;  // Aggiunta della variabile per il tempo trascorso in secondi
+	public 	TitleManager        mapManager;
+	public	GameManager			gameManager;
+	public	long 				currentTime;
+	public	double				elapsedTime;
+	public	EnemiesManager		enemiesManager;
 
     /**
      * Costructor class GamePanel
@@ -37,7 +43,18 @@ public class GamePanel extends JPanel implements Runnable
      */
 	public GamePanel()
 	{
-		this.setPreferredSize(new Dimension(512,480));
+		FPS = 60;
+		elapsedTime = 0;
+
+		keyh = new KeyHandler();
+		mapManager = new TitleManager(this);
+		gameManager = new GameManager(this);
+		player = new Player(this, keyh,mapManager);
+		enemiesManager = new EnemiesManager(this,mapManager);
+		cChecker = new CollisionChecker(this);
+		hud = new HUD(this);
+
+		this.setPreferredSize(new Dimension(512, 470));
 		this.setBackground(Color.BLACK);
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyh);
@@ -93,6 +110,8 @@ public class GamePanel extends JPanel implements Runnable
      */
 	public void Update() throws IOException
 	{
+		cChecker.Update();
+		
 		player.Update();
 
 		enemiesManager.Update();
@@ -106,8 +125,11 @@ public class GamePanel extends JPanel implements Runnable
 	{
 		super.paintComponent(g);
 
+		
 		Graphics2D g2 = (Graphics2D)g;
-	
+		
+		hud.Draw(g2);
+		
 		mapManager.Draw(g2);
 		
 		player.Draw(g2);

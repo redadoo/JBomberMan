@@ -3,6 +3,8 @@ package Src.Entity;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 import java.util.Vector;
 
@@ -16,8 +18,7 @@ import Src.lib.Vector2;
 */
 public class FlyHead extends Entity
 {
-	private int         pointDrop;
-
+	private int        					pointDrop = 100;
 	private	Vector<BufferedImage>		FrontVector; // Vector for front-facing Enemy sprites.
 	private	Vector<BufferedImage>		BackVector;// Vector for back-facing Enemy sprites.
 	
@@ -27,7 +28,6 @@ public class FlyHead extends Entity
 	public FlyHead(Vector2 pos, Vector2 size) throws IOException
 	{
 		super(pos, size);
-		
 		FrontVector = new Vector<BufferedImage>();
 		BackVector = new Vector<BufferedImage>();
 		getflyHeadImage();
@@ -100,16 +100,15 @@ public class FlyHead extends Entity
 		coll.setPos(new Vector2((pos.x + (dir.x * speed)) + 3, (pos.y + (dir.y * speed)) + 20));
 		coll.rec.height = size.x - 6; 
 		coll.rec.width = size.y - 15;
-	
-		isCollided = gp.cChecker.CheckTitleForEnenmy(coll);
 
+		isCollided = gp.cChecker.CheckTitle(coll);
 
-		if(isCollided == false && coll.pos.y > 120 && coll.pos.y < 445 && coll.pos.x > 45 && coll.pos.x < 435)
+		if(isCollided == false && gp.mapManager.isEntityInsidePerimeter(coll))
 		{
 			pos.x += (dir.x * speed);
 			pos.y += (dir.y * speed);
 		}
-		else if(!(coll.pos.y > 120 && coll.pos.y < 445 && coll.pos.x > 45 && coll.pos.x < 435) || isCollided == true)
+		else if(!(gp.mapManager.isEntityInsidePerimeter(coll)) || isCollided == true)
 			dir.y = -dir.y;
 
 		if (frameCount == 3)

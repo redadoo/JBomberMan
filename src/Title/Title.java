@@ -19,6 +19,9 @@ public class Title
 	// Vector2 representing the position of the title.
 	public Vector2			pos;
 
+	// Vector2 representing the position of the title.
+	public Vector2			matrixPos;
+
     // Vector2 representing the size of the title. 
 	public Vector2			size;
 

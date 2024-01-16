@@ -3,6 +3,8 @@ package Src.Manager;
 import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import Src.Entity.Entity;
 import Src.Entity.FlyHead;
@@ -13,7 +15,7 @@ import Src.lib.Vector2;
 /**
  * Class to manage the enemies
  */
-public class EnemiesManager 
+public class EnemiesManager implements Observer 
 {
     
     private GamePanel               gp;
@@ -49,6 +51,8 @@ public class EnemiesManager
         }
     }
 
+    public ArrayList<FlyHead> GetListFlyHeads(){ return listFlyHeads; }
+
     /**
      * Function to update the enemies during the game
      */
@@ -67,6 +71,18 @@ public class EnemiesManager
     {
         for (FlyHead flyHead : listFlyHeads) {
             flyHead.Draw(g2);
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
+        for (FlyHead flyHead : listFlyHeads) {
+            if ((FlyHead)arg == flyHead)
+            {
+                listFlyHeads.remove(flyHead);
+                return ;
+            } 
         }
     }
 }

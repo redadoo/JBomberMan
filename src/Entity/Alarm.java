@@ -1,18 +1,7 @@
 package Src.Entity;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Vector;
 
-import javax.imageio.ImageIO;
-
-import Src.Main.GamePanel;
-import Src.Main.KeyHandler;
-import Src.Manager.TitleManager;
-import Src.lib.Collider;
-import Src.lib.Vector2;
 
 /**
  * Class for the Alarms
