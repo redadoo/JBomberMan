@@ -70,7 +70,7 @@ public class Player extends Entity implements Observer
 		speed = 2;
 		spriteIndex = 0;
 		frameCount = 0;
-		life = 0;
+		life = 5;
 		point = 0;
 		hoverBomb = false;
 	}
@@ -182,8 +182,6 @@ public class Player extends Entity implements Observer
 	*/
 	public void Update() throws IOException
 	{
-		if (gp.mapManager == null)
-			return ;
 
 		int animationRatio;
 		int maxSpriteIndex;

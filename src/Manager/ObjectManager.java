@@ -51,9 +51,10 @@ public class ObjectManager implements Observer
 	*/
 	public void Update()
 	{
-		for (Alarm alarm : listAlarm) {
+		for (Alarm alarm : listAlarm)
 			alarm.Update();
-		}        
+		if (tunnel != null && isLevelFinish())
+			gp.gameManager.win();
 	}
 
 	/**
@@ -62,14 +63,10 @@ public class ObjectManager implements Observer
 	*/
 	public void Draw(Graphics2D g2)
 	{
-		for (Alarm alarm : listAlarm) {
+		for (Alarm alarm : listAlarm)
 			alarm.Draw(g2);
-		}
 		if (tunnel != null)
-		{
-			System.out.println("family");
 			tunnel.Draw(g2);
-		}
 	}
 
 	/**
@@ -119,5 +116,14 @@ public class ObjectManager implements Observer
 				return ;
 			} 
 		}
+	}
+
+	public boolean isLevelFinish()
+	{
+		Vector2 playerTitlePos = gp.mapManager.GetTitleFromRec(gp.player.coll.rec).matrixPos;
+		Vector2 tunnelTitlePos = gp.mapManager.GetTitleFromRec(tunnel.coll.rec).matrixPos;
+		if(gp.enemiesManager.GetListFlyHeads().size() == 0 && playerTitlePos.equals(tunnelTitlePos))
+			return true;
+		return false;
 	}
 }

@@ -1,7 +1,20 @@
 package Src.User;
 
+/**
+ * Class UserView
+ */
 public class UserView 
 {
+	/**
+	 * This method prints the details of the user to the console
+	 * @param nickname The nickname of the user
+	 * @param match The total number of matches played by the user
+	 * @param matchLose The number of matches lost by the user
+	 * @param matchWon The number of matches won by the user
+	 * @param level The level of the user
+	 * @param points The points scored by the user
+	 * @param avatarColor The color of the user's avatar
+	 */
 	public void printUserDetails(String nickname, int match,  int matchLose, int matchWon, int level, int points, String avatarColor )
 	{
 		System.out.print("\033[H\033[2J");  

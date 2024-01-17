@@ -102,19 +102,15 @@ public class GameManager
 	public void win()
 	{
 		myGamestate = GameState.Finish;
-		System.out.println("Do you want to continue?");
+		System.out.println("Do you want go to the next level?");
 		Scanner myObj = new Scanner(System.in);
 		System.out.println("yes | no");
 		String continueChoice = myObj.nextLine();
 
-		if (continueChoice == "yes" || continueChoice == "y")
-		{
-			
-		}
-		else if(continueChoice == "no" || continueChoice == "n")
-		{
-			
-		}
+		if (continueChoice.contains("yes") || continueChoice.contains("y"))
+			nextLevel();
+		else if(continueChoice.contains("no") || continueChoice.contains("n"))
+			System.exit(0);
 	}
 
 	/**
@@ -193,13 +189,12 @@ public class GameManager
 	}
 
 	/**
-	 * Methos to reset the game
+	 * Method to reset the game
 	 */
 	public void Reset()
 	{
 		myGamestate = GameState.Finish;
 
-		gp.keyh = new KeyHandler();
 		gp.mapManager = new TitleManager(gp, "/Resource/Maps/map_0");
 		gp.player = new Player(gp);
 		gp.enemiesManager = new EnemiesManager(gp);
@@ -210,4 +205,20 @@ public class GameManager
 		myGamestate = GameState.Game;
 	}
 
+	/**
+	 * Method for Change level
+	 */
+	public void nextLevel()
+	{
+		myGamestate = GameState.Finish;
+
+		gp.mapManager = new TitleManager(gp, "/Resource/Maps/map_0");
+		gp.player = new Player(gp);
+		gp.enemiesManager = new EnemiesManager(gp);
+		gp.cChecker = new CollisionChecker(gp);
+		gp.hud = new HUD(gp);
+		gp.ObjectManager = new ObjectManager(gp);
+
+		myGamestate = GameState.Game;
+	}
 }

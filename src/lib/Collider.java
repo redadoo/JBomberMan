@@ -43,7 +43,7 @@ public class Collider
 	}
 
 	/**
-	 * Function to set position of collider
+	 * Method to set position of collider
 	 * @param pos
 	 */
 	public void setPos(Vector2 pos)

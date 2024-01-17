@@ -31,7 +31,7 @@ public class Vector2
 	}
 	
 	/**
-	 * Compare two vectors
+	 * Method to compare two vectors
 	 * @param other
 	 * @return
 	 */
@@ -41,10 +41,10 @@ public class Vector2
 	}
 
 	/**
-	 * Function to return difference
-	 * @param v1
-	 * @param v2
-	 * @return
+	 * Method to return difference
+	 * @param v1 first vector
+	 * @param v2 second vector
+	 * @return the diffrence
 	 */
 	public Vector2 dir(Vector2 v1, Vector2 v2) 
 	{
@@ -57,7 +57,7 @@ public class Vector2
 	}
 
 	/**
-	 * Testing Function
+	 * Testing Method
 	 */
 	public void PrintPos()
 	{

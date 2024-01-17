@@ -38,8 +38,8 @@ public class Title
 
 	/**
 	 * Costructor class Title that initializes position and size vectors.
-	 * @param pos
-	 * @param size
+	 * @param pos the position to place the title
+	 * @param size the size of title
 	 */
 	public Title(Vector2 pos, Vector2 size)
 	{

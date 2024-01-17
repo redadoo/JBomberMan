@@ -37,11 +37,6 @@ public class AudioPlayer implements Runnable {
 		audioFile = new File(filePath);
 	}
 
-	public void ChangeMusic(String filePath)
-	{
-		audioFile = new File(filePath);
-	}
-
 	public void playAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
 		// Verifica che il file audio esista
