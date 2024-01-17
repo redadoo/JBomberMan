@@ -6,68 +6,118 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Src.Entity.Alarm;
-import Src.Entity.FlyHead;
 import Src.Main.GamePanel;
 import Src.Manager.TitleManager.TitleType;
 import Src.lib.Vector2;
 
-public class ObjectManager implements Observer {
-    
-    private GamePanel           gp;
-    private ArrayList<Alarm>    listAlarm;
+/**
+ * Class ObjectManager to manage the various aboject on the map
+ */
+public class ObjectManager implements Observer 
+{
+	
+	private GamePanel           gp;
+	private ArrayList<Alarm>    listAlarm;
+	private Alarm				tunnel;
 
-    public ObjectManager(GamePanel gp)
+	/**
+	 * Costructor class ObjectManager
+	 * @param gp The GamePanel instance associated with the ObjectManager
+	 */
+	public ObjectManager(GamePanel gp)
+	{
+		this.gp = gp;
+		initObject();
+	}
+
+	/**
+	 * Method to init all abojects
+	*/
+	public void initObject()
+	{
+		listAlarm = new ArrayList<Alarm>();
+		tunnel = null;
+		for (Vector2 posAlarm : gp.mapManager.returnTitlePos(TitleType.Alarm)) 
+		{
+			if (gp.mapManager.returnTitlePos(TitleType.Tunnel).contains(posAlarm))
+				listAlarm.add(new Alarm(posAlarm,new Vector2(33,35),true));
+			else
+				listAlarm.add(new Alarm(posAlarm,new Vector2(33,35),false));
+		}
+	}
+
+	/**
+	 * Method to update alla the alarms during the game
+	*/
+	public void Update()
+	{
+		for (Alarm alarm : listAlarm) {
+			alarm.Update();
+		}        
+	}
+
+	/**
+	 * Method to draw all the alarms
+	 * @param g2 The Graphics2D object on which the game map and titles will be drawn
+	*/
+	public void Draw(Graphics2D g2)
+	{
+		for (Alarm alarm : listAlarm) {
+			alarm.Draw(g2);
+		}
+		if (tunnel != null)
+		{
+			System.out.println("family");
+			tunnel.Draw(g2);
+		}
+	}
+
+	/**
+	 * Method to get the list of alarms
+	 * @return the list of alarms
+	*/
+	public ArrayList<Alarm> getAlarmList(){ return listAlarm;}
+
+	/**
+	 * Method to sets the collision property of the title at the alarm's position to false
+	 * @param alarm The alarm object whose position is used to find the corresponding title
+	 */
+	public void setCollideFormAlarms( Alarm alarm)
+	{
+		for (Vector2 posAlarm : gp.mapManager.returnTitlePos(TitleType.Alarm)) 
+		{
+			if (posAlarm == alarm.pos)
+			{
+				gp.mapManager.GetTitleFromPos(alarm.pos).collision = false;
+			}
+		}
+	}
+
+    /**
+     * Methos that updates the state of the game when an Alarm object changes its state
+     * @param o The observable object that this observer is registered to
+     * @param arg The argument passed to the `notifyObservers` method
+     */
+	@Override
+	public void update(Observable o, Object arg) 
     {
-        this.gp = gp;
-        initObject();
-    }
-
-    public void initObject()
-    {
-        listAlarm = new ArrayList<Alarm>();
-        for (Vector2 posAlarm : gp.mapManager.returnTitlePos(TitleType.Alarm)) 
-        {
-            listAlarm.add(new Alarm(posAlarm,new Vector2(33,35)));
-        }
-    }
-
-    public void Update()
-    {
-        for (Alarm alarm : listAlarm) {
-            alarm.Update();
-        }        
-    }
-
-    public void Draw(Graphics2D g2)
-    {
-        for (Alarm alarm : listAlarm) {
-            alarm.Draw(g2);
-        }
-    }
-
-    public ArrayList<Alarm> getAlarmList(){ return listAlarm;}
-
-    public void setCollideFormAlarms(boolean bool, Alarm alarm)
-    {
-        for (Vector2 posAlarm : gp.mapManager.returnTitlePos(TitleType.Alarm)) 
-        {
-            if (posAlarm == alarm.pos)
-            {
-                gp.mapManager.GetTitleFromPos(alarm.pos).collision = false;
-            }
-        }
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-
-        for (Alarm alarm : listAlarm) {
-            if ((Alarm)arg == alarm)
-            {
-                setCollideFormAlarms(false,alarm);
-                listAlarm.remove(alarm);
-                return ;
-            } 
-        }
-    }
+		for (Alarm alarm : listAlarm) {
+			if ((Alarm)arg == alarm)
+			{
+				if (!alarm.getIsTunnel())
+				{
+					setCollideFormAlarms(alarm);
+					listAlarm.remove(alarm);
+				}
+				else
+				{
+					setCollideFormAlarms(alarm);
+					listAlarm.remove(alarm);
+					tunnel = alarm;
+					alarm.setSprite(alarm.spriteVector.get(4));
+				}
+				return ;
+			} 
+		}
+	}
 }

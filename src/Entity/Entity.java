@@ -44,9 +44,9 @@ public class Entity
 
 	/**
 	 * Costructor class Entity
-	 * @param pos
-	 * @param size
-	 */
+	 * @param pos the initil position of entity
+	 * @param size the size of entity
+	*/
 	public Entity(Vector2 pos, Vector2 size)
 	{
 		this.pos = pos;
@@ -60,8 +60,8 @@ public class Entity
 	}
 
 	/**
-	 * Function to set the sprite
-	 * @param sprite
+	 * Method to set the sprite
+	 * @param sprite The image to be used as the sprite
 	 */
 	public void setSprite(BufferedImage sprite)
 	{
@@ -69,7 +69,7 @@ public class Entity
 	}
 
 	/**
-	 * Function to change the sprites
+	 * Method to change the sprites
 	 */
 	public void nextSprite()
 	{

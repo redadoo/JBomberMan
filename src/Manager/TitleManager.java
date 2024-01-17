@@ -19,7 +19,7 @@ import Src.lib.Vector2;
  * Class TitleManager manages the game map and titles.
  * It handles loading map data, drawing the map, and providing player position
  * information.
- */
+*/
 public class TitleManager 
 {
 
@@ -36,8 +36,8 @@ public class TitleManager
 	private Vector2 StartPos = new Vector2(48, 90);
 
 	/**
-	 * The differt type of title 
-	 */
+	 * The different type of title 
+	*/
 	public static enum TitleType 
 	{
 		Grass,
@@ -51,18 +51,16 @@ public class TitleManager
 
 	/**
 	 * Constructor class TitleManager that initializes the GamePanel reference,
-	 * loads title images, and sets up the
-	 * initial map.
-	 * 
-	 * @param gp The GamePanel instance associated with the TitleManager.
+	 * loads title images, and sets up the initial map
+	 * @param gp The GamePanel instance associated with the TitleManager
 	 */
-	public TitleManager(GamePanel gp) 
+	public TitleManager(GamePanel gp, String filePath) 
 	{
 		this.gp = gp;
 		titles = new ArrayList<Title>();
 		getTitleImage();
 		mapTitleNum = new Title[13][11];
-		LoadMap("/Resource/Maps/map_0");
+		LoadMap(filePath);
 	}
 
 	/**
@@ -94,12 +92,11 @@ public class TitleManager
 	}
 
 	/**
-	 * Loads a game map from a specified file path and populates the 'mapTitleNum'
-	 * array.
-	 * 
+	 * Loads a game map from a specified file path and populates the 'mapTitleNum'array
 	 * @param filePath The file path of the map data to be loaded.
-	 */
-	public void LoadMap(String filePath) {
+	*/
+	public void LoadMap(String filePath) 
+	{
 		try {
 			InputStream is = getClass().getResourceAsStream(filePath);
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -146,13 +143,11 @@ public class TitleManager
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
-	 * Draws the game map and its titles on the provided Graphics2D object.
-	 * 
-	 * @param g2 The Graphics2D object on which the game map and titles will be
-	 *           drawn.
-	 */
+	 * Method to draws the game map and its titles on the provided Graphics2D object
+	 * @param g2 The Graphics2D object on which the game map and titles will be drawn
+	*/
 	public void Draw(Graphics2D g2) 
 	{
 		// Draw the background tile (assuming it's the first tile in the 'titles' list).
@@ -167,17 +162,14 @@ public class TitleManager
 			for (int j = 0; j < mapTitleNum[i].length; j++) 
 			{
 				g2.drawImage(mapTitleNum[i][j].sprite, StartPos.x + i * 32, StartPos.y + j * 32, 32, 32, null);
-				g2.drawRect(mapTitleNum[i][j].coll.pos.x, mapTitleNum[i][j].coll.pos.y, mapTitleNum[i][j].coll.rec.width, mapTitleNum[i][j].coll.rec.height);
 			}
 		}
 	}
 
 	/**
-	 * Function to returns the position (Vector2) of the player on the game map.
-	 * 
-	 * @return The Vector2 representing the player's position. If not found, returns
-	 *         a default Vector2.
-	 */
+	 * Method to returns the position (Vector2) of the player on the game map.
+	 * @return The Vector2 representing the player's position. If not found, returns a default Vector2.
+	*/
 	public Vector2 ReturnPlayerPos() {
 		for (int i = 0; i < mapTitleNum.length; i++) {
 			for (int j = 0; j < mapTitleNum[i].length; j++) {
@@ -189,6 +181,11 @@ public class TitleManager
 		return new Vector2();
 	}
 
+	/**
+	 * Method that retrieves a Title object based on an intersection with a specified rectangle.
+	 * @param rec The rectangle to check for intersection.
+	 * @return A Title object representing the title on the map that intersects with the rectangle.
+	*/
 	public Title GetTitleFromRec(Rectangle rec) 
 	{
 		for (int i = 0; i < mapTitleNum.length; i++) 
@@ -202,6 +199,11 @@ public class TitleManager
 		return mapTitleNum[0][0];
 	}
 
+	/**
+	 * Method that retrieves a Title object based on a specified position.
+	 * @param pos The position for which to retrieve the corresponding Title object.
+	 * @return A Title object representing the title on the map at the specified position, or null if not found.
+	*/
 	public Title GetTitleFromPos(Vector2 pos) 
 	{
 		for (int i = 0; i < mapTitleNum.length; i++)
@@ -217,22 +219,40 @@ public class TitleManager
 		return null;
 	}
 
-	public ArrayList<Vector2> returnTitlePos(TitleType indexEnemy) 
+	/**
+	 * Method to returns the positions of specific titles in a map.
+	 * @param indexEnemy The type of title to find in the map.
+	 * @return ArrayList<Vector2> A list of positions for the specified title type.
+	*/
+	public ArrayList<Vector2> returnTitlePos(TitleType titleType) 
 	{
-		ArrayList<Vector2> enemiesPos = new ArrayList<Vector2>();
+		ArrayList<Vector2> titlePosArray = new ArrayList<Vector2>();
 
 		for (int i = 0; i < mapTitleNum.length; i++) 
 		{
 			for (int j = 0; j < mapTitleNum[i].length; j++) 
 			{
-				if (mapTitleNum[i][j].titleType == indexEnemy) 
-					enemiesPos.add(mapTitleNum[i][j].pos);
+				if (titleType == TitleType.Alarm)
+				{
+					if (mapTitleNum[i][j].titleType == titleType || mapTitleNum[i][j].titleType == TitleType.Tunnel) 
+						titlePosArray.add(mapTitleNum[i][j].pos);
+				}
+				else 
+				{
+					if (mapTitleNum[i][j].titleType == titleType)
+						titlePosArray.add(mapTitleNum[i][j].pos);
+				}
 			}
 		}
 
-		return enemiesPos;
+		return titlePosArray;
 	}
 
+	/**
+	 * Method to returns the indices of titles within a one-tile range of a specified position, excluding obstacles.
+	 * @param pos The position from which to find nearby titles.
+	 * @return ArrayList<Vector2> A list of indices for the titles within range.
+	 */
 	public ArrayList<Vector2> getRangedTitleIndex(Vector2 pos) 
 	{
 		ArrayList<Vector2> rangeTitles = new ArrayList<Vector2>();
@@ -261,6 +281,11 @@ public class TitleManager
 		return rangeTitles;
 	}
 
+	/**
+	 * Method to returns the position of a title given its index in the map.
+	 * @param index The index of the title in the map.
+	 * @return Vector2 The position of the title. If the title is not found, it returns null.
+	 */
 	public Vector2 returnPosFromIndex(Vector2 index) 
 	{
 		for (int i = 0; i < mapTitleNum.length; i++) 
@@ -274,13 +299,23 @@ public class TitleManager
 		return null;
 	}
 
+	/**
+	 * Method to checks if an entity, represented by a collider, is inside a specified perimeter.
+	 * @param coll The collider representing the entity.
+	 * @return boolean Returns true if the entity is inside the perimeter, false otherwise.
+	*/
 	public boolean isEntityInsidePerimeter(Collider coll)
 	{
-		if(coll.pos.y > 90 && coll.pos.y <  420 && coll.pos.x > 45 && coll.pos.x < 435)
+		if(coll.pos.y > 85 && coll.pos.y <  420 && coll.pos.x > 45 && coll.pos.x < 435)
 			return true;
 		return false;
 	}
 
+	/**
+	 * Method to returns the positions of titles within a one-tile range of a specified position, excluding obstacles.
+	 * @param pos The position from which to find nearby titles.
+	 * @return ArrayList<Vector2> A list of positions for the titles within range.
+	*/
 	public ArrayList<Vector2> getRangedTitlePos(Vector2 pos) 
 	{
 		ArrayList<Vector2> rangeTitles = new ArrayList<Vector2>();

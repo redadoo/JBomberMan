@@ -12,7 +12,7 @@ import Src.Main.GamePanel;
 import Src.lib.Vector2;
 
 /**
- *  Class to manage the FlyHead enemy
+ * Class to manage the FlyHead enemy
 */
 public class FlyHead extends Entity
 {
@@ -22,6 +22,9 @@ public class FlyHead extends Entity
 	
 	/**
 	 * Costructor class FlyHead
+	 * @param pos the position where set the player 
+	 * @param size the size to be assegn to player
+	 * @throws IOException
 	*/
 	public FlyHead(Vector2 pos, Vector2 size) throws IOException
 	{
@@ -49,19 +52,19 @@ public class FlyHead extends Entity
 	}
 	
 	/**
-	 * Remain enemy's life 
+	 * Method to get the remain enemy's life 
 	 * @return the main life of enemy
 	*/
 	public int getPointDrop() { return pointDrop; }
 
 	/**
-	 * To get the direction of enemy
+	 * Method to get the direction of enemy
 	 * @return direction
 	 */
 	public Vector2 getDir() { return dir; }
 
 	/**
-	 * Loads Enemy sprite images for different directions (front and back).
+	 * Method to loads Enemy sprite images for different directions (front and back).
 	 */
 	public void getflyHeadImage()
 	{
@@ -83,7 +86,7 @@ public class FlyHead extends Entity
 	}
 
 	/**
-	 * Function to set the sprite
+	 * Method to set the sprite
 	 */
 	public void setSprite(BufferedImage sprite)
 	{
@@ -91,10 +94,13 @@ public class FlyHead extends Entity
 	}
 	
 	/**
-	 * Function to update the status of enemy
+	 * Method to update the status of enemy
 	 */
 	public void Update(GamePanel gp)
 	{
+		if (gp.mapManager == null)
+			return ;
+
 		coll.setPos(new Vector2((pos.x + (dir.x * speed)) + 3, (pos.y + (dir.y * speed)) + 20));
 		coll.rec.height = size.x - 6; 
 		coll.rec.width = size.y - 15;
@@ -127,7 +133,7 @@ public class FlyHead extends Entity
 	}
 
 	/**
-	 * Draws the FlyHead on the provided Graphics2D object.
+	 * Method to draws the FlyHead on the provided Graphics2D object.
 	 * @param g2 The Graphics2D object on which the player will be drawn.
 	 */
 	public void Draw(Graphics2D g2)

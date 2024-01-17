@@ -37,18 +37,19 @@ public class GamePanel extends JPanel implements Runnable
 	public	double				elapsedTime;
 	public	EnemiesManager		enemiesManager;
 	public	ObjectManager		ObjectManager;
+
     /**
      * Costructor class GamePanel
      * Initializes the panel properties, sets up the game's dimensions, background color,
      * and key listener for player input.
-     */
+    */
 	public GamePanel()
 	{
 		FPS = 60;
 		elapsedTime = 0;
 
 		keyh = new KeyHandler();
-		mapManager = new TitleManager(this);
+		mapManager = new TitleManager(this, "/Resource/Maps/map_0");
 		gameManager = new GameManager(this);
 		player = new Player(this);
 		enemiesManager = new EnemiesManager(this);
@@ -64,8 +65,8 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
     /**
-     * Starts the game thread for the game loop
-     */
+     * Method that starts the game thread for the game loop
+    */
 	public void StartGameThread()
 	{
 		gameThread = new Thread(this);
@@ -73,9 +74,9 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
     /**
-     * The main game loop.
+     * Method that start the main game loop.
      * Updates and repaints the game at a specified FPS.
-     */
+    */
 	@Override
 	public void run() 
 	{
@@ -96,53 +97,59 @@ public class GamePanel extends JPanel implements Runnable
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				
 				elapsedTime += delta / FPS;
 
-				//repaint call paintComponent on each iteration 
 				repaint();
+
 				delta--;
 			}
 		}
 	}
 
     /**
-     * Updates the game logic.
+     * Method that updates the game logic.
      * Calls the update method for the player entity.
      * @throws IOException
      */
 	public void Update() throws IOException
 	{
-		cChecker.Update();
+		if(gameManager.isOnFinish())
+			gameManager.updateFinishGame();
 		
-		player.Update();
-
-		enemiesManager.Update();
-
-		ObjectManager.Update();
-
+		else if(gameManager.isOnGame())
+		{
+			cChecker.Update();
+			player.Update();
+			enemiesManager.Update();	
+			ObjectManager.Update();
+		}
 	}
 
     /**
-     * Overrides the paintComponent method to render the game components
-     * @param g The Graphics object used for rendering.
-     */
+     * Method that overrides the paintComponent method to render the game components
+     * @param g The Graphics object used for rendering
+    */
+   	@Override
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D)g;
-		
-		hud.Draw(g2);
-		
-		mapManager.Draw(g2);
-		
-		ObjectManager.Draw(g2);
 
-		player.Draw(g2);
-		
-		enemiesManager.Draw(g2);
-		
-		
+		if(gameManager.isOnFinish())
+			gameManager.drawFinishGame();
+
+		else if(gameManager.isOnGame())
+		{
+			hud.Draw(g2);
+			mapManager.Draw(g2);
+			ObjectManager.Draw(g2);
+			player.Draw(g2);
+			enemiesManager.Draw(g2);
+		}
+			
 		g2.dispose();
 	}
+
 }

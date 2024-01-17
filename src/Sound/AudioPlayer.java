@@ -13,68 +13,79 @@ import java.io.IOException;
  */
 public class AudioPlayer implements Runnable {
 
-    private File audioFile;
+	private File audioFile;
+    private volatile boolean isRunning = true;
+	
+	@Override
+	public void run() 
+	{
+		while (isRunning) {
+			try {
+				playAudio();
+			} catch (UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (LineUnavailableException e) {
+				e.printStackTrace();
+			}
+		}
 
+	}
 
-    public void run()
-    {
-        try {
-            playAudio();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
+	public AudioPlayer(String filePath) {
+		audioFile = new File(filePath);
+	}
 
-    public AudioPlayer(String filePath)
-    {
-        audioFile = new File(filePath);
-    }
+	public void ChangeMusic(String filePath)
+	{
+		audioFile = new File(filePath);
+	}
 
-    public void playAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException 
-    {
+	public void playAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
-        // Verifica che il file audio esista
-        if (!audioFile.exists()) {
-            System.out.println("Il file audio non esiste: ");
-            return;
-        }
+		// Verifica che il file audio esista
+		if (!audioFile.exists()) {
+			System.out.println("Il file audio non esiste: ");
+			return;
+		}
 
-        // Ottieni un'istanza di AudioInputStream
-        AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+		// Ottieni un'istanza di AudioInputStream
+		AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
 
-        // Ottieni un'istanza di Clip
-        Clip clip = AudioSystem.getClip();
+		// Ottieni un'istanza di Clip
+		Clip clip = AudioSystem.getClip();
 
-        // Apri il file audio e collega il Clip ad esso
-        clip.open(audioStream);
+		// Apri il file audio e collega il Clip ad esso
+		clip.open(audioStream);
 
-        // Avvia la riproduzione
-        clip.start();
+		// Avvia la riproduzione
+		clip.start();
+		
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
+		// Attendi la fine della riproduzione prima di chiudere
+		while (!clip.isRunning()) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 
-        // Attendi la fine della riproduzione prima di chiudere
-        while (!clip.isRunning()) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+		while (clip.isRunning()) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 
-        while (clip.isRunning()) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+		// Chiudi il Clip e rilascia le risorse
+		clip.close();
+		audioStream.close();
+	}
 
-        // Chiudi il Clip e rilascia le risorse
-        clip.close();
-        audioStream.close();
+	public void stopThread() {
+        isRunning = false;
     }
 }
-

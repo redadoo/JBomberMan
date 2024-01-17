@@ -19,7 +19,7 @@ import Src.lib.Vector2;
 /**
  * Class Player that contains fields for handling animation frames, storing sprite images for different directions,
  * and references to the game panel and key handler for input processing.
- */
+*/
 public class Player extends Entity implements Observer
 {
 	public	int							life;
@@ -35,15 +35,16 @@ public class Player extends Entity implements Observer
 	public	BombManager					bombManager;
 	public 	double						cooldownDamage;
 	public	boolean						takeDamage;
+	public	boolean						hoverBomb;
+
 	/**
 	 * Constructor class Player 
 	 * Initializes a player object with the specified parameters, including the game panel,
 	 * key handler, and title manager. Sets the initial position, size, and other properties of the player.
 	 * @param gp The GamePanel instance to which the player belongs.
 	 * @param keyH The KeyHandler responsible for handling player input.
-	 * @param mapManager The TitleManager providing map-related functionality.
-	 * @throws IOException
-	 */
+	 * @param mapManager The TitleManager providing map-related Methodality.
+	*/
 	public Player(GamePanel gp)
 	{
 		super(gp.mapManager.ReturnPlayerPos(), new Vector2(32,42), null);
@@ -59,9 +60,8 @@ public class Player extends Entity implements Observer
 	 * Initializes the player by creating sprite vectors, loading player images,
 	 * and setting up initial parameters such as speed, sprite index, and collision area.
 	 * Assumes the existence of player sprite images in specific directories.
-	 * @throws IOException
-	 */
-	public void InitPlayer()
+	*/
+	public void InitPlayer() 
 	{
 		getPlayerImage();
 		bombManager = new BombManager(gp);
@@ -70,25 +70,28 @@ public class Player extends Entity implements Observer
 		speed = 2;
 		spriteIndex = 0;
 		frameCount = 0;
-		life = 5;
+		life = 0;
 		point = 0;
+		hoverBomb = false;
 	}
 
 	/**
 	 * Loads player sprite images for different directions (front, back, left, right).
 	 * Populates the respective vectors with image resources for animation.
-	 */
-	public void getPlayerImage()
+	*/
+	public void getPlayerImage() 
 	{
 		RightVector = new Vector<BufferedImage>();
 		LeftVector = new Vector<BufferedImage>();
 		BackVector = new Vector<BufferedImage>();
 		FrontVector = new Vector<BufferedImage>();
 
-		gp.gameManager.transferData(this);
+		gp.gameManager.setAvatar(this);
+
 		Avatar += "Player/";
 
 		try {
+			
  			RightVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "RightSprite/PlayerRight_0.png")));
  			RightVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "RightSprite/PlayerRight_1.png")));
  			RightVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "RightSprite/PlayerRight_2.png")));
@@ -120,12 +123,14 @@ public class Player extends Entity implements Observer
 	}
 
 	/**
-	 * Manage the direction of player
-	 */
+	 * Method to manage the direction of player
+	 * @throws IOException
+	*/
 	public void HandlePlayerInput() throws IOException
 	{
 		if (spriteIndex == 4)
 			spriteIndex = 0;
+
 		// Reset sprite index if no keys are pressed.
 		if (keyH.anyKey == false)
 			spriteIndex = 1;
@@ -171,15 +176,19 @@ public class Player extends Entity implements Observer
 
 
 	/**
-	 * Updates the player's position and sprite based on user input and game logic.
-	 * Handles movement in four directions (up, down, left, right) and sprite animation.
+	 * Method to updates the player's position and sprite based on user input and game logic
+	 * Handles movement in four directions (up, down, left, right) and sprite animation
 	 * @throws IOException
-	 */
+	*/
 	public void Update() throws IOException
 	{
+		if (gp.mapManager == null)
+			return ;
+
 		int animationRatio;
 		int maxSpriteIndex;
 
+		//when player take damege 
 		if (takeDamage == true)
 		{
 			animationRatio = 20;
@@ -220,19 +229,24 @@ public class Player extends Entity implements Observer
 			}
 			frameCount = 0;
 		}
+	
 		// Increment frame count for animation.
 		frameCount++;
+	
 		// reset dir every frame
 		dir = new Vector2(0,0);
+	
 		//update bombmanager
 		bombManager.Update();
+
+		gp.gameManager.updateUserData(this);
 
 	}
 
 	/**
-	 * Draws the player on the provided Graphics2D object.
+	 * Method to draws the player on the provided Graphics2D object.
 	 * @param g2 The Graphics2D object on which the player will be drawn.
-	 */
+	*/
 	public void Draw(Graphics2D g2)
 	{
 		
@@ -244,9 +258,9 @@ public class Player extends Entity implements Observer
 	}
 
 	/**
-	 * Function to comunicate the status of player
-	 * @param o
-	 * @param arg
+ 	* Method to comunicate the status of player whrùen it change
+	* @param o The observable object that this observer is registered to
+	* @param arg The argument passed to the `notifyObservers` method
 	*/
 	@Override
 	public void update(Observable o, Object arg) 
@@ -260,7 +274,13 @@ public class Player extends Entity implements Observer
 		}
 	}
 
+	/**
+	 * Method to add points
+	*/
 	public void addPoint(int point){this.point += point;}
 
+	/**
+	 * Method to get points
+	*/
 	public int getPoint(){return this.point;}
 }

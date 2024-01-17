@@ -38,6 +38,8 @@ public class CollisionChecker extends Observable
 
 	public Boolean CheckTitle(Collider coll)
 	{
+		if (gp.mapManager == null)
+			return false;
 		for (int i = 0; i < gp.mapManager.mapTitleNum.length; i++) 
 		{
 			for (int j = 0; j < gp.mapManager.mapTitleNum[i].length; j++) 
@@ -51,6 +53,7 @@ public class CollisionChecker extends Observable
 				}
 			}
 		}
+
 		return false;
 	}
 

@@ -14,7 +14,7 @@ import Src.lib.Vector2;
 
 /**
  * Class to manage the enemies
- */
+*/
 public class EnemiesManager implements Observer 
 {
     
@@ -25,9 +25,8 @@ public class EnemiesManager implements Observer
 
     /**
      * Costructor class EnemiesManager
-     * @param gp
-     * @param mapManager
-     */
+     * @param gp the game panle where works
+    */
     public EnemiesManager(GamePanel gp)
     {
         this.gp = gp;
@@ -38,8 +37,8 @@ public class EnemiesManager implements Observer
     }
 
     /**
-     * Function to init the enemy
-     */
+     * Method to init the enemy
+    */
     private void initEnemy()
     {
         for (Vector2 posFlyhead : mapManager.returnTitlePos(TitleType.FlyHead)) {
@@ -51,11 +50,15 @@ public class EnemiesManager implements Observer
         }
     }
 
+    /**
+     * Method to get the list of enemies FlyHead
+     * @return list og FlyHead
+     */
     public ArrayList<FlyHead> GetListFlyHeads(){ return listFlyHeads; }
 
     /**
-     * Function to update the enemies during the game
-     */
+     * Method to update the enemies during the game
+    */
     public void Update()
     {
         for (FlyHead flyHead : listFlyHeads) {
@@ -64,8 +67,8 @@ public class EnemiesManager implements Observer
     }
 
     /**
-     * Function to draw the anemys sprites
-     * @param g2
+     * Method to draw the anemys sprites
+     * @param g2 the Graphics2D object that provides the drawing methods
      */
     public void Draw(Graphics2D g2)
     {
@@ -74,9 +77,14 @@ public class EnemiesManager implements Observer
         }
     }
 
+    /**
+     * Method to updates the state of the game when a FlyHead object changes its state
+     * @param o The observable object that this observer is registered to
+     * @param arg The argument passed to the `notifyObservers` method
+     */
     @Override
-    public void update(Observable o, Object arg) {
-
+    public void update(Observable o, Object arg) 
+    {
         for (FlyHead flyHead : listFlyHeads) {
             if ((FlyHead)arg == flyHead)
             {

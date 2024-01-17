@@ -48,7 +48,10 @@ public class Bomb extends Entity
 	}
 
 	/**
-	 * Handle the explosion
+	 * This method initializes the explosion animation at specific positions based on the given range of titles
+	 * @param rangeTitle The range of titles where the explosion should occur
+	 * @param explosionSpriteList The list of sprites used for the explosion animation
+	 * @param myTitlePos The position of the title that is causing the explosion
 	 * @throws IOException
 	 */
 	public void InitExplosion(ArrayList<Vector2> rangeTitle, ArrayList<Sprite> explosionSpriteList, Vector2 myTitlePos)
@@ -74,7 +77,7 @@ public class Bomb extends Entity
 	}
 
 	/**
-	 * Function to change sprite of the bomb
+	 * Methond to change sprite of the bomb
 	 */
 	@Override
     public void nextSprite()
