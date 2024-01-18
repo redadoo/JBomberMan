@@ -83,17 +83,6 @@ public class GameManager
 	public void death()
 	{
 		myGamestate = GameState.Finish;
-		System.out.println("Do you want to continue?");
-		Scanner myObj = new Scanner(System.in);
-		System.out.println("yes | no");
-		String continueChoice = myObj.nextLine();
-		try {
-			updateGameLose();
-		} catch (IOException e) { e.printStackTrace();}
-		if (continueChoice.contains("yes") || continueChoice.contains("y"))
-			Reset();
-		else if(continueChoice.contains("no") || continueChoice.contains("n"))
-			System.exit(0);
 	}
 
 	/**
@@ -102,31 +91,28 @@ public class GameManager
 	public void win()
 	{
 		myGamestate = GameState.Finish;
-		System.out.println("Do you want go to the next level?");
+		
 		Scanner myObj = new Scanner(System.in);
-		System.out.println("yes | no");
-		String continueChoice = myObj.nextLine();
-
-		if (continueChoice.contains("yes") || continueChoice.contains("y"))
-			nextLevel();
-		else if(continueChoice.contains("no") || continueChoice.contains("n"))
-			System.exit(0);
-	}
-
-	/**
-	 * Method to 
-	*/
-	public void updateFinishGame()
-	{
-
-	}
-
-	/**
-	 * Method to 
-	*/
-	public void drawFinishGame()
-	{
-
+		if (userController.getUserLevel() == 1)
+		{
+			System.out.println("Do you want go to the next level?");
+			System.out.println("yes | no");
+			String continueChoice = myObj.nextLine();
+			if (continueChoice.contains("yes") || continueChoice.contains("y"))
+				nextLevel();
+			else if(continueChoice.contains("no") || continueChoice.contains("n"))
+				System.exit(0);	
+		}
+		else if(userController.getUserLevel() == 2)
+		{
+			System.out.println("Do you want go to the level 1?");
+			System.out.println("yes | no");
+			String continueChoice = myObj.nextLine();
+			if (continueChoice.contains("yes") || continueChoice.contains("y"))
+				Reset();
+			else if(continueChoice.contains("no") || continueChoice.contains("n"))
+				System.exit(0);	
+		}
 	}
 
 	/**
@@ -141,8 +127,8 @@ public class GameManager
 		
 			manageFile.returnUserValue(userController);
 
-/* 			userController.updateView();
- */			myGamestate = GameState.Game;
+			userController.updateView();
+			myGamestate = GameState.Game;
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -212,7 +198,10 @@ public class GameManager
 	{
 		myGamestate = GameState.Finish;
 
-		gp.mapManager = new TitleManager(gp, "/Resource/Maps/map_0");
+		if(userController.getUserLevel() == 2)
+			gp.mapManager = new TitleManager(gp, "/Resource/Maps/map_0");
+		else if(userController.getUserLevel() == 1)
+			gp.mapManager = new TitleManager(gp, "/Resource/Maps/map_1");
 		gp.player = new Player(gp);
 		gp.enemiesManager = new EnemiesManager(gp);
 		gp.cChecker = new CollisionChecker(gp);
@@ -220,5 +209,6 @@ public class GameManager
 		gp.ObjectManager = new ObjectManager(gp);
 
 		myGamestate = GameState.Game;
+		userController.updateView();
 	}
 }

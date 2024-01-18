@@ -95,7 +95,7 @@ public class ManageFile
 			writer.write("\n");
 			writer.write("games won :0");
 			writer.write("\n");
-			writer.write("Actual level :0");
+			writer.write("Actual level :1");
 			writer.write("\n");
 			writer.write("points :0");
 			System.out.println("insert avatar number color:\n1 = White\n2 = Black\n3 = Blue\n4 = Orange");

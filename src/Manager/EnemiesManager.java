@@ -10,6 +10,7 @@ import Src.Entity.Entity;
 import Src.Entity.FlyHead;
 import Src.Main.GamePanel;
 import Src.Manager.TitleManager.TitleType;
+import Src.Title.Title;
 import Src.lib.Vector2;
 
 /**
@@ -43,7 +44,7 @@ public class EnemiesManager implements Observer
     {
         for (Vector2 posFlyhead : mapManager.returnTitlePos(TitleType.FlyHead)) {
             try {
-                listFlyHeads.add(new FlyHead(posFlyhead, new Vector2(32,42)));
+                listFlyHeads.add(new FlyHead(gp,posFlyhead, new Vector2(32,42)));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -62,7 +63,7 @@ public class EnemiesManager implements Observer
     public void Update()
     {
         for (FlyHead flyHead : listFlyHeads) {
-            flyHead.Update(gp);
+            flyHead.Update();
         }
     }
 
@@ -94,4 +95,5 @@ public class EnemiesManager implements Observer
             } 
         }
     }
+
 }

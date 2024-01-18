@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import Src.Main.GamePanel;
+import Src.Title.Title;
 import Src.lib.Vector2;
 
 
@@ -16,16 +18,17 @@ public class Alarm extends Entity
 
 	private int			frameCount;
 	private Boolean		haveTunnel;
-
+	private GamePanel	gp;
 	/**
 	 * Costructor class Alarm
 	 * @param SpritePath the path of all sprites
 	 * @param pos the pos to set the entity
 	 * @param size the size for the entity
 	*/
-	public Alarm (Vector2 pos, Vector2 size, Boolean haveTunnel)
+	public Alarm (GamePanel gp,Vector2 pos, Vector2 size, Boolean haveTunnel)
 	{
 		super(pos,size);
+		this.gp = gp;
 		this.haveTunnel = haveTunnel;
 		initAlarm();
 	}
@@ -73,9 +76,11 @@ public class Alarm extends Entity
 	 */
 	public void Draw(Graphics2D g2)
 	{
-		g2.drawImage(sprite,pos.x,pos.y,size.x,size.y,null);
+		g2.drawImage(sprite, pos.x, pos.y, size.x, size.y, null);
 	}
 
 	public Boolean getIsTunnel(){ return haveTunnel; }
+
+	public Title getTitle() { return gp.mapManager.GetTitleFromPos(pos,size);}
 	
 }

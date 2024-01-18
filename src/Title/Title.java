@@ -43,7 +43,7 @@ public class Title
 	 */
 	public Title(Vector2 pos, Vector2 size)
 	{
-		this.pos = pos;
+		this.pos = pos/* new Vector2(pos.x + (size.x / 2), pos.y + (size.y / 2)) */;
 		this.size = size;
 		coll = new Collider(pos, size.x, size.y);
 	}

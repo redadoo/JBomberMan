@@ -10,7 +10,7 @@ public class KeyHandler implements KeyListener
 {
 
   	//Flags indicating the state of specific keys
-	public boolean upPressed,downPressed,leftPressed,rightPressed,anyKey,space,debug; 
+	public boolean upPressed,downPressed,leftPressed,rightPressed,anyKey,space,debug,enter; 
 
     /**
      * Overrides the keyTyped method from KeyListener
@@ -45,6 +45,8 @@ public class KeyHandler implements KeyListener
 			leftPressed = true;
 		if(code == KeyEvent.VK_D)
 			rightPressed = true;
+		if(code == KeyEvent.VK_ENTER)
+			enter = true;
 	}
 
     /**
@@ -69,6 +71,8 @@ public class KeyHandler implements KeyListener
 			leftPressed = false;
 		if(code == KeyEvent.VK_D)
 			rightPressed = false;
+		if(code == KeyEvent.VK_ENTER)
+			enter = false;
 	}
 	
 }

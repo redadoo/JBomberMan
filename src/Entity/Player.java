@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 import Src.Main.GamePanel;
 import Src.Manager.BombManager;
-import Src.Manager.TitleManager;
+import Src.Title.Title;
 import Src.Utils.KeyHandler;
 import Src.lib.Collider;
 import Src.lib.Vector2;
@@ -42,8 +42,6 @@ public class Player extends Entity implements Observer
 	 * Initializes a player object with the specified parameters, including the game panel,
 	 * key handler, and title manager. Sets the initial position, size, and other properties of the player.
 	 * @param gp The GamePanel instance to which the player belongs.
-	 * @param keyH The KeyHandler responsible for handling player input.
-	 * @param mapManager The TitleManager providing map-related Methodality.
 	*/
 	public Player(GamePanel gp)
 	{
@@ -51,8 +49,6 @@ public class Player extends Entity implements Observer
 		
 		this.gp = gp;
 		this.keyH = gp.keyh;
-
-		cooldownDamage = 0;
 		InitPlayer();
 	}
 
@@ -70,9 +66,11 @@ public class Player extends Entity implements Observer
 		speed = 2;
 		spriteIndex = 0;
 		frameCount = 0;
-		life = 5;
+		life = 0;
 		point = 0;
 		hoverBomb = false;
+		cooldownDamage = 0;
+
 	}
 
 	/**
@@ -136,7 +134,7 @@ public class Player extends Entity implements Observer
 			spriteIndex = 1;
 
 		if(keyH.space == true)
-			bombManager.PlaceBomb(coll.rec);
+			bombManager.PlaceBomb(getTitle());
 
 		if(keyH.upPressed == true)
 		{
@@ -159,16 +157,21 @@ public class Player extends Entity implements Observer
 			setSprite(RightVector.elementAt(spriteIndex));
 		}
 
-		coll = new Collider(
+		
+		Collider tmp = new Collider(
 			new Vector2((pos.x + (dir.x * speed)) + 3, (pos.y + (dir.y * speed)) + 20), 
 			size.x - 6,
 			size.y - 15);
 
 		// Check for collisions with map titles.
-		isCollided = gp.cChecker.CheckTitle(coll);
-
-		if(isCollided == false && gp.mapManager.isEntityInsidePerimeter(coll))
+		isCollided = gp.cChecker.CheckTitle(tmp);
+		
+		if(isCollided == false && gp.mapManager.isEntityInsidePerimeter(tmp))
 		{
+			coll = new Collider(
+				new Vector2((pos.x + (dir.x * speed)) + 3, (pos.y + (dir.y * speed)) + 20), 
+				size.x - 6,
+				size.y - 15);
 			pos.x += (dir.x * speed);
 			pos.y += (dir.y * speed);
 		}
@@ -251,9 +254,11 @@ public class Player extends Entity implements Observer
 		g2.drawImage(sprite,pos.x,pos.y,size.x,size.y,null);
 		
 		bombManager.Draw(g2);
-		g2.drawRect(coll.rec.x, coll.rec.y, coll.rec.width , coll.rec.height);
-		
-	}
+
+
+		Vector2 newPos = new Vector2(pos.x + (size.x) / 2,pos.y +(size.y / 2));
+
+ 	}
 
 	/**
  	* Method to comunicate the status of player whrùen it change
@@ -281,4 +286,9 @@ public class Player extends Entity implements Observer
 	 * Method to get points
 	*/
 	public int getPoint(){return this.point;}
+
+	public Title getTitle() 
+	{ 
+		return gp.mapManager.GetTitleFromPos(coll.pos,size);
+	}
 }

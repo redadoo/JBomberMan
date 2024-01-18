@@ -115,7 +115,9 @@ public class GamePanel extends JPanel implements Runnable
 	public void Update() throws IOException
 	{
 		if(gameManager.isOnFinish())
-			gameManager.updateFinishGame();
+		{
+			hud.UpdateGameOver();
+		}
 		
 		else if(gameManager.isOnGame())
 		{
@@ -138,7 +140,9 @@ public class GamePanel extends JPanel implements Runnable
 		Graphics2D g2 = (Graphics2D)g;
 
 		if(gameManager.isOnFinish())
-			gameManager.drawFinishGame();
+		{
+			hud.DrawGameOver(g2);
+		}
 
 		else if(gameManager.isOnGame())
 		{

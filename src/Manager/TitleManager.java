@@ -113,20 +113,15 @@ public class TitleManager
 
 					int num = Integer.parseInt(numbers[col]);
 
-					mapTitleNum[col][row] = new Title(new Vector2(StartPos.x + col * 32, StartPos.y + row * 32),
-							new Vector2(32, 32));
-
+					mapTitleNum[col][row] = new Title(new Vector2(StartPos.x + col * 32, StartPos.y + row * 32), new Vector2(32, 32));
+					
 					if (num == 0 || num >= 2)
 						mapTitleNum[col][row].sprite = ImageIO.read(getClass().getResourceAsStream("/Resource/MapTitles/grass_title.png"));
 					if (num == 1) 
-					{
 						mapTitleNum[col][row].sprite = ImageIO.read(getClass().getResourceAsStream("/Resource/MapTitles/obstacle.png"));
+					if (num == 1 || num == 3 || num == 6)
 						mapTitleNum[col][row].collision = true;
-					}
-					if (num == 3)
-					{
-						mapTitleNum[col][row].collision = true;
-					}
+
 					mapTitleNum[col][row].mapTitle = num;
 					mapTitleNum[col][row].titleType = TitleType.values()[num];
 					mapTitleNum[col][row].matrixPos = new Vector2(col,row);
@@ -192,7 +187,7 @@ public class TitleManager
 		{
 			for (int j = 0; j < mapTitleNum[i].length; j++) 
 			{
-				if (mapTitleNum[i][j].mapTitle == 0 && mapTitleNum[i][j].coll.rec.intersects(rec)) 
+				if (mapTitleNum[i][j].coll.rec.intersects(rec)) 
 					return mapTitleNum[i][j];
 			}
 		}
@@ -204,13 +199,15 @@ public class TitleManager
 	 * @param pos The position for which to retrieve the corresponding Title object.
 	 * @return A Title object representing the title on the map at the specified position, or null if not found.
 	*/
-	public Title GetTitleFromPos(Vector2 pos) 
+	public Title GetTitleFromPos(Vector2 pos, Vector2 size) 
 	{
+		pos = new Vector2(pos.x + (size.x) / 2,pos.y +(size.y / 2));
+
 		for (int i = 0; i < mapTitleNum.length; i++)
 		{
 			for (int j = 0; j < mapTitleNum[i].length; j++)
 			{
-				if(mapTitleNum[i][j].pos == pos || mapTitleNum[i][j].coll.rec.contains(pos.x, pos.y))
+				if (mapTitleNum[i][j].coll.rec.contains(pos.x, pos.y))
 				{
 					return mapTitleNum[i][j];
 				}
@@ -253,17 +250,16 @@ public class TitleManager
 	 * @param pos The position from which to find nearby titles.
 	 * @return ArrayList<Vector2> A list of indices for the titles within range.
 	 */
-	public ArrayList<Vector2> getRangedTitleIndex(Vector2 pos) 
+	public ArrayList<Vector2> getRangedTitleIndex(Vector2 pos, Vector2 size) 
 	{
 		ArrayList<Vector2> rangeTitles = new ArrayList<Vector2>();
 
-		Title title = GetTitleFromPos(pos);
+		Title title = GetTitleFromPos(pos,size);
 
 		for (int i = 0; i < mapTitleNum.length; i++) 
 		{
 			for (int j = 0; j < mapTitleNum[i].length; j++) 
 			{
-
 				if (mapTitleNum[i][j].titleType != TitleType.Obstacle) 
 				{
 					Vector2 indexs = title.matrixPos;
@@ -316,11 +312,11 @@ public class TitleManager
 	 * @param pos The position from which to find nearby titles.
 	 * @return ArrayList<Vector2> A list of positions for the titles within range.
 	*/
-	public ArrayList<Vector2> getRangedTitlePos(Vector2 pos) 
+	public ArrayList<Vector2> getRangedTitlePos(Vector2 pos,Vector2 size) 
 	{
 		ArrayList<Vector2> rangeTitles = new ArrayList<Vector2>();
 
-		Title title = GetTitleFromPos(pos);
+		Title title = GetTitleFromPos(pos,size);
 
 		for (int i = 0; i < mapTitleNum.length; i++) 
 		{
@@ -330,13 +326,13 @@ public class TitleManager
 				{
 					Vector2 indexs = title.matrixPos;
 					if (i == indexs.x + 1 && j == indexs.y && !rangeTitles.contains(mapTitleNum[i][j].pos))
-						rangeTitles.add(mapTitleNum[i][j].pos);
+						rangeTitles.add(mapTitleNum[i][j].matrixPos);
 					if (i == indexs.x - 1 && j == indexs.y && !rangeTitles.contains(mapTitleNum[i][j].pos))
-						rangeTitles.add(mapTitleNum[i][j].pos);
+						rangeTitles.add(mapTitleNum[i][j].matrixPos);
 					if (i == indexs.x && j == indexs.y + 1 && !rangeTitles.contains(mapTitleNum[i][j].pos))
-						rangeTitles.add(mapTitleNum[i][j].pos);
+						rangeTitles.add(mapTitleNum[i][j].matrixPos);
 					if (i == indexs.x && j == indexs.y - 1 && !rangeTitles.contains(mapTitleNum[i][j].pos))
-						rangeTitles.add(mapTitleNum[i][j].pos);
+						rangeTitles.add(mapTitleNum[i][j].matrixPos);
 				}
 			}
 		}

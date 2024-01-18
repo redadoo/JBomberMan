@@ -10,6 +10,7 @@ import java.util.Observer;
 import javax.imageio.ImageIO;
 
 import Src.Main.GamePanel;
+import Src.lib.Vector2;
 
 public class HUD
 {
@@ -18,13 +19,25 @@ public class HUD
 	private int							offset;
 	private ArrayList<BufferedImage>	numbers;
 	private int							lenghtInt;
+	private BufferedImage				gameOverHud;
+	private BufferedImage				indicator;
+	private ArrayList<Vector2> 			listposIndicator;
+	private Vector2 					posIndicator;
+	private BufferedImage				gameWonHud;
 
 	public HUD(GamePanel gp)
 	{
 		this.gp = gp;
 		numbers = new ArrayList<BufferedImage>();
 		offset = 170;
+		listposIndicator = new ArrayList<Vector2>();
+		listposIndicator.add(new Vector2(140,230));
+		listposIndicator.add(new Vector2(290,230));
+		posIndicator = listposIndicator.get(0);
 		try {
+
+			gameOverHud = ImageIO.read(getClass().getResourceAsStream("/Resource/Screen/GameOver.png"));
+			indicator = ImageIO.read(getClass().getResourceAsStream("/Resource/Screen/indicator.png"));
 
 			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_00.png")));
 			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_01.png")));
@@ -42,12 +55,6 @@ public class HUD
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-
-	public void Update()
-	{
-
 	}
 
 	/**
@@ -75,5 +82,26 @@ public class HUD
 				g2.drawImage(numbers.get(indexPoint),offset + i * 20,17,17,28,null);
 			}
 		}
+	}
+
+	
+	public void UpdateGameOver()
+	{
+		if(gp.keyh.rightPressed == true)
+			posIndicator = listposIndicator.get(1);
+		if(gp.keyh.leftPressed == true)
+			posIndicator = listposIndicator.get(0);
+			
+		if (gp.keyh.enter == true && posIndicator == listposIndicator.get(0))
+			gp.gameManager.Reset();
+		else if(gp.keyh.enter == true && posIndicator == listposIndicator.get(1))
+			System.exit(0);
+	}
+
+	public void DrawGameOver(Graphics2D g2)
+	{
+		g2.drawImage(gameOverHud,0,0,520,470,null);
+
+		g2.drawImage(indicator,posIndicator.x,posIndicator.y,15,25,null);
 	}
 }

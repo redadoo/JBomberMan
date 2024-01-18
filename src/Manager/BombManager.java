@@ -91,15 +91,17 @@ public class BombManager
 	 * To place the bomb in the right way
 	 * @param rec to manage the info (pos, state) 
 	 */
-	public void PlaceBomb(Rectangle rec) throws IOException
+	public void PlaceBomb(Title title) throws IOException
 	{
 		for (Bomb bomb : bombsList) {
 			if (bomb.myState == BombState.Available)
 			{
-				Title title = gp.mapManager.GetTitleFromRec(rec);
-				if (title != null)
+				if(title.matrixPos.equals(new Vector2(0, 0)))
+					bomb.pos = new Vector2(48, 90);
+				else
 					bomb.pos = title.pos;
 				bomb.myState = BombState.NotAvailable;
+				return ;
 			}
 		}
 	}
@@ -138,7 +140,7 @@ public class BombManager
 				// Bomb explosion
 				if(gp.elapsedTime >= bomb.timerExplosion + 2.5)
 				{
-					bomb.InitExplosion(gp.mapManager.getRangedTitleIndex(bomb.pos), explosionSpriteList,gp.mapManager.GetTitleFromPos(bomb.pos).matrixPos);
+					bomb.InitExplosion(gp.mapManager.getRangedTitleIndex(bomb.pos,bomb.size), explosionSpriteList,gp.mapManager.GetTitleFromPos(bomb.pos,bomb.size).matrixPos);
 					bomb.timerExplosion = 0;
 					bomb.myState = BombState.Exploded;
 				}
@@ -166,8 +168,12 @@ public class BombManager
 			return ;
 
 		for (Bomb bomb : bombsList) {
+
 			if (bomb.myState == BombState.NotAvailable)
-				g2.drawImage(bomb.sprite, bomb.pos.x + 1, bomb.pos.y,bomb.size.x,bomb.size.y,null);
+			{
+				g2.drawImage(bomb.sprite, bomb.pos.x, bomb.pos.y, bomb.size.x, bomb.size.y,null);
+			}
+
 			// Bomb exploded
 			if (bomb.myState == BombState.Exploded)
 			{

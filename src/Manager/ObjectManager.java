@@ -40,9 +40,9 @@ public class ObjectManager implements Observer
 		for (Vector2 posAlarm : gp.mapManager.returnTitlePos(TitleType.Alarm)) 
 		{
 			if (gp.mapManager.returnTitlePos(TitleType.Tunnel).contains(posAlarm))
-				listAlarm.add(new Alarm(posAlarm,new Vector2(33,35),true));
+				listAlarm.add(new Alarm(gp,posAlarm,new Vector2(33,35),true));
 			else
-				listAlarm.add(new Alarm(posAlarm,new Vector2(33,35),false));
+				listAlarm.add(new Alarm(gp,posAlarm,new Vector2(33,35),false));
 		}
 	}
 
@@ -85,7 +85,7 @@ public class ObjectManager implements Observer
 		{
 			if (posAlarm == alarm.pos)
 			{
-				gp.mapManager.GetTitleFromPos(alarm.pos).collision = false;
+				gp.mapManager.GetTitleFromPos(alarm.pos,alarm.size).collision = false;
 			}
 		}
 	}

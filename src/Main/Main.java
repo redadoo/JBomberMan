@@ -3,8 +3,6 @@ package Src.Main;
 import java.io.IOException;
 
 import Src.Sound.AudioPlayer;
-import Src.User.User;
-import Src.Utils.ManageFile;
 import Src.Utils.Window;
 
 /**

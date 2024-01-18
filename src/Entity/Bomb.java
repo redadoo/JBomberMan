@@ -52,15 +52,13 @@ public class Bomb extends Entity
 	 * @param rangeTitle The range of titles where the explosion should occur
 	 * @param explosionSpriteList The list of sprites used for the explosion animation
 	 * @param myTitlePos The position of the title that is causing the explosion
-	 * @throws IOException
 	 */
 	public void InitExplosion(ArrayList<Vector2> rangeTitle, ArrayList<Sprite> explosionSpriteList, Vector2 myTitlePos)
 	{
 		myExplosionSprite.put(explosionSpriteList.get(0),new Vector2(pos.x,pos.y - 5));
-
+		//Place the explosions
 		for (Vector2 titlePos :  rangeTitle) 
 		{
-			//Place the explosions			
 			// Down
 			if (titlePos.y == myTitlePos.y + 1)
 				myExplosionSprite.put(explosionSpriteList.get(3), new Vector2(pos.x - 1, pos.y + 20));

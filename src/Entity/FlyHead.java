@@ -9,6 +9,7 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 
 import Src.Main.GamePanel;
+import Src.Title.Title;
 import Src.lib.Vector2;
 
 /**
@@ -19,18 +20,19 @@ public class FlyHead extends Entity
 	private int        					pointDrop = 100;
 	private	Vector<BufferedImage>		FrontVector; // Vector for front-facing Enemy sprites.
 	private	Vector<BufferedImage>		BackVector;// Vector for back-facing Enemy sprites.
-	
+	private GamePanel					gp;
 	/**
 	 * Costructor class FlyHead
 	 * @param pos the position where set the player 
 	 * @param size the size to be assegn to player
 	 * @throws IOException
 	*/
-	public FlyHead(Vector2 pos, Vector2 size) throws IOException
+	public FlyHead(GamePanel gp,Vector2 pos, Vector2 size) throws IOException
 	{
 		super(new Vector2(pos.x,pos.y - 10), size);
 		FrontVector = new Vector<BufferedImage>();
 		BackVector = new Vector<BufferedImage>();
+		this.gp = gp; 
 		getflyHeadImage();
 		initFlyHead();
 	}
@@ -96,10 +98,8 @@ public class FlyHead extends Entity
 	/**
 	 * Method to update the status of enemy
 	 */
-	public void Update(GamePanel gp)
+	public void Update()
 	{
-		if (gp.mapManager == null)
-			return ;
 
 		coll.setPos(new Vector2((pos.x + (dir.x * speed)) + 3, (pos.y + (dir.y * speed)) + 20));
 		coll.rec.height = size.x - 6; 
@@ -140,8 +140,12 @@ public class FlyHead extends Entity
 	{
 		g2.drawImage(sprite,pos.x,pos.y,size.x,size.y,null);
 		
-		g2.drawRect(coll.rec.x, coll.rec.y, coll.rec.width , coll.rec.height);
+		
+		Vector2 realPos = new Vector2(pos.x + (size.x / 2), pos.y + (size.y / 2));
 
 	}
+
+	public Title getTitle() { 		
+		return gp.mapManager.GetTitleFromPos(pos,size);}
 
 }

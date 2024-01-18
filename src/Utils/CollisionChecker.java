@@ -11,7 +11,6 @@ import Src.Entity.Player;
 import Src.Main.GamePanel;
 import Src.Manager.EnemiesManager;
 import Src.Manager.TitleManager;
-import Src.Title.Title;
 import Src.lib.Collider;
 import Src.lib.Vector2;
 
@@ -74,20 +73,21 @@ public class CollisionChecker extends Observable
 			
 			if (bomb.myState == Bomb.BombState.Exploded)
 			{
-				if (titleManager.GetTitleFromPos(bomb.pos).coll.rec.intersects(player.coll.rec) == true)
+				if (titleManager.GetTitleFromPos(bomb.pos, bomb.size).coll.rec.intersects(player.coll.rec) == true)
 				{
 					player.update(this, true);
 				}
-				for (Vector2 titlePos : titleManager.getRangedTitlePos(bomb.pos)) 
+
+				for (Vector2 titlePos : titleManager.getRangedTitlePos(bomb.pos, bomb.size)) 
 				{
-					if (titleManager.GetTitleFromPos(titlePos).coll.rec.intersects(player.coll.rec) == true)
+					if (titlePos.equals(player.getTitle().matrixPos))
 					{
 						player.update(this, true);
 					}
 
 					for (FlyHead flyHead : enemiesManager.GetListFlyHeads()) 
 					{
-						if(titleManager.GetTitleFromPos(titlePos).coll.rec.intersects(flyHead.coll.rec) == true)
+						if(titlePos.equals(flyHead.getTitle().matrixPos) == true)
 						{
 							enemiesManager.update(this, flyHead);
 							break ;
@@ -96,7 +96,7 @@ public class CollisionChecker extends Observable
 
 					for (Alarm alarm : gp.ObjectManager.getAlarmList()) 
 					{
-						if(titleManager.GetTitleFromPos(titlePos).coll.rec.intersects(alarm.coll.rec) == true)
+						if(titlePos.equals(alarm.getTitle().matrixPos))
 						{
 							gp.ObjectManager.update(this, alarm);
 							break ;
