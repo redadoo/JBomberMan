@@ -7,7 +7,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Src.Entity.BrightHead;
-import Src.Entity.Entity;
 import Src.Entity.FlyHead;
 import Src.Main.GamePanel;
 import Src.Manager.TitleManager.TitleType;

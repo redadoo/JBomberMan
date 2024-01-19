@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
@@ -18,12 +17,10 @@ public class HUD
 	private BufferedImage				hud;
 	private int							offset;
 	private ArrayList<BufferedImage>	numbers;
-	private int							lenghtInt;
 	private BufferedImage				gameOverHud;
 	private BufferedImage				indicator;
 	private ArrayList<Vector2> 			listposIndicator;
 	private Vector2 					posIndicator;
-	private BufferedImage				gameWonHud;
 
 	public HUD(GamePanel gp)
 	{

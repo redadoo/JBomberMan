@@ -1,8 +1,6 @@
 package Src.Utils;
 
-import java.awt.Rectangle;
 import java.util.Observable;
-import java.util.Observer;
 
 import Src.Entity.Alarm;
 import Src.Entity.Bomb;
@@ -12,7 +10,6 @@ import Src.Entity.Player;
 import Src.Main.GamePanel;
 import Src.Manager.EnemiesManager;
 import Src.Manager.TitleManager;
-import Src.Title.Title;
 import Src.lib.Collider;
 import Src.lib.Vector2;
 

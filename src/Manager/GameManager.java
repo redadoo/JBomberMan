@@ -1,7 +1,5 @@
 package Src.Manager;
 
-import java.awt.Font;
-import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -12,7 +10,6 @@ import Src.User.UserController;
 import Src.User.UserView;
 import Src.Utils.CollisionChecker;
 import Src.Utils.HUD;
-import Src.Utils.KeyHandler;
 import Src.Utils.ManageFile;
 
 /**
@@ -22,7 +19,6 @@ public class GameManager
 {
 
 	private GamePanel   	gp;
-	private KeyHandler  	keyH;
 	private User			user;
 	private UserView 		userView;
 	private ManageFile		manageFile;
@@ -46,7 +42,6 @@ public class GameManager
 	public GameManager(GamePanel gp)
 	{
 		this.gp = gp;
-		this.keyH = gp.keyh;
 		
 		user = new User("");
 		userView = new UserView();
@@ -98,6 +93,7 @@ public class GameManager
 			System.out.println("Do you want go to the next level?");
 			System.out.println("yes | no");
 			String continueChoice = myObj.nextLine();
+			myObj.close();
 			if (continueChoice.contains("yes") || continueChoice.contains("y"))
 				nextLevel();
 			else if(continueChoice.contains("no") || continueChoice.contains("n"))
