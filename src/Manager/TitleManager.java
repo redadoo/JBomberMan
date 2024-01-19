@@ -166,10 +166,14 @@ public class TitleManager
 	 * @return The Vector2 representing the player's position. If not found, returns a default Vector2.
 	*/
 	public Vector2 ReturnPlayerPos() {
-		for (int i = 0; i < mapTitleNum.length; i++) {
-			for (int j = 0; j < mapTitleNum[i].length; j++) {
+		for (int i = 0; i < mapTitleNum.length; i++) 
+		{
+			for (int j = 0; j < mapTitleNum[i].length; j++) 
+			{
 				if (mapTitleNum[i][j].mapTitle == 2)
-					return mapTitleNum[i][j].pos;
+				{
+					return new Vector2(mapTitleNum[i][j].pos.x, mapTitleNum[i][j].pos.y - 15);
+				}
 			}
 		}
 		// Return default Vector2 if player position is not found.

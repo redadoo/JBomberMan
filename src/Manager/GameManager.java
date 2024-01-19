@@ -27,7 +27,7 @@ public class GameManager
 	private UserView 		userView;
 	private ManageFile		manageFile;
 	private GameState   	myGamestate;
-	private UserController	userController;
+	public  UserController	userController;
 
 	/***
 	 * States of game
@@ -200,13 +200,18 @@ public class GameManager
 		myGamestate = GameState.Finish;
 
 		if(userController.getUserLevel() == 2)
+		{
+			gp.player = new Player(gp);
 			gp.mapManager = new TitleManager(gp, "/Resource/Maps/map_0");
+			gp.enemiesManager = new EnemiesManager(gp);
+		}
 		else if(userController.getUserLevel() == 1)
+		{
+			userController.setUserLevel(2);
 			gp.mapManager = new TitleManager(gp, "/Resource/Maps/map_1");
-		gp.player = new Player(gp);
-		gp.enemiesManager = new EnemiesManager(gp);
-		gp.cChecker = new CollisionChecker(gp);
-		gp.hud = new HUD(gp);
+			gp.enemiesManager = new EnemiesManager(gp);
+			gp.player.resetPos();
+		}
 		gp.ObjectManager = new ObjectManager(gp);
 
 		myGamestate = GameState.Game;

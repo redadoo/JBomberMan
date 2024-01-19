@@ -59,16 +59,19 @@ public class CollisionChecker extends Observable
 		return false;
 	}
 
-	public boolean CheckBomb(Title title)
+	public boolean CheckBomb(Collider coll)
 	{
 		for (Bomb bomb : player.bombManager.getBombList()) 
 		{
-			if(bomb.isPlayerHover == false && bomb.pos == title.pos)
+			if (bomb.myState == Bomb.BombState.Placed)
 			{
-				return true;
+				if(coll.rec.intersects(bomb.getTitle().coll.rec) == true)
+				{
+					return false;
+				}
 			}
 		}
-		return false;
+		return true;
 	}
 
 	/**

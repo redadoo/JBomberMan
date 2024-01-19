@@ -335,4 +335,9 @@ public class Player extends Entity implements Observer
 
 		speed += 1;
 	}
+
+	public void resetPos()
+	{
+		setPos(gp.mapManager.ReturnPlayerPos());
+	}
 }

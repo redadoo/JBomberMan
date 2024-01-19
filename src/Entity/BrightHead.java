@@ -95,7 +95,8 @@ public class BrightHead extends Entity {
 			size.x - 6,
 			size.y - 15);
 
-		isCollided = gp.mapManager.isEntityInsidePerimeter(tmp) && !gp.cChecker.CheckTitle(tmp) ? false : true; 
+		isCollided = gp.mapManager.isEntityInsidePerimeter(tmp) && !gp.cChecker.CheckTitle(tmp) && gp.cChecker.CheckBomb(tmp) ? false : true; 
+		
 		if (!isCollided)
 		{
 			coll = tmp;
