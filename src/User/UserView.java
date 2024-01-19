@@ -32,7 +32,7 @@ public class UserView
 
 		System.out.print("Nickname :" + nickname);
 		System.out.print("\n");
-		System.out.print("Total game : " + (matchLose + match));
+		System.out.print("Total game : " + (matchLose + matchWon));
 		System.out.print("\n");
 		System.out.print("game lost : " + matchLose);
 		System.out.print("\n");

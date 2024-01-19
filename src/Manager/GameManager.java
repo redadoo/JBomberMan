@@ -1,7 +1,6 @@
 package Src.Manager;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import Src.Entity.Player;
 import Src.Main.GamePanel;
@@ -109,6 +108,7 @@ public class GameManager
 			myGamestate = GameState.OnChangeLevel;
 		else 
 			myGamestate = GameState.Finish;
+		userController.updateView();
 	}
 
 	/**
@@ -195,8 +195,9 @@ public class GameManager
 		gp.hud = new HUD(gp);
 		gp.ObjectManager = new ObjectManager(gp);
 		userController.setUsermatch(userController.getUsermatch() + 1);
-
+		userController.setUserLevel(1);
 		myGamestate = GameState.Game;
+		userController.updateView();
 	}
 
 	/**
