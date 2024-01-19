@@ -81,5 +81,12 @@ public class Entity
 			spriteIndex = 0;
 	}
 
+	public void setPos(Vector2 pos)
+	{
+		this.pos = pos;
+		coll.pos = pos;
+		coll.rec.x = pos.x;
+		coll.rec.y = pos.y;
+	}
 	
 }

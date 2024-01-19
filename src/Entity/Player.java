@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
+import Src.Entity.Bomb.BombState;
 import Src.Main.GamePanel;
 import Src.Manager.BombManager;
 import Src.Title.Title;
@@ -35,7 +36,6 @@ public class Player extends Entity implements Observer
 	public	BombManager					bombManager;
 	public 	double						cooldownDamage;
 	public	boolean						takeDamage;
-	public	boolean						hoverBomb;
 
 	/**
 	 * Constructor class Player 
@@ -68,7 +68,6 @@ public class Player extends Entity implements Observer
 		frameCount = 0;
 		life = 0;
 		point = 0;
-		hoverBomb = false;
 		cooldownDamage = 0;
 
 	}
@@ -76,7 +75,7 @@ public class Player extends Entity implements Observer
 	/**
 	 * Loads player sprite images for different directions (front, back, left, right).
 	 * Populates the respective vectors with image resources for animation.
-	*/
+	 */
 	public void getPlayerImage() 
 	{
 		RightVector = new Vector<BufferedImage>();
@@ -134,7 +133,9 @@ public class Player extends Entity implements Observer
 			spriteIndex = 1;
 
 		if(keyH.space == true)
+		{
 			bombManager.PlaceBomb(getTitle());
+		}
 
 		if(keyH.upPressed == true)
 		{
@@ -165,16 +166,41 @@ public class Player extends Entity implements Observer
 
 		// Check for collisions with map titles.
 		isCollided = gp.cChecker.CheckTitle(tmp);
-		
+			
+		for (Bomb bomb : bombManager.getBombList()) 
+		{
+			if (bomb.myState == BombState.Placed)
+			{
+				if (bomb.isPlayerHover && !bomb.coll.rec.intersects(tmp.rec))
+				{
+					System.out.println("nazione");
+					bomb.isPlayerHover = false;
+				}
+				if(gp.cChecker.CheckTitle(tmp) == false)
+				{
+					if (!bomb.isPlayerHover && bomb.coll.rec.intersects(tmp.rec))
+					{
+						System.out.println("levante");
+						isCollided = true;
+					}					
+				}
+				else
+					isCollided = gp.cChecker.CheckTitle(tmp);
+			}
+		}
+			
+
 		if(isCollided == false && gp.mapManager.isEntityInsidePerimeter(tmp))
 		{
 			coll = new Collider(
 				new Vector2((pos.x + (dir.x * speed)) + 3, (pos.y + (dir.y * speed)) + 20), 
 				size.x - 6,
 				size.y - 15);
+
 			pos.x += (dir.x * speed);
 			pos.y += (dir.y * speed);
 		}
+
 	}
 
 
@@ -214,10 +240,11 @@ public class Player extends Entity implements Observer
 		}
 		else
 		{
-			animationRatio = 15;
+			animationRatio = 12;
 			maxSpriteIndex = 3;
 			HandlePlayerInput();
 		}
+
 		if (frameCount % animationRatio == 0)
 		{
 			spriteIndex++;
@@ -239,7 +266,7 @@ public class Player extends Entity implements Observer
 	
 		//update bombmanager
 		bombManager.Update();
-
+		
 		gp.gameManager.updateUserData(this);
 
 	}
@@ -250,14 +277,9 @@ public class Player extends Entity implements Observer
 	*/
 	public void Draw(Graphics2D g2)
 	{
-		
-		g2.drawImage(sprite,pos.x,pos.y,size.x,size.y,null);
-		
+		g2.drawImage(sprite,pos.x, pos.y, size.x, size.y,null);
+		g2.drawRect(coll.rec.x,coll.rec.y,coll.rec.width,coll.rec.height);
 		bombManager.Draw(g2);
-
-
-		Vector2 newPos = new Vector2(pos.x + (size.x) / 2,pos.y +(size.y / 2));
-
  	}
 
 	/**
@@ -287,8 +309,16 @@ public class Player extends Entity implements Observer
 	*/
 	public int getPoint(){return this.point;}
 
-	public Title getTitle() 
-	{ 
-		return gp.mapManager.GetTitleFromPos(coll.pos,size);
-	}
+	/**
+	 * Retrieves the title from the specified position and size using the MapManager.
+	 *
+	 * This method utilizes the MapManager to retrieve the title located at the specified
+	 * position and size within the map. The MapManager is responsible for managing the
+	 * mapping of positions to titles.
+	 *
+	 * @return The title located at the specified position and size.
+	 *  
+	 */
+	public Title getTitle() { return gp.mapManager.GetTitleFromPos(coll.pos,size); }
+	
 }

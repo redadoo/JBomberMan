@@ -97,10 +97,10 @@ public class BombManager
 			if (bomb.myState == BombState.Available)
 			{
 				if(title.matrixPos.equals(new Vector2(0, 0)))
-					bomb.pos = new Vector2(48, 90);
+					bomb.setPos(new Vector2(48, 90));
 				else
-					bomb.pos = title.pos;
-				bomb.myState = BombState.NotAvailable;
+					bomb.setPos(title.pos);
+				bomb.myState = BombState.Placed;
 				return ;
 			}
 		}
@@ -111,8 +111,8 @@ public class BombManager
 	*/
 	public void Update()
 	{
-		for (Bomb bomb : bombsList) {
-
+		for (Bomb bomb : bombsList) 
+		{
 			if (bomb.myState ==  BombState.Exploded)
 			{
 				if(bomb.timerExplosion == 0)
@@ -128,7 +128,8 @@ public class BombManager
 					bomb.myExplosionSprite.clear();
 				}
 			}
-			if (bomb.myState ==  BombState.NotAvailable) // Placed
+
+			if (bomb.myState == BombState.Placed) // Placed
 			{
 				if(bomb.timerExplosion == 0)
 					bomb.timerExplosion = gp.elapsedTime;
@@ -145,6 +146,7 @@ public class BombManager
 					bomb.myState = BombState.Exploded;
 				}
 			}
+
 			if (bomb.myState == BombState.Exploded)
 			{
 				for (Map.Entry<Sprite,Vector2> entry : bomb.myExplosionSprite.entrySet())  
@@ -169,9 +171,10 @@ public class BombManager
 
 		for (Bomb bomb : bombsList) {
 
-			if (bomb.myState == BombState.NotAvailable)
+			if (bomb.myState == BombState.Placed)
 			{
 				g2.drawImage(bomb.sprite, bomb.pos.x, bomb.pos.y, bomb.size.x, bomb.size.y,null);
+				g2.drawRect(bomb.coll.rec.x, bomb.coll.rec.y, bomb.coll.rec.width, bomb.coll.rec.height);
 			}
 
 			// Bomb exploded

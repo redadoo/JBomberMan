@@ -11,6 +11,7 @@ import Src.Entity.Player;
 import Src.Main.GamePanel;
 import Src.Manager.EnemiesManager;
 import Src.Manager.TitleManager;
+import Src.Title.Title;
 import Src.lib.Collider;
 import Src.lib.Vector2;
 
@@ -39,6 +40,7 @@ public class CollisionChecker extends Observable
 	{
 		if (gp.mapManager == null)
 			return false;
+		
 		for (int i = 0; i < gp.mapManager.mapTitleNum.length; i++) 
 		{
 			for (int j = 0; j < gp.mapManager.mapTitleNum[i].length; j++) 
@@ -53,6 +55,18 @@ public class CollisionChecker extends Observable
 			}
 		}
 
+		return false;
+	}
+
+	public boolean CheckBomb(Title title)
+	{
+		for (Bomb bomb : player.bombManager.getBombList()) 
+		{
+			if(bomb.isPlayerHover == false && bomb.pos == title.pos)
+			{
+				return true;
+			}
+		}
 		return false;
 	}
 

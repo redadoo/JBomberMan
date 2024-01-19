@@ -73,7 +73,7 @@ public class ObjectManager implements Observer
 	 * Method to get the list of alarms
 	 * @return the list of alarms
 	*/
-	public ArrayList<Alarm> getAlarmList(){ return listAlarm;}
+	public ArrayList<Alarm> getAlarmList(){ return listAlarm; }
 
 	/**
 	 * Method to sets the collision property of the title at the alarm's position to false
@@ -84,9 +84,7 @@ public class ObjectManager implements Observer
 		for (Vector2 posAlarm : gp.mapManager.returnTitlePos(TitleType.Alarm)) 
 		{
 			if (posAlarm == alarm.pos)
-			{
 				gp.mapManager.GetTitleFromPos(alarm.pos,alarm.size).collision = false;
-			}
 		}
 	}
 
@@ -122,6 +120,7 @@ public class ObjectManager implements Observer
 	{
 		Vector2 playerTitlePos = gp.mapManager.GetTitleFromRec(gp.player.coll.rec).matrixPos;
 		Vector2 tunnelTitlePos = gp.mapManager.GetTitleFromRec(tunnel.coll.rec).matrixPos;
+		
 		if(gp.enemiesManager.GetListFlyHeads().size() == 0 && playerTitlePos.equals(tunnelTitlePos))
 			return true;
 		return false;

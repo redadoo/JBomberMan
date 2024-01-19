@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import Src.Main.GamePanel;
+import Src.Title.Title;
 import Src.lib.Sprite;
 import Src.lib.Vector2;
 
@@ -20,12 +21,13 @@ public class Bomb extends Entity
 	public	double					timerExplosion;
 	public	BombState				myState;
 	public 	Map<Sprite, Vector2>	myExplosionSprite;
+	public 	Boolean					isPlayerHover;
 
 	// The various state of bomb
 	public static enum BombState
 	{
 		Available,
-		NotAvailable,
+		Placed,
 		Exploded	
 	}
 
@@ -45,6 +47,7 @@ public class Bomb extends Entity
 		myExplosionSprite = new HashMap<Sprite, Vector2>();
 		myState = BombState.Available;
 		timerExplosion = 0;
+		isPlayerHover = true;
 	}
 
 	/**
@@ -95,5 +98,7 @@ public class Bomb extends Entity
 			spriteIndex = 0;
 		}
 	}
+
+	public Title getTitle() { return gp.mapManager.GetTitleFromPos(coll.pos,size); }
 
 }
