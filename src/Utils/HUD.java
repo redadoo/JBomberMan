@@ -21,6 +21,8 @@ public class HUD
 	private GamePanel					gp;
 	private BufferedImage				hud;
 	private int							offset;
+	private int							frameCount;
+	private int							spriteIndex;
 	private ArrayList<BufferedImage>	numbers;
 	private ArrayList<BufferedImage>	clockSprite;
 	private BufferedImage				gameOverHud;
@@ -37,6 +39,7 @@ public class HUD
 	{
 		this.gp = gp;
 		numbers = new ArrayList<BufferedImage>();
+		clockSprite = new ArrayList<BufferedImage>();
 		offset = 170;
 		listposIndicator = new ArrayList<Vector2>();
 		listposIndicator.add(new Vector2(140,230));
@@ -44,9 +47,12 @@ public class HUD
 		posIndicator = listposIndicator.get(0);
 		try {
 
+			for(i = 0; i < 8; i++)
+				clockSprite.add(ImageIO.read(getClass().getResourceAsStream("/Resource/ClockSprite/sprite_"+ i +".png")));
+
 			gameOverHud = ImageIO.read(getClass().getResourceAsStream("/Resource/Screen/GameOver.png"));
 			indicator = ImageIO.read(getClass().getResourceAsStream("/Resource/Screen/indicator.png"));
-
+			
 			for(i = 0; i < 10; i++)
 				numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_0"+ i + ".png")));
 
@@ -83,6 +89,16 @@ public class HUD
 				g2.drawImage(numbers.get(indexPoint),offset + i * 20,17,17,28,null);
 			}
 		}
+
+		if (frameCount % 70 == 0)
+		{
+			spriteIndex++;
+			if (spriteIndex > 7)
+				spriteIndex = 0;
+		}
+			
+		g2.drawImage(clockSprite.get(spriteIndex),246,17,30,40,null);
+		frameCount++;
 	}
 
 	/**
