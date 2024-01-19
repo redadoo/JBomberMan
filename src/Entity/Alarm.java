@@ -39,19 +39,19 @@ public class Alarm extends Entity
 	public void initAlarm()
 	{
 		try {
-			spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Alarms/sprite_0.png")));
-			spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Alarms/sprite_1.png")));
-			spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Alarms/sprite_2.png")));
-			spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Alarms/sprite_3.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Alarms/sprite_0.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Alarms/sprite_1.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Alarms/sprite_2.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Alarms/sprite_3.png")));
 
 			if(haveTunnel)
-				spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/FinishTunnel/finishTunnel.png")));
+				spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/FinishTunnel/finishTunnel.png")));
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		sprite = spriteVector.get(spriteIndex);
+		sprite = spriteList.get(spriteIndex);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class Alarm extends Entity
 			spriteIndex++;
 			if (spriteIndex == 4)
 				spriteIndex = 0;
-			sprite = spriteVector.get(spriteIndex);
+			sprite = spriteList.get(spriteIndex);
 		}
 
 		frameCount++;

@@ -3,6 +3,8 @@ package Src.Entity;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -27,10 +29,10 @@ public class Player extends Entity implements Observer
 	private int							point;
 	public	String						Avatar;
 	private	int							frameCount; // Counter for frame animation.
-	private	Vector<BufferedImage>		RightVector;  // Vector for right-facing player sprites.
-	private	Vector<BufferedImage>		LeftVector; // Vector for left-facing player sprites.
-	private	Vector<BufferedImage>		FrontVector; // Vector for front-facing player sprites.
-	private	Vector<BufferedImage>		BackVector;// Vector for back-facing player sprites.
+	private	ArrayList<BufferedImage>	rightSpriteList;  // ArrayList for right-facing player sprites.
+	private	ArrayList<BufferedImage>	leftSpriteList; // ArrayList for left-facing player sprites.
+	private	ArrayList<BufferedImage>	frontSpriteList; // ArrayList for front-facing player sprites.
+	private	ArrayList<BufferedImage>	backSpriteList;// ArrayList for back-facing player sprites.
 	private GamePanel 					gp; // Reference to the game panel.
 	private KeyHandler 					keyH;// Reference to the key handler for player input.
 	public	BombManager					bombManager;
@@ -53,7 +55,7 @@ public class Player extends Entity implements Observer
 	}
 
 	/**
-	 * Initializes the player by creating sprite vectors, loading player images,
+	 * Initializes the player by creating sprite ArrayList, loading player images,
 	 * and setting up initial parameters such as speed, sprite index, and collision area.
 	 * Assumes the existence of player sprite images in specific directories.
 	*/
@@ -61,12 +63,12 @@ public class Player extends Entity implements Observer
 	{
 		getPlayerImage();
 		bombManager = new BombManager(gp);
-		sprite = FrontVector.elementAt(1);
+		sprite = frontSpriteList.get(1);
 		
 		speed = 2;
 		spriteIndex = 0;
 		frameCount = 0;
-		life = 0;
+		life = 5;
 		point = 0;
 		cooldownDamage = 0;
 
@@ -78,10 +80,10 @@ public class Player extends Entity implements Observer
 	 */
 	public void getPlayerImage() 
 	{
-		RightVector = new Vector<BufferedImage>();
-		LeftVector = new Vector<BufferedImage>();
-		BackVector = new Vector<BufferedImage>();
-		FrontVector = new Vector<BufferedImage>();
+		rightSpriteList = new ArrayList<BufferedImage>();
+		leftSpriteList = new ArrayList<BufferedImage>();
+		backSpriteList = new ArrayList<BufferedImage>();
+		frontSpriteList = new ArrayList<BufferedImage>();
 
 		gp.gameManager.setAvatar(this);
 
@@ -89,30 +91,30 @@ public class Player extends Entity implements Observer
 
 		try {
 			
- 			RightVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "RightSprite/PlayerRight_0.png")));
- 			RightVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "RightSprite/PlayerRight_1.png")));
- 			RightVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "RightSprite/PlayerRight_2.png")));
- 			RightVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "RightSprite/PlayerRight_1.png")));
+ 			rightSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "RightSprite/PlayerRight_0.png")));
+ 			rightSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "RightSprite/PlayerRight_1.png")));
+ 			rightSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "RightSprite/PlayerRight_2.png")));
+ 			rightSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "RightSprite/PlayerRight_1.png")));
 
-			LeftVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "LeftSprite/PlayerLeft_0.png")));
-			LeftVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "LeftSprite/PlayerLeft_1.png")));
-			LeftVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "LeftSprite/PlayerLeft_2.png")));
-			LeftVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "LeftSprite/PlayerLeft_1.png")));
+			leftSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "LeftSprite/PlayerLeft_0.png")));
+			leftSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "LeftSprite/PlayerLeft_1.png")));
+			leftSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "LeftSprite/PlayerLeft_2.png")));
+			leftSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "LeftSprite/PlayerLeft_1.png")));
 
-			FrontVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "FrontSprite/PlayerFront_0.png")));
-			FrontVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "FrontSprite/PlayerFront_1.png")));
-			FrontVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "FrontSprite/PlayerFront_2.png")));
-			FrontVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "FrontSprite/PlayerFront_1.png")));
+			frontSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "FrontSprite/PlayerFront_0.png")));
+			frontSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "FrontSprite/PlayerFront_1.png")));
+			frontSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "FrontSprite/PlayerFront_2.png")));
+			frontSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "FrontSprite/PlayerFront_1.png")));
 
-			BackVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "BackSprite/PlayerBack_0.png")));
-			BackVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "BackSprite/PlayerBack_1.png")));
-			BackVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "BackSprite/PlayerBack_2.png")));
-			BackVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "BackSprite/PlayerBack_1.png")));
+			backSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "BackSprite/PlayerBack_0.png")));
+			backSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "BackSprite/PlayerBack_1.png")));
+			backSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "BackSprite/PlayerBack_2.png")));
+			backSpriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "BackSprite/PlayerBack_1.png")));
 
-			spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "death/_PlayerDeathSprite00.png")));
-			spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "death/_PlayerDeathSprite01.png")));
-			spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "death/_PlayerDeathSprite02.png")));
-			spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "death/_PlayerDeathSprite03.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "death/_PlayerDeathSprite00.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "death/_PlayerDeathSprite01.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "death/_PlayerDeathSprite02.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/Players/" + Avatar + "death/_PlayerDeathSprite03.png")));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -140,22 +142,22 @@ public class Player extends Entity implements Observer
 		if(keyH.upPressed == true)
 		{
 			dir.y = -1;
-			setSprite(BackVector.elementAt(spriteIndex));
+			setSprite(backSpriteList.get(spriteIndex));
 		}
 		else if(keyH.downPressed == true)
 		{
 			dir.y = 1;
-			setSprite(FrontVector.elementAt(spriteIndex));
+			setSprite(frontSpriteList.get(spriteIndex));
 		}
 		else if(keyH.leftPressed == true)
 		{
 			dir.x = -1;
-			setSprite(LeftVector.elementAt(spriteIndex));
+			setSprite(leftSpriteList.get(spriteIndex));
 		}
 		else if(keyH.rightPressed == true)
 		{
 			dir.x = 1;
-			setSprite(RightVector.elementAt(spriteIndex));
+			setSprite(rightSpriteList.get(spriteIndex));
 		}
 
 		
@@ -172,17 +174,12 @@ public class Player extends Entity implements Observer
 			if (bomb.myState == BombState.Placed)
 			{
 				if (bomb.isPlayerHover && !bomb.coll.rec.intersects(tmp.rec))
-				{
-					System.out.println("nazione");
 					bomb.isPlayerHover = false;
-				}
+					
 				if(gp.cChecker.CheckTitle(tmp) == false)
 				{
 					if (!bomb.isPlayerHover && bomb.coll.rec.intersects(tmp.rec))
-					{
-						System.out.println("levante");
 						isCollided = true;
-					}					
 				}
 				else
 					isCollided = gp.cChecker.CheckTitle(tmp);
@@ -227,7 +224,7 @@ public class Player extends Entity implements Observer
 				cooldownDamage = gp.elapsedTime;
 			}
 
-			sprite = spriteVector.get(spriteIndex);
+			sprite = spriteList.get(spriteIndex);
 			
 			if(gp.elapsedTime >= cooldownDamage + 3)
 			{
@@ -235,7 +232,7 @@ public class Player extends Entity implements Observer
 				takeDamage = false;
 				pos = new Vector2(48,90);
 				coll.setPos(pos);
-				sprite = FrontVector.get(1);
+				sprite = frontSpriteList.get(1);
 			}
 		}
 		else
@@ -320,5 +317,22 @@ public class Player extends Entity implements Observer
 	 *  
 	 */
 	public Title getTitle() { return gp.mapManager.GetTitleFromPos(coll.pos,size); }
+
+	public void addLife()
+	{
+		life += 3;
+	}
 	
+	public void addBomb()
+	{
+		
+	}
+
+	public void addSpeed()
+	{
+		if (speed > 6)
+			return ;
+
+		speed += 2;
+	}
 }

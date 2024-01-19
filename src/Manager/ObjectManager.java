@@ -1,11 +1,13 @@
 package Src.Manager;
 
 import java.awt.Graphics2D;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import Src.Entity.Alarm;
+import Src.Entity.PowerUp;
 import Src.Main.GamePanel;
 import Src.Manager.TitleManager.TitleType;
 import Src.lib.Vector2;
@@ -17,8 +19,16 @@ public class ObjectManager implements Observer
 {
 	
 	private GamePanel           gp;
-	private ArrayList<Alarm>    listAlarm;
+	private ArrayList<Alarm>    alarmList;
+	private ArrayList<PowerUp>  powerUpList;
 	private Alarm				tunnel;
+
+	public enum PowerUpType
+	{
+		LifeUp,
+		AddBomb,
+		SpeedUp,
+	}
 
 	/**
 	 * Costructor class ObjectManager
@@ -35,15 +45,43 @@ public class ObjectManager implements Observer
 	*/
 	public void initObject()
 	{
-		listAlarm = new ArrayList<Alarm>();
+		alarmList = new ArrayList<Alarm>();
+		powerUpList = new ArrayList<PowerUp>();
+
+		for(int i = 0;i < getRandomNumber(2,4);i++)
+		{
+			try {
+				powerUpList.add(new PowerUp(new Vector2(), new Vector2(32,32),getRandomNumber(0,3)));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		tunnel = null;
+
 		for (Vector2 posAlarm : gp.mapManager.returnTitlePos(TitleType.Alarm)) 
 		{
 			if (gp.mapManager.returnTitlePos(TitleType.Tunnel).contains(posAlarm))
-				listAlarm.add(new Alarm(gp,posAlarm,new Vector2(33,35),true));
+				alarmList.add(new Alarm(gp,posAlarm,new Vector2(33,35),true));
 			else
-				listAlarm.add(new Alarm(gp,posAlarm,new Vector2(33,35),false));
+				alarmList.add(new Alarm(gp,posAlarm,new Vector2(33,35),false));
 		}
+
+		for (Alarm alarm : alarmList) {
+
+			if (getRandomNumber(0,2) == 1)
+			{
+				for (PowerUp powerUp : powerUpList) {
+					if (powerUp.myTitle == null)
+					{
+						powerUp.myTitle = alarm.getTitle();
+						powerUp.pos = alarm.pos;
+						break ;
+					}
+				}
+			}
+		}
+
 	}
 
 	/**
@@ -51,10 +89,32 @@ public class ObjectManager implements Observer
 	*/
 	public void Update()
 	{
-		for (Alarm alarm : listAlarm)
+		for (Alarm alarm : alarmList)
 			alarm.Update();
 		if (tunnel != null && isLevelFinish())
 			gp.gameManager.win();
+		for (PowerUp powerUp : powerUpList) 
+		{
+			if (powerUp.isVisible == true)
+				powerUp.Update();
+			if (powerUp.myTitle == gp.player.getTitle())
+			{
+				switch (powerUp.myType) {
+					case AddBomb:
+						gp.player.addBomb();
+						break;
+
+					case LifeUp:
+						gp.player.addLife();
+						break ;
+
+					case SpeedUp:
+						gp.player.addSpeed();
+						break;
+				}
+				powerUpList.remove(powerUp);
+			}
+		}
 	}
 
 	/**
@@ -63,17 +123,22 @@ public class ObjectManager implements Observer
 	*/
 	public void Draw(Graphics2D g2)
 	{
-		for (Alarm alarm : listAlarm)
+		for (Alarm alarm : alarmList)
 			alarm.Draw(g2);
 		if (tunnel != null)
 			tunnel.Draw(g2);
+		for (PowerUp powerUp : powerUpList) 
+		{
+			if (powerUp.isVisible == true)
+				powerUp.Draw(g2);
+		}
 	}
 
 	/**
 	 * Method to get the list of alarms
 	 * @return the list of alarms
 	*/
-	public ArrayList<Alarm> getAlarmList(){ return listAlarm; }
+	public ArrayList<Alarm> getAlarmList(){ return alarmList; }
 
 	/**
 	 * Method to sets the collision property of the title at the alarm's position to false
@@ -96,26 +161,35 @@ public class ObjectManager implements Observer
 	@Override
 	public void update(Observable o, Object arg) 
     {
-		for (Alarm alarm : listAlarm) {
+		for (Alarm alarm : alarmList) {
 			if ((Alarm)arg == alarm)
 			{
+				for (PowerUp powerUp : powerUpList) 
+				{
+					if (powerUp.myTitle == alarm.getTitle())
+						powerUp.isVisible = true;
+				}
 				if (!alarm.getIsTunnel())
 				{
 					setCollideFormAlarms(alarm);
-					listAlarm.remove(alarm);
+					alarmList.remove(alarm);
 				}
 				else
 				{
 					setCollideFormAlarms(alarm);
-					listAlarm.remove(alarm);
+					alarmList.remove(alarm);
 					tunnel = alarm;
-					alarm.setSprite(alarm.spriteVector.get(4));
+					alarm.setSprite(alarm.spriteList.get(4));
 				}
 				return ;
 			} 
 		}
 	}
 
+	/**
+	 * function that checks if all enemies are dead and if the player is above the tunnel for the next level
+	 * @return true if all enemies are dead and if the player is above the tunnel 
+	 */
 	public boolean isLevelFinish()
 	{
 		Vector2 playerTitlePos = gp.mapManager.GetTitleFromRec(gp.player.coll.rec).matrixPos;
@@ -124,5 +198,16 @@ public class ObjectManager implements Observer
 		if(gp.enemiesManager.GetListFlyHeads().size() == 0 && playerTitlePos.equals(tunnelTitlePos))
 			return true;
 		return false;
+	}
+
+	/**
+	 * Generates a random integer within the specified range [min, max).
+	 *
+	 * @param min The inclusive lower bound of the range.
+	 * @param max The exclusive upper bound of the range.
+	 * @return A random integer within the specified range.
+	 */
+	public int getRandomNumber(int min, int max) {
+		return (int) ((Math.random() * (max - min)) + min);
 	}
 }

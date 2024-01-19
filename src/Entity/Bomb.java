@@ -39,11 +39,11 @@ public class Bomb extends Entity
 	{        
 		super(pos, new Vector2(25,25));
 		this.gp = gp;
-		spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite0.png")));
- 		spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite1.png")));
- 		spriteVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite2.png")));
+		spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite0.png")));
+ 		spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite1.png")));
+ 		spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombSprite/BombSprite2.png")));
 
-		sprite = spriteVector.elementAt(0);
+		sprite = spriteList.get(0);
 		myExplosionSprite = new HashMap<Sprite, Vector2>();
 		myState = BombState.Available;
 		timerExplosion = 0;
@@ -83,14 +83,14 @@ public class Bomb extends Entity
 	@Override
     public void nextSprite()
     {
-		if(spriteIndex + 1 < spriteVector.size())
+		if(spriteIndex + 1 < spriteList.size())
 		{
 			int multiply;
 			multiply = spriteIndex * 2;
 			if(multiply == 0)
 				multiply = 2;
 			size = new Vector2(size.x + multiply,size.y + multiply);
-			setSprite(spriteVector.elementAt(++spriteIndex));
+			setSprite(spriteList.get(++spriteIndex));
 		}
 		else
 		{

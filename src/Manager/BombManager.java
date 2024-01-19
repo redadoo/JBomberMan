@@ -1,7 +1,6 @@
 package Src.Manager;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import Src.lib.Vector2;
  */
 public class BombManager 
 {
+	private int						i;
 	private GamePanel       		gp;
 	private ArrayList<Bomb>			bombsList;
 	private int             		frameCount;
@@ -33,60 +33,46 @@ public class BombManager
 	public BombManager(GamePanel gp)
 	{
 		this.gp = gp;
+		initBombManager();
+	}
+	
+	/**
+	 * Initializes the Bomb Manager by setting up the necessary data structures and loading explosion sprites.
+	 * This method creates an initial bomb and adds it to the bombsList.
+	 */
+	public void initBombManager()
+	{
+		// Initialize frame count to 0
 		frameCount = 0;
+
+		// Initialize lists to store bombs and explosion sprites
 		bombsList = new ArrayList<Bomb>();
 		explosionSpriteList = new ArrayList<Sprite>();
 
+		// Load explosion sprites into the explosionSpriteList
 		try {
-			explosionSpriteList.add(new Sprite(new ArrayList<BufferedImage>()
-			{
-				{
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/two/sprite_0.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/third/sprite_0.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/four/sprite_0.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/five/sprite_0.png")));
-				}
-			}));
-
-			explosionSpriteList.add(new Sprite(new ArrayList<BufferedImage>(){{
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/two/sprite_1.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/third/sprite_1.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/four/sprite_1.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/five/sprite_1.png")));
-			}}));
-
-			explosionSpriteList.add(new Sprite(new ArrayList<BufferedImage>(){{
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/two/sprite_2.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/third/sprite_2.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/four/sprite_2.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/five/sprite_2.png")));
-			}}));
-
-			explosionSpriteList.add(new Sprite(new ArrayList<BufferedImage>(){{
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/two/sprite_3.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/third/sprite_3.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/four/sprite_3.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/five/sprite_3.png")));
-			}}));
-
-			explosionSpriteList.add(new Sprite(new ArrayList<BufferedImage>(){{
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/two/sprite_4.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/third/sprite_4.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/four/sprite_4.png")));
-				add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/five/sprite_4.png")));
-			}}));
-
+			// Load sprites for each frame of the explosion animation
+			for (i = 0; i < 5; i++) {
+				explosionSpriteList.add(new Sprite(new ArrayList<BufferedImage>() {{
+					add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/two/sprite_" + i + ".png")));
+					add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/third/sprite_" + i + ".png")));
+					add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/four/sprite_" + i + ".png")));
+					add(ImageIO.read(getClass().getResourceAsStream("/Resource/BombExplosion/five/sprite_" + i + ".png")));
+				}}));
+			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.printStackTrace(); // Handle IOException by printing the stack trace
 		}
 
+		// Create an initial Bomb object and add it to the bombsList
 		try {
 			bombsList.add(new Bomb(gp, new Vector2()));
+			bombsList.add(new Bomb(gp, new Vector2()));
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.printStackTrace(); // Handle IOException by printing the stack trace
 		}
 	}
-	
+
 	/**
 	 * To place the bomb in the right way
 	 * @param rec to manage the info (pos, state) 
@@ -94,8 +80,9 @@ public class BombManager
 	public void PlaceBomb(Title title) throws IOException
 	{
 		for (Bomb bomb : bombsList) {
-			if (bomb.myState == BombState.Available)
+			if (bomb.myState == BombState.Available && isTitleFree(title))
 			{
+				System.out.println("love");
 				if(title.matrixPos.equals(new Vector2(0, 0)))
 					bomb.setPos(new Vector2(48, 90));
 				else
@@ -132,7 +119,10 @@ public class BombManager
 			if (bomb.myState == BombState.Placed) // Placed
 			{
 				if(bomb.timerExplosion == 0)
+				{
+					bomb.isPlayerHover = true;
 					bomb.timerExplosion = gp.elapsedTime;
+				}
 				
 				// Change the sprites after a period
 				if(frameCount % 22 == 0)
@@ -188,6 +178,31 @@ public class BombManager
 		}
 	}
 
+	/**
+	 * Method to get the list of Bomb
+	 * @return the list of Bomb
+	*/
 	public ArrayList<Bomb> getBombList() { return bombsList; }
+	
+	/**
+	 * Checks if a specific tile is free from placed bombs.
+	 * It iterates through the list of bombs and compares their positions with the given tile.
+	 *
+	 * @param title The title to check for availability.
+	 * @return {@code true} if the tile is free; {@code false} otherwise.
+	 */
+	public Boolean isTitleFree(Title title)
+	{
+		for (Bomb bomb : bombsList) {
+			if (bomb.myState == BombState.Placed && bomb.pos == title.pos)
+				return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Method to for add a bomb to bombsList
+	 */
+	public void addBomb() throws IOException{ bombsList.add(new Bomb(gp, new Vector2()));}
 
 }

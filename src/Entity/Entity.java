@@ -1,7 +1,7 @@
 package Src.Entity;
 
 import java.awt.image.BufferedImage;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import Src.lib.Collider;
 import Src.lib.Vector2;
@@ -20,7 +20,7 @@ public class Entity
 	public BufferedImage			sprite;
 	public int						frameCount;
 	public int						spriteIndex;
-	public Vector<BufferedImage>	spriteVector;
+	public ArrayList<BufferedImage>	spriteList;
 	public boolean					isCollided = false;
 
 	/**
@@ -39,7 +39,7 @@ public class Entity
 		this.spriteIndex = 0;
 		this.frameCount = 0;
 		this.speed = 1;
-		spriteVector = new Vector<BufferedImage>();
+		spriteList = new ArrayList<BufferedImage>();
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class Entity
 		this.spriteIndex = 0;
 		this.speed = 1;
 		this.frameCount = 0;
-		spriteVector = new Vector<BufferedImage>();
+		spriteList = new ArrayList<BufferedImage>();
 	}
 
 	/**
@@ -73,9 +73,9 @@ public class Entity
 	 */
 	public void nextSprite()
 	{
-		if(spriteIndex + 1 < spriteVector.size())
+		if(spriteIndex + 1 < spriteList.size())
 		{
-			setSprite(spriteVector.elementAt(++spriteIndex));
+			setSprite(spriteList.get(++spriteIndex));
 		}
 		else
 			spriteIndex = 0;
