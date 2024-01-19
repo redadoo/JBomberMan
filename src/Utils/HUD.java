@@ -11,8 +11,13 @@ import javax.imageio.ImageIO;
 import Src.Main.GamePanel;
 import Src.lib.Vector2;
 
+/**
+ * The HUD (Heads-Up Display) class manages the graphical elements displayed on the screen during gameplay
+ * and game over state. It includes the player's life, points, and game over screen with indicators.
+ */
 public class HUD
 {
+	private int							i;
 	private GamePanel					gp;
 	private BufferedImage				hud;
 	private int							offset;
@@ -22,6 +27,11 @@ public class HUD
 	private ArrayList<Vector2> 			listposIndicator;
 	private Vector2 					posIndicator;
 
+	/**
+     * Constructs a HUD object with the specified GamePanel reference and initializes graphical elements.
+     *
+     * @param gp The GamePanel reference.
+     */
 	public HUD(GamePanel gp)
 	{
 		this.gp = gp;
@@ -36,16 +46,8 @@ public class HUD
 			gameOverHud = ImageIO.read(getClass().getResourceAsStream("/Resource/Screen/GameOver.png"));
 			indicator = ImageIO.read(getClass().getResourceAsStream("/Resource/Screen/indicator.png"));
 
-			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_00.png")));
-			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_01.png")));
-			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_02.png")));
-			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_03.png")));
-			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_04.png")));
-			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_05.png")));
-			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_06.png")));
-			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_07.png")));
-			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_08.png")));
-			numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_09.png")));
+			for(i = 0; i < 10; i++)
+				numbers.add(ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/Numbers/_sprite_0"+ i + ".png")));
 
 			hud = ImageIO.read(getClass().getResourceAsStream("/Resource/HUD/HUD.png"));
 
@@ -54,10 +56,11 @@ public class HUD
 		}
 	}
 
-	/**
-	 * Draws the player on the provided Graphics2D object.
-	 * @param g2 The Graphics2D object on which the player will be drawn.
-	 */
+    /**
+     * Draws HUD elements on the provided Graphics2D object, including player life and points.
+     *
+     * @param g2 The Graphics2D object on which the HUD will be drawn.
+     */
 	public void Draw(Graphics2D g2)
 	{
 		int index = gp.player.life;
@@ -81,7 +84,9 @@ public class HUD
 		}
 	}
 
-	
+	/**
+     * Updates the game over screen based on user input for restarting or exiting the game.
+     */
 	public void UpdateGameOver()
 	{
 		if(gp.keyh.rightPressed == true)
@@ -95,6 +100,11 @@ public class HUD
 			System.exit(0);
 	}
 
+	/**
+     * Draws the game over screen with indicators based on the selected option.
+     *
+     * @param g2 The Graphics2D object on which the game over screen will be drawn.
+     */
 	public void DrawGameOver(Graphics2D g2)
 	{
 		g2.drawImage(gameOverHud,0,0,520,470,null);

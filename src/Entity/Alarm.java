@@ -34,7 +34,7 @@ public class Alarm extends Entity
 	}
 
 	/**
-	 * Method to init all alarms
+	 * Method to init alarm
 	*/
 	public void initAlarm()
 	{
@@ -79,8 +79,16 @@ public class Alarm extends Entity
 		g2.drawImage(sprite, pos.x, pos.y, size.x, size.y, null);
 	}
 
+	/**
+	 * Gets the value indicating whether there is a tunnel.
+	 * @return true if there is a tunnel, false otherwise
+	 */
 	public Boolean getIsTunnel(){ return haveTunnel; }
 
+	/**
+	 * Gets the title based on the position and size.
+	 * @return the Title object associated with the position and size
+	*/
 	public Title getTitle() { return gp.mapManager.GetTitleFromPos(pos,size);}
 	
 }

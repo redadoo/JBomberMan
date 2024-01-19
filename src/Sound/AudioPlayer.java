@@ -13,11 +13,15 @@ import java.io.IOException;
  */
 public class AudioPlayer implements Runnable {
 
-	private Clip				clip;
-	private String				filepath;
-	private File				audioFile;
-    private volatile boolean	isRunning = true;
+	private Clip clip;               			// The audio clip
+    private String filepath;         			// The file path of the audio
+    private File audioFile;          			// The audio file
+    private volatile boolean isRunning = true;  // Flag to control the running state of the audio thread
 	
+    /**
+     * The run method of the AudioPlayer thread.
+     * Continuously plays the audio until isRunning is set to false.
+     */
     @Override
     public void run() {
         try {
@@ -29,11 +33,23 @@ public class AudioPlayer implements Runnable {
         }
     }
 
+    /**
+     * Constructs an AudioPlayer object with the specified file path.
+     *
+     * @param filePath The file path of the audio.
+     */
 	public AudioPlayer(String filePath) {
 		this.filepath = filepath;
 		audioFile = new File(filePath);
 	}
 
+	/**
+     * Plays the audio file specified by the file path.
+     *
+     * @throws UnsupportedAudioFileException  If the audio file format is not supported.
+     * @throws IOException                    If there is an issue reading the audio file.
+     * @throws LineUnavailableException       If a line cannot be opened because it is unavailable.
+     */
 	public void playAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
 		// Verifica che il file audio esista
@@ -83,6 +99,9 @@ public class AudioPlayer implements Runnable {
 		audioStream.close();
 	}
 
+	/**
+     * Stops the audio thread, interrupts it, and closes the audio clip.
+     */
     public void stopThread() {
 		Thread.currentThread().interrupt(); 
         isRunning = false;
@@ -91,7 +110,12 @@ public class AudioPlayer implements Runnable {
             clip.close();
         }
     }
-
+	
+    /**
+     * Sets the audio file to be played based on the specified file path.
+     *
+     * @param filePath The file path of the new audio.
+     */
 	public void setClip(String filePath)
 	{
 		if (this.filepath != filePath)

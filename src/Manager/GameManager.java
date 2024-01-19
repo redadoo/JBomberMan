@@ -18,12 +18,12 @@ import Src.Utils.ManageFile;
 public class GameManager 
 {
 
-	private GamePanel   	gp;
-	private User			user;
-	private UserView 		userView;
-	private ManageFile		manageFile;
-	private GameState   	myGamestate;
-	public  UserController	userController;
+	private GamePanel		gp;             // Reference to the GamePanel
+    private User 			user;           // User object representing the player
+    private UserView 		userView;       // UserView object for displaying user information
+    private ManageFile 		manageFile;     // ManageFile object for managing file operations
+    private GameState 		myGamestate;    // Enum representing different game states
+    public 	UserController 	userController; // UserController for handling user interactions
 
 	/***
 	 * States of game
@@ -37,8 +37,9 @@ public class GameManager
 
 	/**
 	 * Costructor class GameManager
-	 * @param gp the GamePanel
-	*/
+	 * 
+     * @param gp The GamePanel instance associated with the GameManager.	
+	 * */
 	public GameManager(GamePanel gp)
 	{
 		this.gp = gp;

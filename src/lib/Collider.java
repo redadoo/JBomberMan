@@ -33,7 +33,7 @@ public class Collider
 	 * @param x
 	 * @param y
 	 */
-		public Collider(Vector2 pos, int width, int height,int x,int y)
+	public Collider(Vector2 pos, int width, int height,int x,int y)
 	{
 		this.pos = pos;
 		this.rec.x = x;

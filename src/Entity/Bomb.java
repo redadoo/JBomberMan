@@ -98,7 +98,11 @@ public class Bomb extends Entity
 			spriteIndex = 0;
 		}
 	}
-
+	
+	/**
+	 * Gets the title based on the position and size.
+	 * @return the Title object associated with the position and size
+	*/
 	public Title getTitle() { return gp.mapManager.GetTitleFromPos(coll.pos,size); }
 
 }

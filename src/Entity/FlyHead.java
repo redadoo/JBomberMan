@@ -19,8 +19,8 @@ import Src.lib.Vector2;
 public class FlyHead extends Entity
 {
 	private int        					pointDrop = 100;
-	private	ArrayList<BufferedImage>	FrontVector; // Vector for front-facing Enemy sprites.
-	private	ArrayList<BufferedImage>	BackVector;// Vector for back-facing Enemy sprites.
+	private	ArrayList<BufferedImage>	FrontVector;
+	private	ArrayList<BufferedImage>	BackVector;
 	private GamePanel					gp;
 
 	/**
@@ -145,7 +145,11 @@ public class FlyHead extends Entity
 	{
 		g2.drawImage(sprite,pos.x,pos.y,size.x,size.y,null);
 	}
-
+	
+	/**
+	 * Gets the title based on the position and size.
+	 * @return the Title object associated with the position and size
+	*/
 	public Title getTitle() 
 	{ 		
 		return gp.mapManager.GetTitleFromPos(coll.pos,size);

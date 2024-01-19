@@ -54,11 +54,6 @@ public class GamePanel extends JPanel implements Runnable
 
 		keyh = new KeyHandler();
 		gameManager = new GameManager(this);
-
-/* 		if (gameManager.userController.getUserLevel() == 1)
-			mapManager = new TitleManager(this, "/Resource/Maps/map_0");
-		else
-			mapManager = new TitleManager(this, "/Resource/Maps/map_1"); */
 			
 		mapManager = new TitleManager(this, "/Resource/Maps/map_0");
 		player = new Player(this);

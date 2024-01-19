@@ -80,7 +80,12 @@ public class Entity
 		else
 			spriteIndex = 0;
 	}
-
+	
+	/**
+	 * Sets the position of the entity and updates its collision rectangle accordingly.
+	 *
+	 * @param pos The new position vector for the entity.
+	 */
 	public void setPos(Vector2 pos)
 	{
 		this.pos = pos;

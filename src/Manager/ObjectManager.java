@@ -13,16 +13,20 @@ import Src.Manager.TitleManager.TitleType;
 import Src.lib.Vector2;
 
 /**
- * Class ObjectManager to manage the various aboject on the map
+ * The ObjectManager class is responsible for managing various objects on the game map,
+ * including alarms, power-ups, and their interactions with the player and game state.
  */
 public class ObjectManager implements Observer 
 {
 	
-	private GamePanel           gp;
-	private ArrayList<Alarm>    alarmList;
-	private ArrayList<PowerUp>  powerUpList;
-	private Alarm				tunnel;
+    private GamePanel 			gp;             // Reference to the GamePanel
+    private ArrayList<Alarm> 	alarmList; 		// List of Alarm objects
+    private ArrayList<PowerUp>	powerUpList;	// List of PowerUp objects
+    private Alarm 				tunnel;         // The tunnel Alarm
 
+	/**
+     * Enumeration representing different types of power-ups.
+     */
 	public enum PowerUpType
 	{
 		LifeUp,
@@ -30,19 +34,21 @@ public class ObjectManager implements Observer
 		SpeedUp,
 	}
 
-	/**
-	 * Costructor class ObjectManager
-	 * @param gp The GamePanel instance associated with the ObjectManager
-	 */
+    /**
+     * Constructs an ObjectManager object with the specified GamePanel reference.
+     *
+     * @param gp The GamePanel instance associated with the ObjectManager.
+     */
 	public ObjectManager(GamePanel gp)
 	{
 		this.gp = gp;
 		initObject();
 	}
 
-	/**
-	 * Method to init all abojects
-	*/
+
+    /**
+     * Initializes various objects such as alarms and power-ups on the map.
+     */
 	public void initObject()
 	{
 		alarmList = new ArrayList<Alarm>();
@@ -84,9 +90,9 @@ public class ObjectManager implements Observer
 
 	}
 
-	/**
-	 * Method to update alla the alarms during the game
-	*/
+    /**
+     * Updates the state of alarms and power-ups during the game.
+     */
 	public void Update()
 	{
 		for (Alarm alarm : alarmList)
@@ -118,10 +124,11 @@ public class ObjectManager implements Observer
 		}
 	}
 
-	/**
-	 * Method to draw all the alarms
-	 * @param g2 The Graphics2D object on which the game map and titles will be drawn
-	*/
+    /**
+     * Draws alarms, the tunnel, and power-ups on the provided Graphics2D object.
+     *
+     * @param g2 The Graphics2D object on which the objects will be drawn.
+     */
 	public void Draw(Graphics2D g2)
 	{
 		for (Alarm alarm : alarmList)

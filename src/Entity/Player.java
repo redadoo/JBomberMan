@@ -259,6 +259,7 @@ public class Player extends Entity implements Observer
 		//update bombmanager
 		bombManager.Update();
 		
+		//update user data
 		gp.gameManager.updateUserData(this);
 
 	}
@@ -301,24 +302,22 @@ public class Player extends Entity implements Observer
 	public int getPoint(){return this.point;}
 
 	/**
-	 * Retrieves the title from the specified position and size using the MapManager.
-	 *
-	 * This method utilizes the MapManager to retrieve the title located at the specified
-	 * position and size within the map. The MapManager is responsible for managing the
-	 * mapping of positions to titles.
-	 *
-	 * @return The title located at the specified position and size.
-	 *  
-	 */
+	 * Gets the title based on the position and size.
+	 * @return the Title object associated with the position and size
+	*/
 	public Title getTitle() { return gp.mapManager.GetTitleFromPos(coll.pos,size); }
 
-	public void addLife()
-	{
+	/**
+	 * Adds 3 to the current life count.
+	 */
+	public void addLife() {
 		life += 3;
 	}
-	
-	public void addBomb()
-	{
+
+	/**
+	 * Adds a bomb using the bomb manager.
+	 */
+	public void addBomb() {
 		try {
 			bombManager.addBomb();
 		} catch (IOException e) {
@@ -326,14 +325,19 @@ public class Player extends Entity implements Observer
 		}
 	}
 
-	public void addSpeed()
-	{
+	/**
+	 * Increases the speed by 1, but only if the current speed is less than or equal to 4.
+	 */
+	public void addSpeed() {
 		if (speed > 4)
-			return ;
+			return;
 
 		speed += 1;
 	}
 
+	/**
+	 * resets the player position and initializes it by taking the position from the mapManager
+	 */
 	public void resetPos()
 	{
 		setPos(gp.mapManager.ReturnPlayerPos());

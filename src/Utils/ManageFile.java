@@ -129,7 +129,7 @@ public class ManageFile
 		writer.close();
 	}
 
-/**
+	/**
  * Method to updates a file with the user's game statistics.
  * @param user The user whose statistics are to be written to the file
  * @throws IOException If an input or output exception occurred.
