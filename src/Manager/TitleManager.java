@@ -45,7 +45,7 @@ public class TitleManager
 		Player,
 		Alarm,
 		FlyHead,
-		NewEnemy,
+		BrightHead,
 		Tunnel
 	}
 

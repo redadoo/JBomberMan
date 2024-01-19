@@ -121,7 +121,8 @@ public class GameManager
 	public void initData()
 	{
 		try {
-
+			myGamestate = GameState.Menu;
+			
 			if (manageFile.haveSave() == false)
 				manageFile.initFile(userController);
 		

@@ -26,14 +26,10 @@ public class Main
         // Create a game panel
 		GamePanel gamePanel = new GamePanel();
 
-        // Create a thread for background music and start it
-		Thread MusicThread = new Thread(new AudioPlayer("Resource/Music/Super-Bomberman-Level-1-_ost-snes_.wav"));
-		/* MusicThread.start();  */
-
 		// Add the game panel to the window and initialize the window
 		window.add(gamePanel);
 		window.iniWindow();
-		
+
         // Start the game loop on the game panel
 		gamePanel.StartGameThread();
 	}

@@ -3,10 +3,7 @@ package Src.Entity;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
@@ -15,46 +12,36 @@ import Src.Title.Title;
 import Src.lib.Collider;
 import Src.lib.Vector2;
 
-/**
- * Class to manage the FlyHead enemy
-*/
-public class FlyHead extends Entity
-{
-	private int        					pointDrop = 100;
-	private	ArrayList<BufferedImage>	FrontVector; // Vector for front-facing Enemy sprites.
-	private	ArrayList<BufferedImage>	BackVector;// Vector for back-facing Enemy sprites.
-	private GamePanel					gp;
+public class BrightHead extends Entity {
 
+	private GamePanel					gp;
+    public	int                         life = 2;
+    private int        					pointDrop = 200;
+	
 	/**
 	 * Costructor class FlyHead
 	 * @param pos the position where set the player 
 	 * @param size the size to be assegn to player
 	 * @throws IOException
 	*/
-	public FlyHead(GamePanel gp,Vector2 pos, Vector2 size) throws IOException
+	public BrightHead(GamePanel gp,Vector2 pos, Vector2 size) throws IOException
 	{
 		super(new Vector2(pos.x,pos.y - 10), size);
-		FrontVector = new ArrayList<BufferedImage>();
-		BackVector = new ArrayList<BufferedImage>();
-		this.gp = gp; 
-		getflyHeadImage();
-		initFlyHead();
+		this.gp = gp;
+		getBrightHeadImage();
+		initBrightHead();
 	}
 
 	/**
 	 * Init the FlyHead
 	 */
-	public void initFlyHead()
+	public void initBrightHead()
 	{
 		int randomNumber = new Random().nextInt(2) + 1;
 		if (randomNumber == 2)
 			randomNumber = -1;
-		dir = new Vector2(0, randomNumber);
-		if (dir.y == -1)
-			sprite = BackVector.get(spriteIndex);
-		else
-			sprite = FrontVector.get(spriteIndex);
-		setSprite(sprite);
+		dir = new Vector2(randomNumber, 0);
+		sprite = spriteList.get(spriteIndex);
 	}
 	
 	/**
@@ -72,19 +59,17 @@ public class FlyHead extends Entity
 	/**
 	 * Method to loads Enemy sprite images for different directions (front and back).
 	 */
-	public void getflyHeadImage()
+	public void getBrightHeadImage()
 	{
 		try {
 
-			FrontVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/FlyHead/FrontSprite/FlyHead_0.png")));
-			FrontVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/FlyHead/FrontSprite/FlyHead_1.png")));
-			FrontVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/FlyHead/FrontSprite/FlyHead_2.png")));
-			FrontVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/FlyHead/FrontSprite/FlyHead_3.png")));
-
-			BackVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/FlyHead/BackSprite/FlyHead_4.png")));
-			BackVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/FlyHead/BackSprite/FlyHead_5.png")));
-			BackVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/FlyHead/BackSprite/FlyHead_6.png")));
-			BackVector.add(ImageIO.read(getClass().getResourceAsStream("/Resource/FlyHead/BackSprite/FlyHead_7.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BrightHead/sprite_0.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BrightHead/sprite_1.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BrightHead/sprite_2.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BrightHead/sprite_3.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BrightHead/sprite_4.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BrightHead/sprite_5.png")));
+			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/BrightHead/sprite_6.png")));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -109,7 +94,7 @@ public class FlyHead extends Entity
 			new Vector2((pos.x + (dir.x * speed)) + 3, (pos.y + (dir.y * speed)) + 20), 
 			size.x - 6,
 			size.y - 15);
-		
+
 		isCollided = gp.mapManager.isEntityInsidePerimeter(tmp) && !gp.cChecker.CheckTitle(tmp) ? false : true; 
 		if (!isCollided)
 		{
@@ -119,19 +104,14 @@ public class FlyHead extends Entity
 			pos.y += (dir.y * speed);
 		}
 		else
-			dir.y = -dir.y;
+			dir.x = -dir.x;
 
-		if (frameCount == 3)
+		if (frameCount % 15 == 0)
 		{
 			spriteIndex++;
-			if(spriteIndex == 4)
+			if(spriteIndex == 6)
 				spriteIndex = 0;
-
-			if (dir.y == -1)
-				setSprite(BackVector.get(spriteIndex));
-			else
-				setSprite(FrontVector.get(spriteIndex));
-
+			sprite = spriteList.get(spriteIndex);
 			frameCount = 0;
 		}
 
@@ -145,11 +125,11 @@ public class FlyHead extends Entity
 	public void Draw(Graphics2D g2)
 	{
 		g2.drawImage(sprite,pos.x,pos.y,size.x,size.y,null);
+
 	}
 
 	public Title getTitle() 
 	{ 		
 		return gp.mapManager.GetTitleFromPos(coll.pos,size);
 	}
-
 }

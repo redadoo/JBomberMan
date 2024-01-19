@@ -69,7 +69,7 @@ public class ObjectManager implements Observer
 
 		for (Alarm alarm : alarmList) {
 
-			if (getRandomNumber(0,2) == 1)
+			if (getRandomNumber(0,2) == 1 && !alarm.getIsTunnel())
 			{
 				for (PowerUp powerUp : powerUpList) {
 					if (powerUp.myTitle == null)
@@ -113,6 +113,7 @@ public class ObjectManager implements Observer
 						break;
 				}
 				powerUpList.remove(powerUp);
+				break ;
 			}
 		}
 	}
@@ -195,7 +196,7 @@ public class ObjectManager implements Observer
 		Vector2 playerTitlePos = gp.mapManager.GetTitleFromRec(gp.player.coll.rec).matrixPos;
 		Vector2 tunnelTitlePos = gp.mapManager.GetTitleFromRec(tunnel.coll.rec).matrixPos;
 		
-		if(gp.enemiesManager.GetListFlyHeads().size() == 0 && playerTitlePos.equals(tunnelTitlePos))
+		if(gp.enemiesManager.getListFlyHeads().size() == 0 &&  gp.enemiesManager.getListBrightHead().size() == 0 && playerTitlePos.equals(tunnelTitlePos))
 			return true;
 		return false;
 	}

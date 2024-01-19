@@ -13,6 +13,7 @@ import Src.Manager.EnemiesManager;
 import Src.Manager.GameManager;
 import Src.Manager.ObjectManager;
 import Src.Manager.TitleManager;
+import Src.Sound.AudioPlayer;
 import Src.Utils.CollisionChecker;
 import Src.Utils.HUD;
 import Src.Utils.KeyHandler;
@@ -37,7 +38,10 @@ public class GamePanel extends JPanel implements Runnable
 	public	double				elapsedTime;
 	public	EnemiesManager		enemiesManager;
 	public	ObjectManager		ObjectManager;
+	public 	AudioPlayer			audioPlayer;
+	public	Thread				audioThread;
 
+	
     /**
      * Costructor class GamePanel
      * Initializes the panel properties, sets up the game's dimensions, background color,
@@ -56,6 +60,9 @@ public class GamePanel extends JPanel implements Runnable
 		cChecker = new CollisionChecker(this);
 		hud = new HUD(this);
 		ObjectManager = new ObjectManager(this);
+		audioPlayer = new AudioPlayer("Resource/Music/Super-Bomberman-Level-1-_ost-snes_.wav");
+
+		audioThread = new Thread(audioPlayer);
 
 		this.setPreferredSize(new Dimension(512, 470));
 		this.setBackground(Color.BLACK);
@@ -80,6 +87,8 @@ public class GamePanel extends JPanel implements Runnable
 	@Override
 	public void run() 
 	{
+		audioThread.start();
+
 		double drawInterval = 1000000000/FPS; //To choose the frame rate
 		double delta = 0;
 		lastTime = System.nanoTime();

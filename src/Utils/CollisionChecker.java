@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import Src.Entity.Alarm;
 import Src.Entity.Bomb;
+import Src.Entity.BrightHead;
 import Src.Entity.FlyHead;
 import Src.Entity.Player;
 import Src.Main.GamePanel;
@@ -75,9 +76,17 @@ public class CollisionChecker extends Observable
 	*/
 	public void Update()
 	{
-		for (FlyHead flyHead : enemiesManager.GetListFlyHeads()) 
+		for (FlyHead flyHead : enemiesManager.getListFlyHeads()) 
 		{
 			if(player.coll.rec.intersects(flyHead.coll.rec) == true)
+			{
+				player.update(this, true);
+			}
+		}
+
+		for (BrightHead brightHead : enemiesManager.getListBrightHead()) 
+		{
+			if(player.coll.rec.intersects(brightHead.coll.rec) == true)
 			{
 				player.update(this, true);
 			}
@@ -99,7 +108,7 @@ public class CollisionChecker extends Observable
 						player.update(this, true);
 					}
 
-					for (FlyHead flyHead : enemiesManager.GetListFlyHeads()) 
+					for (FlyHead flyHead : enemiesManager.getListFlyHeads()) 
 					{
 						if(titlePos.equals(flyHead.getTitle().matrixPos) == true)
 						{
@@ -108,6 +117,15 @@ public class CollisionChecker extends Observable
 						}
 					}
 
+					for (BrightHead brightHead : enemiesManager.getListBrightHead()) 
+					{
+						if(titlePos.equals(brightHead.getTitle().matrixPos) == true)
+						{
+							enemiesManager.update(this, brightHead);
+							break ;
+						}
+					}
+					
 					for (Alarm alarm : gp.ObjectManager.getAlarmList()) 
 					{
 						if(titlePos.equals(alarm.getTitle().matrixPos))

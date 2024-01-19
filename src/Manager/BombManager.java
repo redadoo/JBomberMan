@@ -67,7 +67,6 @@ public class BombManager
 		// Create an initial Bomb object and add it to the bombsList
 		try {
 			bombsList.add(new Bomb(gp, new Vector2()));
-			bombsList.add(new Bomb(gp, new Vector2()));
 		} catch (IOException e) {
 			e.printStackTrace(); // Handle IOException by printing the stack trace
 		}
@@ -82,7 +81,6 @@ public class BombManager
 		for (Bomb bomb : bombsList) {
 			if (bomb.myState == BombState.Available && isTitleFree(title))
 			{
-				System.out.println("love");
 				if(title.matrixPos.equals(new Vector2(0, 0)))
 					bomb.setPos(new Vector2(48, 90));
 				else
@@ -164,7 +162,6 @@ public class BombManager
 			if (bomb.myState == BombState.Placed)
 			{
 				g2.drawImage(bomb.sprite, bomb.pos.x, bomb.pos.y, bomb.size.x, bomb.size.y,null);
-				g2.drawRect(bomb.coll.rec.x, bomb.coll.rec.y, bomb.coll.rec.width, bomb.coll.rec.height);
 			}
 
 			// Bomb exploded

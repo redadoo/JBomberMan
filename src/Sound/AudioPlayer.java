@@ -13,27 +13,24 @@ import java.io.IOException;
  */
 public class AudioPlayer implements Runnable {
 
-	private File audioFile;
-    private volatile boolean isRunning = true;
+	private Clip				clip;
+	private String				filepath;
+	private File				audioFile;
+    private volatile boolean	isRunning = true;
 	
-	@Override
-	public void run() 
-	{
-		while (isRunning) {
-			try {
+    @Override
+    public void run() {
+        try {
+			while (isRunning) {
 				playAudio();
-			} catch (UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (LineUnavailableException e) {
-				e.printStackTrace();
 			}
-		}
-
-	}
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
 
 	public AudioPlayer(String filePath) {
+		this.filepath = filepath;
 		audioFile = new File(filePath);
 	}
 
@@ -43,6 +40,12 @@ public class AudioPlayer implements Runnable {
 		if (!audioFile.exists()) {
 			System.out.println("Il file audio non esiste: ");
 			return;
+		}
+
+		// If a clip is already running, stop and close it
+		if (clip != null && clip.isRunning()) {
+			clip.stop();
+			clip.close();
 		}
 
 		// Ottieni un'istanza di AudioInputStream
@@ -80,7 +83,18 @@ public class AudioPlayer implements Runnable {
 		audioStream.close();
 	}
 
-	public void stopThread() {
+    public void stopThread() {
+		Thread.currentThread().interrupt(); 
         isRunning = false;
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+        }
     }
+
+	public void setClip(String filePath)
+	{
+		if (this.filepath != filePath)
+			audioFile = new File(filePath);
+	}
 }

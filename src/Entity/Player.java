@@ -189,10 +189,7 @@ public class Player extends Entity implements Observer
 
 		if(isCollided == false && gp.mapManager.isEntityInsidePerimeter(tmp))
 		{
-			coll = new Collider(
-				new Vector2((pos.x + (dir.x * speed)) + 3, (pos.y + (dir.y * speed)) + 20), 
-				size.x - 6,
-				size.y - 15);
+			coll = tmp;
 
 			pos.x += (dir.x * speed);
 			pos.y += (dir.y * speed);
@@ -275,7 +272,6 @@ public class Player extends Entity implements Observer
 	public void Draw(Graphics2D g2)
 	{
 		g2.drawImage(sprite,pos.x, pos.y, size.x, size.y,null);
-		g2.drawRect(coll.rec.x,coll.rec.y,coll.rec.width,coll.rec.height);
 		bombManager.Draw(g2);
  	}
 
@@ -325,14 +321,18 @@ public class Player extends Entity implements Observer
 	
 	public void addBomb()
 	{
-		
+		try {
+			bombManager.addBomb();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void addSpeed()
 	{
-		if (speed > 6)
+		if (speed > 4)
 			return ;
 
-		speed += 2;
+		speed += 1;
 	}
 }
