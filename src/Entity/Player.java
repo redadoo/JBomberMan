@@ -66,7 +66,7 @@ public class Player extends Entity implements Observer
 		speed = 2;
 		spriteIndex = 0;
 		frameCount = 0;
-		life = 5;
+		life = 0;
 		point = 0;
 		cooldownDamage = 0;
 
@@ -203,6 +203,8 @@ public class Player extends Entity implements Observer
 	*/
 	public void Update() throws IOException
 	{
+		//update bombmanager
+		bombManager.Update();
 
 		int animationRatio;
 		int maxSpriteIndex;
@@ -255,9 +257,6 @@ public class Player extends Entity implements Observer
 	
 		// reset dir every frame
 		dir = new Vector2(0,0);
-	
-		//update bombmanager
-		bombManager.Update();
 		
 		//update user data
 		gp.gameManager.updateUserData(this);

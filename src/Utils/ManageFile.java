@@ -49,7 +49,7 @@ public class ManageFile
 					user.setUserLevel(Integer.parseInt(data.split(":")[1]));
 				if (data.contains("points"))
 					user.setUserPoints(Integer.parseInt(data.split(":")[1]));
-				if (data.contains("Avatar"))
+				if (data.contains("Avatar") && data.split(":")[1] == null)
 					user.setUserAvatar(data.split(":")[1]);
 			}
 			myReader.close();
@@ -66,10 +66,10 @@ public class ManageFile
 	 */
 	public void initFile(UserController user) throws IOException
 	{
-		Scanner myObj = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter nickname");
 	
-		String nickname = myObj.nextLine();
+		String nickname = sc.nextLine();
 		user.setUserNickname(nickname);
 				
 		new File("saves/").mkdirs();
@@ -98,29 +98,8 @@ public class ManageFile
 			writer.write("Actual level :1");
 			writer.write("\n");
 			writer.write("points :0");
-			System.out.println("insert avatar number color:\n1 = White\n2 = Black\n3 = Blue\n4 = Orange");
-			int color = Integer.parseInt(myObj.nextLine());
-			myObj.close();
-			String AvatarColor = "Avatar :";
-			switch (color) {
-				case 1: 
-					AvatarColor += "White";
-					break;
-				case 2:
-					AvatarColor += "Black";
-					break;
-				case 3:
-					AvatarColor += "Blue";
-					break;
-				case 4:
-					AvatarColor += "Orange";			
-					break;
-				default:
-					AvatarColor += "White";
-					break;
-			}
 			writer.write("\n");
-			writer.write(AvatarColor);
+			writer.write(setAvatarColor(user));
 		} catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
@@ -152,7 +131,7 @@ public class ManageFile
 					);
 			writer.write("Nickname :" + user.getUserNickname());
 			writer.write("\n");
-			writer.write("Total game :" + user.getUsermatch());
+			writer.write("Total game :" + (user.getUsermatchLose() + user.getUsermatchWon()));
 			writer.write("\n");
 			writer.write("game lost :" + user.getUsermatchLose());
 			writer.write("\n");
@@ -182,4 +161,54 @@ public class ManageFile
 			return false;
 		return true;
 	}
+
+	/**
+	 * Sets the avatar color for a user based on user input.
+	 *
+	 * This method prompts the user to input an avatar color number and sets the
+	 * corresponding color for the user's avatar. The color options are:
+	 * 1 = White
+	 * 2 = Black
+	 * 3 = Blue
+	 * 4 = Orange
+	 *
+	 * The method handles user input and provides a default color (White) in case of
+	 * an invalid input. The chosen color is then stored in the user's avatar property.
+	 *
+	 * @param user The UserController representing the user for whom the avatar color is set.
+	 * @return A string indicating the chosen avatar color in the format "Avatar : [Color]".
+	 *         Returns "Avatar : White" by default if an invalid color is provided.
+	 */
+	public String setAvatarColor(UserController user)
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("insert avatar number color:\n1 = White\n2 = Black\n3 = Blue\n4 = Orange");
+		int color = 1;
+		if (sc.hasNextLine())
+			color = Integer.parseInt(sc.nextLine());
+		sc.close();
+		String AvatarColor = "Avatar :";
+		switch (color) 
+		{
+			case 1: 
+				AvatarColor += "White";
+				break;
+			case 2:
+				AvatarColor += "Black";
+				break;
+			case 3:
+				AvatarColor += "Blue";
+				break;
+			case 4:
+				AvatarColor += "Orange";			
+				break;
+			default:
+				AvatarColor += "White";
+				break;
+		}
+		sc.close();
+		user.setUserAvatar(AvatarColor.split(":")[1]);
+		return AvatarColor;
+	}
+
 }

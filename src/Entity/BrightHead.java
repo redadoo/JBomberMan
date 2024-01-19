@@ -94,8 +94,12 @@ public class BrightHead extends Entity {
 			new Vector2((pos.x + (dir.x * speed)) + 3, (pos.y + (dir.y * speed)) + 20), 
 			size.x - 6,
 			size.y - 15);
-
-		isCollided = gp.mapManager.isEntityInsidePerimeter(tmp) && !gp.cChecker.CheckTitle(tmp) && gp.cChecker.CheckBomb(tmp) ? false : true; 
+			
+		if (gp.mapManager.isEntityInsidePerimeter(tmp) && !gp.cChecker.CheckTitle(tmp) && gp.cChecker.CheckBomb(tmp) && gp.cChecker.CheckOtherEnemies(tmp,this)) {
+			isCollided = false;
+		} else {
+			isCollided = true;
+		}
 		
 		if (!isCollided)
 		{

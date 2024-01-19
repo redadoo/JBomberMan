@@ -7,7 +7,7 @@ import Src.Utils.Window;
 /**
  * Class Main
 */
-public class Main 
+public class JBomberMan 
 {
 
 	/**

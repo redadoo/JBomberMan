@@ -1,10 +1,16 @@
 package Src.Utils;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import Src.Entity.Alarm;
 import Src.Entity.Bomb;
 import Src.Entity.BrightHead;
+import Src.Entity.Entity;
 import Src.Entity.FlyHead;
 import Src.Entity.Player;
 import Src.Main.GamePanel;
@@ -81,6 +87,36 @@ public class CollisionChecker extends Observable
 		return true;
 	}
 
+	/**
+     * Checks for collisions between the specified collider and bombs placed by the player.
+     *
+     * @param coll The collider to check for collisions.
+     * @return true if no collision with bombs is detected, false otherwise.
+     */
+	public boolean CheckOtherEnemies(Collider coll, Entity object)
+	{
+		List<?> enemies =  combine(enemiesManager.getListFlyHeads(), enemiesManager.getListBrightHead());
+
+		for (Object enemy : enemies) 
+		{
+			if (enemy == object)
+				return true;
+			if (enemy instanceof FlyHead)
+			{
+				FlyHead flyhead = (FlyHead)enemy;
+				if(coll.rec.intersects(flyhead.coll.rec) == true)
+					return false;
+			}
+			else if(enemy instanceof BrightHead)
+			{
+				BrightHead brightHead = (BrightHead)enemy;
+				if(coll.rec.intersects(brightHead.coll.rec) == true)
+					return false;
+			}
+		}
+		return true;
+	}
+
     /**
      * Checks for collisions between the player and enemy entities and bomb explosion, updating player/enemies status accordingly.
      */
@@ -149,5 +185,17 @@ public class CollisionChecker extends Observable
 			}
 		}
 
+	}
+
+	/**
+	* Combines multiple lists into a single list containing all elements of
+	* every list.
+	* 
+	* @param <T> - The type of the lists.
+	* @param lists - The group of List implementations to combine
+	* @return a single List<?> containing all elements of the passed in lists.
+	*/
+	public static <Enemy> List<?> combine(final List<?>... lists) {
+		return Stream.of(lists).flatMap(List::stream).collect(Collectors.toList());
 	}
 }

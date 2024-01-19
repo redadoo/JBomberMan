@@ -32,6 +32,7 @@ public class GameManager
 	{
 		Menu,
 		Game,
+		OnChangeLevel,
 		Finish
 	}
 
@@ -59,6 +60,12 @@ public class GameManager
 	 * Method to check if the status of game is 'Menu'
 	 * @return 
 	*/
+	public Boolean isOnChangeLevel(){return myGamestate == GameState.OnChangeLevel;}
+	
+	/**
+	 * Method to check if the status of game is 'Menu'
+	 * @return 
+	*/
 	public Boolean isOnMenu(){return myGamestate == GameState.Menu;}
 
 	/**
@@ -78,6 +85,12 @@ public class GameManager
 	*/
 	public void death()
 	{
+		userController.setUsermatchLose(userController.getUsermatchLose() + 1);
+		try {
+			manageFile.updateFile(userController);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		myGamestate = GameState.Finish;
 	}
 
@@ -86,30 +99,16 @@ public class GameManager
 	*/
 	public void win()
 	{
-		myGamestate = GameState.Finish;
-		
-		Scanner myObj = new Scanner(System.in);
+		userController.setUsermatchWon(userController.getUsermatchWon() + 1);
+		try {
+			manageFile.updateFile(userController);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		if (userController.getUserLevel() == 1)
-		{
-			System.out.println("Do you want go to the next level?");
-			System.out.println("yes | no");
-			String continueChoice = myObj.nextLine();
-			myObj.close();
-			if (continueChoice.contains("yes") || continueChoice.contains("y"))
-				nextLevel();
-			else if(continueChoice.contains("no") || continueChoice.contains("n"))
-				System.exit(0);	
-		}
-		else if(userController.getUserLevel() == 2)
-		{
-			System.out.println("Do you want go to the level 1?");
-			System.out.println("yes | no");
-			String continueChoice = myObj.nextLine();
-			if (continueChoice.contains("yes") || continueChoice.contains("y"))
-				Reset();
-			else if(continueChoice.contains("no") || continueChoice.contains("n"))
-				System.exit(0);	
-		}
+			myGamestate = GameState.OnChangeLevel;
+		else 
+			myGamestate = GameState.Finish;
 	}
 
 	/**
@@ -121,10 +120,16 @@ public class GameManager
 			myGamestate = GameState.Menu;
 			
 			if (manageFile.haveSave() == false)
+			{
 				manageFile.initFile(userController);
-		
-			manageFile.returnUserValue(userController);
 
+			}
+			else
+			{
+				manageFile.returnUserValue(userController);
+				manageFile.setAvatarColor(userController);
+				manageFile.updateFile(userController);
+			}
 			userController.updateView();
 			myGamestate = GameState.Game;
 
@@ -175,16 +180,21 @@ public class GameManager
 	/**
 	 * Method to reset the game
 	 */
-	public void Reset()
+	public void reset()
 	{
 		myGamestate = GameState.Finish;
-
+		try {
+			manageFile.updateFile(userController);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		gp.mapManager = new TitleManager(gp, "/Resource/Maps/map_0");
 		gp.player = new Player(gp);
 		gp.enemiesManager = new EnemiesManager(gp);
 		gp.cChecker = new CollisionChecker(gp);
 		gp.hud = new HUD(gp);
 		gp.ObjectManager = new ObjectManager(gp);
+		userController.setUsermatch(userController.getUsermatch() + 1);
 
 		myGamestate = GameState.Game;
 	}
@@ -195,23 +205,25 @@ public class GameManager
 	public void nextLevel()
 	{
 		myGamestate = GameState.Finish;
-
-		if(userController.getUserLevel() == 2)
-		{
-			gp.player = new Player(gp);
-			gp.mapManager = new TitleManager(gp, "/Resource/Maps/map_0");
-			gp.enemiesManager = new EnemiesManager(gp);
-		}
-		else if(userController.getUserLevel() == 1)
-		{
-			userController.setUserLevel(2);
-			gp.mapManager = new TitleManager(gp, "/Resource/Maps/map_1");
-			gp.enemiesManager = new EnemiesManager(gp);
-			gp.player.resetPos();
-		}
+		userController.setUserLevel(userController.getUserLevel() + 1);
+		userController.setUserLevel(2);
+		gp.mapManager = new TitleManager(gp, "/Resource/Maps/map_1");
+		gp.enemiesManager = new EnemiesManager(gp);
+		gp.cChecker = new CollisionChecker(gp);
 		gp.ObjectManager = new ObjectManager(gp);
-
+		gp.player.resetPos();
 		myGamestate = GameState.Game;
 		userController.updateView();
+	}
+
+	public void closeGame()
+	{
+		try {
+			manageFile.updateFile(userController);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}			
+		userController.updateView();
+		System.exit(0);
 	}
 }

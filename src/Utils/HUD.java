@@ -22,6 +22,7 @@ public class HUD
 	private BufferedImage				hud;
 	private int							offset;
 	private ArrayList<BufferedImage>	numbers;
+	private ArrayList<BufferedImage>	clockSprite;
 	private BufferedImage				gameOverHud;
 	private BufferedImage				indicator;
 	private ArrayList<Vector2> 			listposIndicator;
@@ -87,7 +88,7 @@ public class HUD
 	/**
      * Updates the game over screen based on user input for restarting or exiting the game.
      */
-	public void UpdateGameOver()
+	public void UpdateHud()
 	{
 		if(gp.keyh.rightPressed == true)
 			posIndicator = listposIndicator.get(1);
@@ -95,9 +96,14 @@ public class HUD
 			posIndicator = listposIndicator.get(0);
 			
 		if (gp.keyh.enter == true && posIndicator == listposIndicator.get(0))
-			gp.gameManager.Reset();
+		{
+			if (gp.gameManager.isOnChangeLevel() == true)
+				gp.gameManager.nextLevel();
+			else
+				gp.gameManager.reset();
+		}
 		else if(gp.keyh.enter == true && posIndicator == listposIndicator.get(1))
-			System.exit(0);
+			gp.gameManager.closeGame();
 	}
 
 	/**
@@ -105,7 +111,7 @@ public class HUD
      *
      * @param g2 The Graphics2D object on which the game over screen will be drawn.
      */
-	public void DrawGameOver(Graphics2D g2)
+	public void DrawChangeLevel(Graphics2D g2)
 	{
 		g2.drawImage(gameOverHud,0,0,520,470,null);
 

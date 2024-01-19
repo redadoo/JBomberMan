@@ -88,8 +88,8 @@ public class GamePanel extends JPanel implements Runnable
 	@Override
 	public void run() 
 	{
-		audioThread.start();
-
+/* 		audioThread.start();
+ */
 		double drawInterval = 1000000000/FPS; //To choose the frame rate
 		double delta = 0;
 		lastTime = System.nanoTime();
@@ -124,10 +124,8 @@ public class GamePanel extends JPanel implements Runnable
      */
 	public void Update() throws IOException
 	{
-		if(gameManager.isOnFinish())
-		{
-			hud.UpdateGameOver();
-		}
+		if(gameManager.isOnChangeLevel() || gameManager.isOnFinish())
+			hud.UpdateHud();
 		
 		else if(gameManager.isOnGame())
 		{
@@ -149,10 +147,8 @@ public class GamePanel extends JPanel implements Runnable
 
 		Graphics2D g2 = (Graphics2D)g;
 
-		if(gameManager.isOnFinish())
-		{
-			hud.DrawGameOver(g2);
-		}
+		if(gameManager.isOnChangeLevel() || gameManager.isOnFinish())
+			hud.DrawChangeLevel(g2);
 
 		else if(gameManager.isOnGame())
 		{
