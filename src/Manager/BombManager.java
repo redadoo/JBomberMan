@@ -17,7 +17,7 @@ import Src.lib.Vector2;
 
 /**
  * Class to manage the class bomb
- */
+*/
 public class BombManager 
 {
 	private int						i;
@@ -28,7 +28,7 @@ public class BombManager
 
 	/**
 	 * Costructor class BombManager
-	 * @param gp
+	 * @param gp the GamePanel reference
 	*/
 	public BombManager(GamePanel gp)
 	{
@@ -37,8 +37,7 @@ public class BombManager
 	}
 	
 	/**
-	 * Initializes the Bomb Manager by setting up the necessary data structures and loading explosion sprites.
-	 * This method creates an initial bomb and adds it to the bombsList.
+	 * Initializes the Bomb Manager by setting up the necessary data structures and loading explosion sprites
 	 */
 	public void initBombManager()
 	{
@@ -61,21 +60,22 @@ public class BombManager
 				}}));
 			}
 		} catch (IOException e) {
-			e.printStackTrace(); // Handle IOException by printing the stack trace
+			e.printStackTrace(); 
 		}
 
 		// Create an initial Bomb object and add it to the bombsList
 		try {
 			bombsList.add(new Bomb(gp, new Vector2()));
 		} catch (IOException e) {
-			e.printStackTrace(); // Handle IOException by printing the stack trace
+			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * To place the bomb in the right way
-	 * @param rec to manage the info (pos, state) 
-	 */
+ 	 * @param title The title object that contains the position and state information.
+ 	 * @throws IOException If an input or output exception occurred.
+	*/
 	public void PlaceBomb(Title title) throws IOException
 	{
 		for (Bomb bomb : bombsList) {
@@ -92,7 +92,7 @@ public class BombManager
 	}
 
 	/**
-	 * Manage the behavior of bombs
+	 * Manage the behavior of bombs and update it
 	*/
 	public void Update()
 	{
@@ -183,10 +183,8 @@ public class BombManager
 	
 	/**
 	 * Checks if a specific tile is free from placed bombs.
-	 * It iterates through the list of bombs and compares their positions with the given tile.
-	 *
-	 * @param title The title to check for availability.
-	 * @return {@code true} if the tile is free; {@code false} otherwise.
+	 * @param title the title to check for availability
+	 * @return code true if the tile is free; code false otherwise.
 	 */
 	public Boolean isTitleFree(Title title)
 	{
@@ -198,8 +196,10 @@ public class BombManager
 	}
 
 	/**
-	 * Method to for add a bomb to bombsList
+	 * Method to add bomb to bombsList
+	 * @throws IOException
 	 */
-	public void addBomb() throws IOException{ bombsList.add(new Bomb(gp, new Vector2()));}
+	public void addBomb() throws IOException
+	{ bombsList.add(new Bomb(gp, new Vector2()));}
 
 }

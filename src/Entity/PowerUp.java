@@ -10,19 +10,17 @@ import Src.Title.Title;
 import Src.lib.Vector2;
 
 /**
- * The PowerUp class represents a power-up entity in the game, extending the base Entity class.
- * It encapsulates functionality for initializing, updating, and drawing power-ups, including
- * specific behavior based on the type of power-up.
- */
-public class PowerUp extends Entity {
+ * The PowerUp class represents a power-up entity in the game
+*/
+public class PowerUp extends Entity 
+{
 
 	public Title		myTitle;
 	public PowerUpType  myType;
 	public Boolean		isVisible;
 
 	/**
-	 * Constructs a PowerUp object with the specified position, size, and type.
-	 *
+	 * Costructor class PowerUp 
 	 * @param pos  The position vector for the PowerUp.
 	 * @param size The size vector for the PowerUp.
 	 * @param num  An integer representing the type of PowerUp.
@@ -40,11 +38,10 @@ public class PowerUp extends Entity {
 
 	/**
 	 * Initializes the PowerUp object by loading its sprites based on its type.
-	 * Throws IOException if there is an issue reading the image resources.
-	 *
 	 * @throws IOException if there is an issue reading the image resources.
 	 */
-	public void initPowerUp() throws IOException {
+	public void initPowerUp() throws IOException 
+	{
 		if (this.myType == PowerUpType.LifeUp) {
 			// Load life-up powerUp sprites
 			spriteList.add(ImageIO.read(getClass().getResourceAsStream("/Resource/PowerUp/sprite_4.png")));
@@ -64,8 +61,8 @@ public class PowerUp extends Entity {
 	}
 
 	/**
-	 * Method that update the alarms
-	 */
+	 * Method that update the powerup
+	*/
 	public void Update()
 	{
 		if(frameCount % 5 == 0)
@@ -82,14 +79,10 @@ public class PowerUp extends Entity {
 	 * Method to draws the powerUp on the provided Graphics2D object.
 	 * @param g2 The Graphics2D object on which the player will be drawn.
 	 */
-	public void Draw(Graphics2D g2)
-	{
-		g2.drawImage(sprite, pos.x, pos.y, size.x, size.y, null);
-	}
+	public void Draw(Graphics2D g2){ g2.drawImage(sprite, pos.x, pos.y, size.x, size.y, null); }
 
 	/**
-	 * Sets the Title associated with the current object.
-	 *
+	 * Sets the Title associated with the current object
 	 * @param title The Title to be set.
 	 */
 	public void setTitle(Title title) { myTitle = title; }

@@ -62,15 +62,12 @@ public class Entity
 	/**
 	 * Method to set the sprite
 	 * @param sprite The image to be used as the sprite
-	 */
-	public void setSprite(BufferedImage sprite)
-	{
-		this.sprite = sprite;
-	}
+	*/
+	public void setSprite(BufferedImage sprite){ this.sprite = sprite; }
 
 	/**
-	 * Method to change the sprites
-	 */
+	 * Method to change sprites
+	*/
 	public void nextSprite()
 	{
 		if(spriteIndex + 1 < spriteList.size())
@@ -82,9 +79,8 @@ public class Entity
 	}
 	
 	/**
-	 * Sets the position of the entity and updates its collision rectangle accordingly.
-	 *
-	 * @param pos The new position vector for the entity.
+	 * Sets the position of the entity and updates its collision rectangle accordingly
+	 * @param pos the new position vector for the entity
 	 */
 	public void setPos(Vector2 pos)
 	{

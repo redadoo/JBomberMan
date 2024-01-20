@@ -25,7 +25,7 @@ public class EnemiesManager implements Observer
 
 	/**
 	 * Costructor class EnemiesManager
-	 * @param gp the game panle where works
+	 * @param gp the GamePanel reference
 	*/
 	public EnemiesManager(GamePanel gp)
 	{
@@ -99,7 +99,7 @@ public class EnemiesManager implements Observer
 	}
 
 	/**
-	 * Method to updates the state of the game when a FlyHead object changes its state
+	 * Method to updates the state of the game when a FlyHead object and BrightHead changes its state
 	 * @param o The observable object that this observer is registered to
 	 * @param arg The argument passed to the `notifyObservers` method
 	 */

@@ -1,7 +1,7 @@
 package Src.User;
 
 /**
- * Class UserController
+ * Class for UserController
 */
 public class UserController 
 {

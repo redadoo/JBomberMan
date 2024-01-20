@@ -14,7 +14,7 @@ import Src.lib.Vector2;
 /**
  * The HUD (Heads-Up Display) class manages the graphical elements displayed on the screen during gameplay
  * and game over state. It includes the player's life, points, and game over screen with indicators.
- */
+*/
 public class HUD
 {
 	private int							i;
@@ -32,9 +32,8 @@ public class HUD
 
 	/**
      * Constructs a HUD object with the specified GamePanel reference and initializes graphical elements.
-     *
-     * @param gp The GamePanel reference.
-     */
+     * @param gp The GamePanel reference
+    */
 	public HUD(GamePanel gp)
 	{
 		this.gp = gp;
@@ -64,9 +63,8 @@ public class HUD
 	}
 
     /**
-     * Draws HUD elements on the provided Graphics2D object, including player life and points.
-     *
-     * @param g2 The Graphics2D object on which the HUD will be drawn.
+     * Draws HUD elements on the provided Graphics2D object, including player life and points
+     * @param g2 The Graphics2D object on which the HUD will be drawn
      */
 	public void Draw(Graphics2D g2)
 	{
@@ -78,7 +76,6 @@ public class HUD
 		g2.drawImage(numbers.get(index),50,15,15,30,null);
 	
 		//Draw point
-
 		if (gp.player.getPoint() > 0)
 		{
 			String pointString = String.valueOf(gp.player.getPoint());
@@ -103,7 +100,7 @@ public class HUD
 
 	/**
      * Updates the game over screen based on user input for restarting or exiting the game.
-     */
+    */
 	public void UpdateHud()
 	{
 		if(gp.keyh.rightPressed == true)
@@ -123,10 +120,9 @@ public class HUD
 	}
 
 	/**
-     * Draws the game over screen with indicators based on the selected option.
-     *
-     * @param g2 The Graphics2D object on which the game over screen will be drawn.
-     */
+     * Draws the game over screen with indicators based on the selected option
+     * @param g2 The Graphics2D object on which the game over screen will be drawn
+    */
 	public void DrawChangeLevel(Graphics2D g2)
 	{
 		g2.drawImage(gameOverHud,0,0,520,470,null);

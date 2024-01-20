@@ -40,8 +40,8 @@ public class Player extends Entity implements Observer
 	/**
 	 * Constructor class Player 
 	 * Initializes a player object with the specified parameters, including the game panel,
-	 * key handler, and title manager. Sets the initial position, size, and other properties of the player.
-	 * @param gp The GamePanel instance to which the player belongs.
+	 * key handler, and title manager. Sets the initial position, size, and other properties of the player
+	 * @param gp the GamePanel reference
 	*/
 	public Player(GamePanel gp)
 	{
@@ -66,7 +66,7 @@ public class Player extends Entity implements Observer
 		speed = 2;
 		spriteIndex = 0;
 		frameCount = 0;
-		life = 0;
+		life = 3;
 		point = 0;
 		cooldownDamage = 0;
 
@@ -255,7 +255,6 @@ public class Player extends Entity implements Observer
 		// Increment frame count for animation.
 		frameCount++;
 	
-		// reset dir every frame
 		dir = new Vector2(0,0);
 		
 		//update user data
@@ -264,8 +263,8 @@ public class Player extends Entity implements Observer
 	}
 
 	/**
-	 * Method to draws the player on the provided Graphics2D object.
-	 * @param g2 The Graphics2D object on which the player will be drawn.
+	 * Method to draws the player on the provided Graphics2D object
+	 * @param g2 The Graphics2D object on which the player will be drawn
 	*/
 	public void Draw(Graphics2D g2)
 	{
@@ -297,6 +296,7 @@ public class Player extends Entity implements Observer
 
 	/**
 	 * Method to get points
+	 * @return point
 	*/
 	public int getPoint(){return this.point;}
 
@@ -309,14 +309,13 @@ public class Player extends Entity implements Observer
 	/**
 	 * Adds 3 to the current life count.
 	 */
-	public void addLife() {
-		life += 3;
-	}
+	public void addLife() { life += 3; }
 
 	/**
 	 * Adds a bomb using the bomb manager.
 	 */
-	public void addBomb() {
+	public void addBomb() 
+	{
 		try {
 			bombManager.addBomb();
 		} catch (IOException e) {
@@ -326,6 +325,7 @@ public class Player extends Entity implements Observer
 
 	/**
 	 * Increases the speed by 1, but only if the current speed is less than or equal to 4.
+	 * @return 
 	 */
 	public void addSpeed() {
 		if (speed > 4)
@@ -335,10 +335,7 @@ public class Player extends Entity implements Observer
 	}
 
 	/**
-	 * resets the player position and initializes it by taking the position from the mapManager
+	 * Resets the player position and initializes it by taking the position from the mapManager
 	 */
-	public void resetPos()
-	{
-		setPos(gp.mapManager.ReturnPlayerPos());
-	}
+	public void resetPos(){ setPos(gp.mapManager.ReturnPlayerPos()); }
 }

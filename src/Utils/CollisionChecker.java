@@ -19,7 +19,7 @@ import Src.lib.Vector2;
 
 /**
  * Class CollisionChecker to check if two entity/Collider make contact
- */
+*/
 public class CollisionChecker extends Observable
 {
 	private GamePanel		gp;
@@ -28,10 +28,9 @@ public class CollisionChecker extends Observable
 	private TitleManager	titleManager;
 
     /**
-     * Constructs a CollisionChecker object with the specified GamePanel reference and initializes necessary references.
-     *
-     * @param gp The GamePanel reference.
-     */
+     * Constructs a CollisionChecker object with the specified GamePanel reference and initializes necessary references
+     * @param gp the GamePanel reference
+    */
 	public CollisionChecker(GamePanel gp)
 	{
 		this.gp = gp;
@@ -41,11 +40,10 @@ public class CollisionChecker extends Observable
 	}
 
     /**
-     * Checks for collisions between the specified collider and map titles.
-     *
-     * @param coll The collider to check for collisions.
-     * @return true if a collision with map titles is detected, false otherwise.
-     */
+     * Checks for collisions between the specified collider and map titles
+     * @param coll The collider to check for collisions
+     * @return true if a collision with map titles is detected, false otherwise
+    */
 	public Boolean CheckTitle(Collider coll)
 	{
 		if (gp.mapManager == null)
@@ -67,11 +65,10 @@ public class CollisionChecker extends Observable
 	}
 
     /**
-     * Checks for collisions between the specified collider and bombs placed by the player.
-     *
-     * @param coll The collider to check for collisions.
-     * @return true if no collision with bombs is detected, false otherwise.
-     */
+     * Checks for collisions between the specified collider and bombs placed by the player
+     * @param coll The collider to check for collisions
+     * @return true if no collision with bombs is detected, false otherwise
+    */
 	public boolean CheckBomb(Collider coll)
 	{
 		for (Bomb bomb : player.bombManager.getBombList()) 
@@ -86,11 +83,11 @@ public class CollisionChecker extends Observable
 	}
 
 	/**
-     * Checks for collisions between the specified collider and bombs placed by the player.
-     *
-     * @param coll The collider to check for collisions.
-     * @return true if no collision with bombs is detected, false otherwise.
-     */
+     * Checks for collisions between the specified collider and bombs placed by the player
+     * @param coll the collider to check for collisions
+	 * @param object the entity to exclude from the collision check.
+     * @return true if no collision with bombs is detected, false otherwise
+    */
 	public boolean CheckOtherEnemies(Collider coll, Entity object)
 	{
 		List<?> enemies =  combine(enemiesManager.getListFlyHeads(), enemiesManager.getListBrightHead());
@@ -116,8 +113,8 @@ public class CollisionChecker extends Observable
 	}
 
     /**
-     * Checks for collisions between the player and enemy entities and bomb explosion, updating player/enemies status accordingly.
-     */
+     * Checks for collisions between the player and enemy entities and bomb explosion, updating player/enemies status accordingly
+    */
 	public void Update()
 	{
 		for (FlyHead flyHead : enemiesManager.getListFlyHeads()) 
@@ -186,14 +183,13 @@ public class CollisionChecker extends Observable
 	}
 
 	/**
-	* Combines multiple lists into a single list containing all elements of
-	* every list.
-	* 
-	* @param <T> - The type of the lists.
-	* @param lists - The group of List implementations to combine
-	* @return a single List<?> containing all elements of the passed in lists.
+	* Combines multiple lists into a single list containing all elements of every list
+	* @param <T> The type of the lists.
+	* @param lists The group of List implementations to combine
+	* @return a single List<?> containing all elements of the passed in lists
 	*/
-	public static <Enemy> List<?> combine(final List<?>... lists) {
+	public static <Enemy> List<?> combine(final List<?>... lists) 
+	{
 		return Stream.of(lists).flatMap(List::stream).collect(Collectors.toList());
 	}
 }

@@ -17,8 +17,6 @@ import Src.lib.Vector2;
 
 /**
  * Class TitleManager manages the game map and titles.
- * It handles loading map data, drawing the map, and providing player position
- * information.
 */
 public class TitleManager 
 {
@@ -65,7 +63,6 @@ public class TitleManager
 
 	/**
 	 * Loads images for different map titles and initializes the 'titles' list.
-	 * Assumes specific titles and their corresponding images.
 	 */
 	public void getTitleImage() 
 	{
@@ -147,10 +144,6 @@ public class TitleManager
 	{
 		// Draw the background tile (assuming it's the first tile in the 'titles' list).
 		g2.drawImage(titles.get(0).sprite, 0, 60, 512, 412, null);
-
-		// Draw individual map tiles based on their positions in the 'mapTitleNum'
-		// matrix.
-
 		
 		for (int i = 0; i < mapTitleNum.length; i++) 
 		{
@@ -182,8 +175,8 @@ public class TitleManager
 
 	/**
 	 * Method that retrieves a Title object based on an intersection with a specified rectangle.
-	 * @param rec The rectangle to check for intersection.
-	 * @return A Title object representing the title on the map that intersects with the rectangle.
+	 * @param rec the rectangle to check for intersection.
+	 * @return a Title object representing the title on the map that intersects with the rectangle.
 	*/
 	public Title GetTitleFromRec(Rectangle rec) 
 	{
@@ -200,8 +193,9 @@ public class TitleManager
 
 	/**
 	 * Method that retrieves a Title object based on a specified position.
-	 * @param pos The position for which to retrieve the corresponding Title object.
-	 * @return A Title object representing the title on the map at the specified position, or null if not found.
+	 * @param pos the position for which to retrieve the corresponding Title object
+	 * @param size the size of title object
+	 * @return a Title object representing the title on the map at the specified position, or null if not found.
 	*/
 	public Title GetTitleFromPos(Vector2 pos, Vector2 size) 
 	{
@@ -222,7 +216,7 @@ public class TitleManager
 
 	/**
 	 * Method to returns the positions of specific titles in a map.
-	 * @param indexEnemy The type of title to find in the map.
+	 * @param titleType The type of title to find in the map.
 	 * @return ArrayList<Vector2> A list of positions for the specified title type.
 	*/
 	public ArrayList<Vector2> returnTitlePos(TitleType titleType) 
@@ -250,10 +244,11 @@ public class TitleManager
 	}
 
 	/**
-	 * Method to returns the indices of titles within a one-tile range of a specified position, excluding obstacles.
-	 * @param pos The position from which to find nearby titles.
-	 * @return ArrayList<Vector2> A list of indices for the titles within range.
-	 */
+	 * Method to returns the indices of titles within a one-tile range of a specified position, excluding obstacles
+	 * @param pos The position from which to find nearby titles
+	 * @param size the size of the area to search
+	 * @return ArrayList<Vector2> A list of indices for the titles within range
+	*/
 	public ArrayList<Vector2> getRangedTitleIndex(Vector2 pos, Vector2 size) 
 	{
 		ArrayList<Vector2> rangeTitles = new ArrayList<Vector2>();
@@ -285,7 +280,7 @@ public class TitleManager
 	 * Method to returns the position of a title given its index in the map.
 	 * @param index The index of the title in the map.
 	 * @return Vector2 The position of the title. If the title is not found, it returns null.
-	 */
+	*/
 	public Vector2 returnPosFromIndex(Vector2 index) 
 	{
 		for (int i = 0; i < mapTitleNum.length; i++) 
@@ -312,9 +307,10 @@ public class TitleManager
 	}
 
 	/**
-	 * Method to returns the positions of titles within a one-tile range of a specified position, excluding obstacles.
-	 * @param pos The position from which to find nearby titles.
-	 * @return ArrayList<Vector2> A list of positions for the titles within range.
+	 * Method to returns the positions of titles within a one-tile range of a specified position, excluding obstacles
+	 * @param pos The position from which to find nearby titles
+	 * @param size The size of the area to search
+	 * @return ArrayList<Vector2> A list of positions for the titles within range
 	*/
 	public ArrayList<Vector2> getRangedTitlePos(Vector2 pos,Vector2 size) 
 	{

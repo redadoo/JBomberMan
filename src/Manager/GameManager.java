@@ -37,9 +37,8 @@ public class GameManager
 
 	/**
 	 * Costructor class GameManager
-	 * 
-     * @param gp The GamePanel instance associated with the GameManager.	
-	 * */
+     * @param gp the GamePanel reference	
+	*/
 	public GameManager(GamePanel gp)
 	{
 		this.gp = gp;
@@ -57,30 +56,30 @@ public class GameManager
 
 	/**
 	 * Method to check if the status of game is 'Menu'
-	 * @return 
+	 * @return game status
 	*/
 	public Boolean isOnChangeLevel(){return myGamestate == GameState.OnChangeLevel;}
 	
 	/**
 	 * Method to check if the status of game is 'Menu'
-	 * @return 
+	 * @return game status
 	*/
 	public Boolean isOnMenu(){return myGamestate == GameState.Menu;}
 
 	/**
 	 * Method to check if the status of game is 'Game'
-	 * @return 
+	 * @return game status
 	*/
 	public Boolean isOnGame(){return myGamestate == GameState.Game;}
 
 	/**
 	 * Method to check if the status of game is 'Finish'
-	 * @return 
+	 * @return game status
 	*/
 	public Boolean isOnFinish(){return myGamestate == GameState.Finish;}
 
 	/**
-	 * Method to check if the player want continue to play
+	 * Method to update the game lost
 	*/
 	public void death()
 	{
@@ -94,7 +93,7 @@ public class GameManager
 	}
 
 	/**
-	 * Method to check if the player want continue to play
+	 * Method to update the game wone
 	*/
 	public void win()
 	{
@@ -141,21 +140,18 @@ public class GameManager
 	/**
 	 * Method to set the avatar of player 
 	*/
-	public void setAvatar(Player player)
-	{
-		player.Avatar = user.getAvatar();
-	}
+	public void setAvatar(Player player){ player.Avatar = user.getAvatar(); }
 
 	/**
 	 * Method to update the user data
+	 * @throws IOException
 	*/
 	public void updateUserData(Player player) throws IOException
-	{	
-		updatePoints(player);
-	}
+	{ updatePoints(player); }
 	
 	/**
 	 * Method to update points of player
+	 * @throws IOException
 	*/
 	public void updatePoints(Player player) throws IOException
 	{
@@ -169,6 +165,7 @@ public class GameManager
 
 	/**
 	 * Method to update the number of game lost
+	 * @throws IOException
 	*/
 	public void updateGameLose() throws IOException
 	{
@@ -179,7 +176,7 @@ public class GameManager
 
 	/**
 	 * Method to reset the game
-	 */
+	*/
 	public void reset()
 	{
 		myGamestate = GameState.Finish;
@@ -217,6 +214,9 @@ public class GameManager
 		userController.updateView();
 	}
 
+	/**
+	 * Method to close game
+	*/
 	public void closeGame()
 	{
 		try {

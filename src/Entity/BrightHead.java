@@ -12,7 +12,11 @@ import Src.Title.Title;
 import Src.lib.Collider;
 import Src.lib.Vector2;
 
-public class BrightHead extends Entity {
+/**
+ * Class for BrightHead enemy
+ */
+public class BrightHead extends Entity 
+{
 
 	private GamePanel					gp;
     public	int                         life = 2;
@@ -22,6 +26,7 @@ public class BrightHead extends Entity {
 	 * Costructor class FlyHead
 	 * @param pos the position where set the player 
 	 * @param size the size to be assegn to player
+	 * @param gp the GamePanel reference
 	 * @throws IOException
 	*/
 	public BrightHead(GamePanel gp,Vector2 pos, Vector2 size) throws IOException
@@ -34,7 +39,7 @@ public class BrightHead extends Entity {
 
 	/**
 	 * Init the FlyHead
-	 */
+	*/
 	public void initBrightHead()
 	{
 		int randomNumber = new Random().nextInt(2) + 1;
@@ -78,15 +83,12 @@ public class BrightHead extends Entity {
 
 	/**
 	 * Method to set the sprite
-	 */
-	public void setSprite(BufferedImage sprite)
-	{
-		this.sprite = sprite;
-	}
+	*/
+	public void setSprite(BufferedImage sprite) { this.sprite = sprite; }
 	
 	/**
 	 * Method to update the status of enemy
-	 */
+	*/
 	public void Update()
 	{
 
@@ -124,9 +126,9 @@ public class BrightHead extends Entity {
 	}
 
 	/**
-	 * Method to draws the FlyHead on the provided Graphics2D object.
-	 * @param g2 The Graphics2D object on which the player will be drawn.
-	 */
+	 * Method to draws the FlyHead on the provided Graphics2D object
+	 * @param g2 the Graphics2D object on which the player will be drawn
+	*/
 	public void Draw(Graphics2D g2)
 	{
 		g2.drawImage(sprite,pos.x,pos.y,size.x,size.y,null);
@@ -137,8 +139,5 @@ public class BrightHead extends Entity {
 	 * Gets the title based on the position and size.
 	 * @return the Title object associated with the position and size
 	*/
-	public Title getTitle() 
-	{ 		
-		return gp.mapManager.GetTitleFromPos(coll.pos,size);
-	}
+	public Title getTitle() { return gp.mapManager.GetTitleFromPos(coll.pos,size); }
 }

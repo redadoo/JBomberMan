@@ -9,7 +9,7 @@ import java.util.Scanner;
 import Src.User.UserController;
 
 /**
- * Class MManageFile
+ * Class ManageFile to manage the file with data of player
  */
 public class ManageFile 
 {
@@ -29,7 +29,7 @@ public class ManageFile
 
 	/**
 	 * Method to read info from saved file
-	 * @param user 
+	 * @param user the UserController object to which the read data will be assigned
 	*/
 	public void returnUserValue(UserController user)
 	{
@@ -61,7 +61,7 @@ public class ManageFile
  
 	/**
 	 * Method to initialize the file 
-	 * @param user The user whose statistics are to be written on file
+	 * @param user the user whose statistics are to be written on file
 	 * @throws IOException
 	 */
 	public void initFile(UserController user) throws IOException
@@ -109,10 +109,10 @@ public class ManageFile
 	}
 
 	/**
- * Method to updates a file with the user's game statistics.
- * @param user The user whose statistics are to be written to the file
- * @throws IOException If an input or output exception occurred.
- */
+	 * Method to updates a file with the user's game statistics
+	 * @param user The user whose statistics are to be written to the file
+	 * @throws IOException If an input or output exception occurred
+	*/
 	public void updateFile(UserController user) throws IOException
 	{
 		myFile.createNewFile();
@@ -152,9 +152,9 @@ public class ManageFile
 
 	/**
 	 * Methos to check if there is a saved file
-	 * @return 
-	 * @throws IOException
-	 */
+	 * @return Returns true if a saved file exists, false otherwise
+	 * @throws IOException If an input or output exception occurred
+	*/
 	public boolean haveSave() throws IOException
 	{
 		if (!myFile.exists())
@@ -163,8 +163,7 @@ public class ManageFile
 	}
 
 	/**
-	 * Sets the avatar color for a user based on user input.
-	 *
+	 * Sets the avatar color for a user based on user input
 	 * This method prompts the user to input an avatar color number and sets the
 	 * corresponding color for the user's avatar. The color options are:
 	 * 1 = White

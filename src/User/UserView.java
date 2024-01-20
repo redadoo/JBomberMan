@@ -1,7 +1,7 @@
 package Src.User;
 
 /**
- * Class UserView
+ * Class for UserView
  */
 public class UserView 
 {

@@ -16,7 +16,7 @@ public class Sprite
 	/**
 	 * Costructor class Sprite
 	 * @param spriteList the list of sprite of varoius objects
-	 */
+	*/
 	public Sprite(ArrayList<BufferedImage> spriteList) 
 	{
 		this.spriteList = spriteList;
@@ -25,7 +25,7 @@ public class Sprite
 
 	/**
 	 * Method to change the sprite to the next one
-	 */
+	*/
 	public void nextSprite()
 	{
 		if (spriteIndex + 1 < spriteList.size())

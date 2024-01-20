@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 /**
  * Class to create the Collider
- */
+*/
 public class Collider 
 {
 	public Vector2	pos = new Vector2();
@@ -12,10 +12,10 @@ public class Collider
 	
 	/**
 	 * Costructor class Collider
-	 * @param pos
-	 * @param width
-	 * @param height
-	 */
+	 * @param pos postion of collider
+	 * @param width size of collider
+	 * @param height height of collider
+ 	*/
 	public Collider(Vector2 pos, int width, int height)
 	{
 		this.pos = pos;
@@ -27,12 +27,12 @@ public class Collider
 
 	/**
 	 * Costructor class Collider
-	 * @param pos
-	 * @param width
-	 * @param height
-	 * @param x
-	 * @param y
-	 */
+	 * @param pos postion of collider
+	 * @param width width of collider
+	 * @param height height of collider
+	 * @param x coordinate x of collider
+	 * @param y coordiante y of collider
+	*/
 	public Collider(Vector2 pos, int width, int height,int x,int y)
 	{
 		this.pos = pos;
@@ -44,8 +44,8 @@ public class Collider
 
 	/**
 	 * Method to set position of collider
-	 * @param pos
-	 */
+	 * @param pos position of collider
+	*/
 	public void setPos(Vector2 pos)
 	{
 		this.pos = pos;

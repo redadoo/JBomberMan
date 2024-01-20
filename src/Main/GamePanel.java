@@ -21,7 +21,7 @@ import Src.Utils.KeyHandler;
 /**
  * GamePanel class that handles the game loop, player input, and rendering. This class also manages the game's title map,
  * player entity, and collision checking.
- */
+*/
 public class GamePanel extends JPanel implements Runnable
 {
 
@@ -44,8 +44,6 @@ public class GamePanel extends JPanel implements Runnable
 	
     /**
      * Costructor class GamePanel
-     * Initializes the panel properties, sets up the game's dimensions, background color,
-     * and key listener for player input.
     */
 	public GamePanel()
 	{
@@ -82,14 +80,14 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
     /**
-     * Method that start the main game loop.
-     * Updates and repaints the game at a specified FPS.
+     * Method that start the main game loop
+     * Updates and repaints the game at a specified FPS
     */
 	@Override
 	public void run() 
 	{
-/* 		audioThread.start();
- */
+		audioThread.start();
+
 		double drawInterval = 1000000000/FPS; //To choose the frame rate
 		double delta = 0;
 		lastTime = System.nanoTime();
@@ -119,9 +117,8 @@ public class GamePanel extends JPanel implements Runnable
 
     /**
      * Method that updates the game logic.
-     * Calls the update method for the player entity.
      * @throws IOException
-     */
+    */
 	public void Update() throws IOException
 	{
 		if(gameManager.isOnChangeLevel() || gameManager.isOnFinish())

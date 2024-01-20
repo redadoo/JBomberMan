@@ -27,6 +27,7 @@ public class FlyHead extends Entity
 	 * Costructor class FlyHead
 	 * @param pos the position where set the player 
 	 * @param size the size to be assegn to player
+	 * @param gp the GamePanel reference
 	 * @throws IOException
 	*/
 	public FlyHead(GamePanel gp,Vector2 pos, Vector2 size) throws IOException
@@ -64,12 +65,12 @@ public class FlyHead extends Entity
 	/**
 	 * Method to get the direction of enemy
 	 * @return direction
-	 */
+	*/
 	public Vector2 getDir() { return dir; }
 
 	/**
 	 * Method to loads Enemy sprite images for different directions (front and back).
-	 */
+	*/
 	public void getflyHeadImage()
 	{
 		try {
@@ -91,15 +92,12 @@ public class FlyHead extends Entity
 
 	/**
 	 * Method to set the sprite
-	 */
-	public void setSprite(BufferedImage sprite)
-	{
-		this.sprite = sprite;
-	}
+	*/
+	public void setSprite(BufferedImage sprite){ this.sprite = sprite; }
 	
 	/**
 	 * Method to update the status of enemy
-	 */
+	*/
 	public void Update()
 	{
 
@@ -144,19 +142,13 @@ public class FlyHead extends Entity
 	/**
 	 * Method to draws the FlyHead on the provided Graphics2D object.
 	 * @param g2 The Graphics2D object on which the player will be drawn.
-	 */
-	public void Draw(Graphics2D g2)
-	{
-		g2.drawImage(sprite,pos.x,pos.y,size.x,size.y,null);
-	}
+	*/
+	public void Draw(Graphics2D g2){ g2.drawImage(sprite,pos.x,pos.y,size.x,size.y,null); }
 	
 	/**
 	 * Gets the title based on the position and size.
 	 * @return the Title object associated with the position and size
 	*/
-	public Title getTitle() 
-	{ 		
-		return gp.mapManager.GetTitleFromPos(coll.pos,size);
-	}
+	public Title getTitle() { return gp.mapManager.GetTitleFromPos(coll.pos,size); }
 
 }

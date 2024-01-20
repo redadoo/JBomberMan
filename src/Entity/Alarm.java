@@ -12,7 +12,7 @@ import Src.lib.Vector2;
 
 /**
  * Class for the Alarms
- */
+*/
 public class Alarm extends Entity
 {
 
@@ -20,10 +20,11 @@ public class Alarm extends Entity
 	private Boolean		haveTunnel;
 	private GamePanel	gp;
 	/**
-	 * Costructor class Alarm
-	 * @param SpritePath the path of all sprites
+	 * c class Alarm
+	 * @param haveTunnel check if the alarm has the tunnel
 	 * @param pos the pos to set the entity
 	 * @param size the size for the entity
+	 * @param gp the GamePanel reference
 	*/
 	public Alarm (GamePanel gp,Vector2 pos, Vector2 size, Boolean haveTunnel)
 	{
@@ -56,7 +57,7 @@ public class Alarm extends Entity
 
 	/**
 	 * Method that update the alarms
-	 */
+	*/
 	public void Update()
 	{
 		if(frameCount % 5 == 0)
@@ -71,8 +72,8 @@ public class Alarm extends Entity
 	}
 
 	/**
-	 * Method to draws the alarm on the provided Graphics2D object.
-	 * @param g2 The Graphics2D object on which the player will be drawn.
+	 * Method to draws the alarm on the provided Graphics2D object
+	 * @param g2 The Graphics2D object on which the player will be drawn
 	 */
 	public void Draw(Graphics2D g2)
 	{
@@ -80,7 +81,7 @@ public class Alarm extends Entity
 	}
 
 	/**
-	 * Gets the value indicating whether there is a tunnel.
+	 * Gets the value indicating whether there is a tunnel
 	 * @return true if there is a tunnel, false otherwise
 	 */
 	public Boolean getIsTunnel(){ return haveTunnel; }

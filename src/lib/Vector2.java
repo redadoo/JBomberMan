@@ -2,7 +2,7 @@ package Src.lib;
 
 /**
  * Class to manage double object
- */
+*/
 public class Vector2
 {              
 	public int x;
@@ -12,7 +12,7 @@ public class Vector2
 
 	/**
 	 * Costructor class Vector2
-	 */
+	*/
 	public Vector2() 
 	{
 		this.x = 0;
@@ -21,9 +21,9 @@ public class Vector2
 	  
 	/**
 	 * Costructor class Vector2
-	 * @param x
-	 * @param y
-	 */
+	 * @param x The x-coordinate.
+	 * @param y The y-coordinate.
+	*/
 	public Vector2(int x, int y) 
 	{
 		this.x = x;
@@ -32,13 +32,10 @@ public class Vector2
 	
 	/**
 	 * Method to compare two vectors
-	 * @param other
-	 * @return
+ 	 * @param other the Vector2 object to compare with.
+ 	 * @return returns true if the x and y coordinates of both vectors are equal, false otherwise
 	 */
-	public boolean equals(Vector2 other) 
-	{
-		return (this.x == other.x && this.y == other.y);
-	}
+	public boolean equals(Vector2 other) { return (this.x == other.x && this.y == other.y); }
 
 	/**
 	 * Method to return difference
@@ -58,7 +55,7 @@ public class Vector2
 
 	/**
 	 * Testing Method
-	 */
+	*/
 	public void PrintPos()
 	{
 		System.out.print(" x :   ");

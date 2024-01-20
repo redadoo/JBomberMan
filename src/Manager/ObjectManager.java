@@ -13,8 +13,7 @@ import Src.Manager.TitleManager.TitleType;
 import Src.lib.Vector2;
 
 /**
- * The ObjectManager class is responsible for managing various objects on the game map,
- * including alarms, power-ups, and their interactions with the player and game state.
+ * The ObjectManager class is responsible for managing various objects on the game map
  */
 public class ObjectManager implements Observer 
 {
@@ -25,8 +24,8 @@ public class ObjectManager implements Observer
     private Alarm 				tunnel;         // The tunnel Alarm
 
 	/**
-     * Enumeration representing different types of power-ups.
-     */
+     * Different types of power-ups
+    */
 	public enum PowerUpType
 	{
 		LifeUp,
@@ -35,10 +34,9 @@ public class ObjectManager implements Observer
 	}
 
     /**
-     * Constructs an ObjectManager object with the specified GamePanel reference.
-     *
-     * @param gp The GamePanel instance associated with the ObjectManager.
-     */
+     * Constructs an ObjectManager 
+     * @param gp The GamePanel instance associated with the ObjectManager
+    */
 	public ObjectManager(GamePanel gp)
 	{
 		this.gp = gp;
@@ -48,7 +46,7 @@ public class ObjectManager implements Observer
 
     /**
      * Initializes various objects such as alarms and power-ups on the map.
-     */
+    */
 	public void initObject()
 	{
 		alarmList = new ArrayList<Alarm>();
@@ -92,7 +90,7 @@ public class ObjectManager implements Observer
 
     /**
      * Updates the state of alarms and power-ups during the game.
-     */
+    */
 	public void Update()
 	{
 		for (Alarm alarm : alarmList)
@@ -125,10 +123,9 @@ public class ObjectManager implements Observer
 	}
 
     /**
-     * Draws alarms, the tunnel, and power-ups on the provided Graphics2D object.
-     *
-     * @param g2 The Graphics2D object on which the objects will be drawn.
-     */
+     * Draws alarms, the tunnel, and power-ups on the provided Graphics2D object
+     * @param g2 The Graphics2D object on which the objects will be drawn
+    */
 	public void Draw(Graphics2D g2)
 	{
 		for (Alarm alarm : alarmList)
@@ -195,7 +192,7 @@ public class ObjectManager implements Observer
 	}
 
 	/**
-	 * function that checks if all enemies are dead and if the player is above the tunnel for the next level
+	 * Method that checks if all enemies are dead and if the player is above the tunnel for the next level
 	 * @return true if all enemies are dead and if the player is above the tunnel 
 	 */
 	public boolean isLevelFinish()
@@ -209,13 +206,10 @@ public class ObjectManager implements Observer
 	}
 
 	/**
-	 * Generates a random integer within the specified range [min, max).
-	 *
-	 * @param min The inclusive lower bound of the range.
-	 * @param max The exclusive upper bound of the range.
-	 * @return A random integer within the specified range.
+	 * Method to generates a random integer within the specified range
+	 * @param min The inclusive lower bound of the range
+	 * @param max The exclusive upper bound of the range
+	 * @return A random integer within the specified range
 	 */
-	public int getRandomNumber(int min, int max) {
-		return (int) ((Math.random() * (max - min)) + min);
-	}
+	public int getRandomNumber(int min, int max) { return (int) ((Math.random() * (max - min)) + min); }
 }

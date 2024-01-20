@@ -3,12 +3,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * The KeyHandler class implements KeyListener and handles keyboard input for the game
- * It tracks the state of specific keys (W, S, A, D) and provides boolean flags to indicate key presses
+ * Class KeyHandler that implements KeyListener and handles keyboard input for the game
+ * It tracks the state of specific keys (W, S, A, D)
  */
 public class KeyHandler implements KeyListener 
 {
-
   	//Flags indicating the state of specific keys
 	public boolean upPressed,downPressed,leftPressed,rightPressed,anyKey,space,debug,enter; 
 
@@ -25,8 +24,8 @@ public class KeyHandler implements KeyListener
     /**
      * Overrides the keyPressed method from KeyListener
      * Sets flags based on the pressed keys
-     * @param e The KeyEvent representing the key pressed event
-     */
+     * @param e the KeyEvent representing the key pressed event
+    */
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
@@ -52,7 +51,7 @@ public class KeyHandler implements KeyListener
     /**
      * Overrides the keyReleased method from KeyListener
      * Resets flags when keys are released
-     * @param e The KeyEvent representing the key released event
+     * @param e the KeyEvent representing the key released event
      */
 	@Override
 	public void keyReleased(KeyEvent e) {

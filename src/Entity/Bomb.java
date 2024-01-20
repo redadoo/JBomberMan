@@ -14,7 +14,7 @@ import Src.lib.Vector2;
 
 /**
  * Class to manage class Bomb 
- */
+*/
 public class Bomb extends Entity 
 {
 	public  GamePanel   			gp;
@@ -23,7 +23,9 @@ public class Bomb extends Entity
 	public 	Map<Sprite, Vector2>	myExplosionSprite;
 	public 	Boolean					isPlayerHover;
 
-	// The various state of bomb
+	/**
+	 * The various states of bomb
+	 */
 	public static enum BombState
 	{
 		Available,
@@ -33,6 +35,8 @@ public class Bomb extends Entity
 
 	/** 
 	 * Costructor class Bomb
+	 * @param gp the GamePanel reference
+	 * @param pos the pos to set the entity
 	 * @throws IOException
 	 */
 	public Bomb(GamePanel gp, Vector2 pos) throws IOException
@@ -52,10 +56,10 @@ public class Bomb extends Entity
 
 	/**
 	 * This method initializes the explosion animation at specific positions based on the given range of titles
-	 * @param rangeTitle The range of titles where the explosion should occur
-	 * @param explosionSpriteList The list of sprites used for the explosion animation
-	 * @param myTitlePos The position of the title that is causing the explosion
-	 */
+	 * @param rangeTitle the range of titles where the explosion should occur
+	 * @param explosionSpriteList the list of sprites used for the explosion animation
+	 * @param myTitlePos the position of the title that is causing the explosion
+	*/
 	public void InitExplosion(ArrayList<Vector2> rangeTitle, ArrayList<Sprite> explosionSpriteList, Vector2 myTitlePos)
 	{
 		myExplosionSprite.put(explosionSpriteList.get(0),new Vector2(pos.x,pos.y - 5));

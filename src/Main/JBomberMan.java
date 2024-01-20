@@ -5,7 +5,8 @@ import java.io.IOException;
 import Src.Utils.Window;
 
 /**
- * Class Main
+ * Class JBomberMan, the main class of game
+ * @author Giosuè
 */
 public class JBomberMan 
 {
@@ -13,10 +14,9 @@ public class JBomberMan
 	/**
      * This is the main class that initializes the game window, creates a game panel, starts a thread for background music,
      * and begins the game loop on the game panel.
-     * @author Giosuè
      * @param args Command-line arguments
 	 * @throws IOException 
-     */
+    */
 	public static void main(String[] args) throws IOException
 	{
         // Create a game window

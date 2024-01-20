@@ -1,6 +1,10 @@
 package Src.User;
 
-public class User {
+/**
+ * Class for User Model
+ */
+public class User
+ {
 
 	private int 	level;
 	private int 	match;
