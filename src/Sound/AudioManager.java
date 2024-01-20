@@ -13,38 +13,55 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * Classe per la gestione dell'audio
+ * AudioManager class for managing audio playback.
+ * This class provides methods for playing audio files.
  */
-public class AudioManager 
-{
-	private static AudioManager instance;
+public class AudioManager {
 
-	public static AudioManager getInstance() {
-		if (instance == null)
-			instance = new AudioManager();
-		return instance;
-	}
+    /**
+     * Singleton instance of AudioManager.
+     */
+    private static AudioManager instance;
 
-	private AudioManager() {
+    /**
+     * Private constructor for singleton pattern.
+     */
+    private AudioManager() {
+        // Private constructor to enforce singleton pattern.
+    }
 
-	}
+    /**
+     * Gets the singleton instance of AudioManager.
+     *
+     * @return The singleton instance of AudioManager.
+     */
+    public static AudioManager getInstance() {
+        if (instance == null)
+            instance = new AudioManager();
+        return instance;
+    }
 
-	public void play(String filename) {
-
-		try {
-			InputStream in = new BufferedInputStream(new FileInputStream(filename));
-			AudioInputStream audioIn = AudioSystem.getAudioInputStream(in);
-			Clip clip = AudioSystem.getClip();
-			clip.open(audioIn);
-			clip.start();
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (UnsupportedAudioFileException e1) {
-			e1.printStackTrace();
-		} catch (LineUnavailableException e1) {
-			e1.printStackTrace();
-		}
-	}
+    /**
+     * Plays the specified audio file.
+     *
+     * @param filename The path to the audio file to be played.
+     */
+    public void play(String filename) {
+        try {
+            InputStream in = new BufferedInputStream(new FileInputStream(filename));
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(in);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (UnsupportedAudioFileException e1) {
+            e1.printStackTrace();
+        } catch (LineUnavailableException e1) {
+            e1.printStackTrace();
+        }
+    }
 }
