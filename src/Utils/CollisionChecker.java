@@ -183,11 +183,11 @@ public class CollisionChecker extends Observable
 	}
 
 	/**
-	* Combines multiple lists into a single list containing all elements of every list
-	* @param <T> The type of the lists.
-	* @param lists The group of List implementations to combine
-	* @return a single List<?> containing all elements of the passed in lists
-	*/
+	 * Combines multiple lists into a single list.
+	 * @param lists The lists to be combined.
+	 * @return A new list containing all the elements from the input lists.
+	 * @throws NullPointerException If any of the input lists is {@code null}.
+	 */
 	public static <Enemy> List<?> combine(final List<?>... lists) 
 	{
 		return Stream.of(lists).flatMap(List::stream).collect(Collectors.toList());

@@ -325,7 +325,6 @@ public class Player extends Entity implements Observer
 
 	/**
 	 * Increases the speed by 1, but only if the current speed is less than or equal to 4.
-	 * @return 
 	 */
 	public void addSpeed() {
 		if (speed > 4)

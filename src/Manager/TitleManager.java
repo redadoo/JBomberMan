@@ -51,6 +51,7 @@ public class TitleManager
 	 * Constructor class TitleManager that initializes the GamePanel reference,
 	 * loads title images, and sets up the initial map
 	 * @param gp The GamePanel instance associated with the TitleManager
+	 * @param filePath path for Titlemanager to generate map
 	 */
 	public TitleManager(GamePanel gp, String filePath) 
 	{
