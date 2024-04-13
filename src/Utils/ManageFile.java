@@ -184,7 +184,14 @@ public class ManageFile
 		System.out.println("insert avatar number color:\n1 = White\n2 = Black\n3 = Blue\n4 = Orange");
 		int color = 1;
 		if (sc.hasNextLine())
-			color = Integer.parseInt(sc.nextLine());
+		{
+			try {
+				color = Integer.parseInt(sc.nextLine());				
+			} catch (NumberFormatException e) {
+				System.out.println("bad avatar number");
+				System.exit(1);
+			}
+		}
 		sc.close();
 		String AvatarColor = "Avatar :";
 		switch (color) 
