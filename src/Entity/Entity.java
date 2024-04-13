@@ -1,10 +1,10 @@
-package Src.Entity;
+package src.Entity;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import Src.lib.Collider;
-import Src.lib.Vector2;
+import src.lib.Collider;
+import src.lib.Vector2;
 
 /**
  * Class to manage the generic type of Entity

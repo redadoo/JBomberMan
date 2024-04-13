@@ -1,4 +1,4 @@
-package Src.User;
+package src.User;
 
 /**
  * Class for UserController

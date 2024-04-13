@@ -1,4 +1,4 @@
-package Src.Manager;
+package src.Manager;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -8,12 +8,12 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import Src.Entity.Bomb;
-import Src.Entity.Bomb.BombState;
-import Src.Main.GamePanel;
-import Src.Title.Title;
-import Src.lib.Sprite;
-import Src.lib.Vector2;
+import src.Entity.Bomb;
+import src.Entity.Bomb.BombState;
+import src.Main.GamePanel;
+import src.Title.Title;
+import src.lib.Sprite;
+import src.lib.Vector2;
 
 /**
  * Class to manage the class bomb

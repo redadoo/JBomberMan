@@ -1,4 +1,4 @@
-package Src.Entity;
+package src.Entity;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -9,13 +9,13 @@ import java.util.Observer;
 
 import javax.imageio.ImageIO;
 
-import Src.Entity.Bomb.BombState;
-import Src.Main.GamePanel;
-import Src.Manager.BombManager;
-import Src.Title.Title;
-import Src.Utils.KeyHandler;
-import Src.lib.Collider;
-import Src.lib.Vector2;
+import src.Entity.Bomb.BombState;
+import src.Main.GamePanel;
+import src.Manager.BombManager;
+import src.Title.Title;
+import src.Utils.KeyHandler;
+import src.lib.Collider;
+import src.lib.Vector2;
 
 /**
  * Class Player that contains fields for handling animation frames, storing sprite images for different directions,

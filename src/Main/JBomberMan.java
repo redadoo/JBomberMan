@@ -1,8 +1,8 @@
-package Src.Main;
+package src.Main;
 
 import java.io.IOException;
 
-import Src.Utils.Window;
+import src.Utils.Window;
 
 /**
  * Class JBomberMan, the main class of game

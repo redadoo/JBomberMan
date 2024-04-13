@@ -1,15 +1,15 @@
-package Src.Manager;
+package src.Manager;
 
 import java.io.IOException;
 
-import Src.Entity.Player;
-import Src.Main.GamePanel;
-import Src.User.User;
-import Src.User.UserController;
-import Src.User.UserView;
-import Src.Utils.CollisionChecker;
-import Src.Utils.HUD;
-import Src.Utils.ManageFile;
+import src.Entity.Player;
+import src.Main.GamePanel;
+import src.User.User;
+import src.User.UserController;
+import src.User.UserView;
+import src.Utils.CollisionChecker;
+import src.Utils.HUD;
+import src.Utils.ManageFile;
 
 /**
  * Class GameManger that manages the game status and its saves

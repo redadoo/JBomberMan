@@ -1,4 +1,4 @@
-package Src.lib;
+package src.lib;
 
 /**
  * Class to manage double object

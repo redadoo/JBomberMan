@@ -1,4 +1,4 @@
-package Src.Manager;
+package src.Manager;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -10,10 +10,10 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import Src.Main.GamePanel;
-import Src.Title.Title;
-import Src.lib.Collider;
-import Src.lib.Vector2;
+import src.Main.GamePanel;
+import src.Title.Title;
+import src.lib.Collider;
+import src.lib.Vector2;
 
 /**
  * Class TitleManager manages the game map and titles.

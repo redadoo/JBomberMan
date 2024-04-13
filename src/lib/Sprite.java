@@ -1,4 +1,4 @@
-package Src.lib;
+package src.lib;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

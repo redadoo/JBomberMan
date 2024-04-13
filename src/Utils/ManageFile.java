@@ -1,4 +1,4 @@
-package Src.Utils;
+package src.Utils;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import Src.User.UserController;
+import src.User.UserController;
 
 /**
  * Class ManageFile to manage the file with data of player

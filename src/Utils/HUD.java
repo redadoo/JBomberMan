@@ -1,4 +1,4 @@
-package Src.Utils;
+package src.Utils;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -8,8 +8,8 @@ import java.util.Observer;
 
 import javax.imageio.ImageIO;
 
-import Src.Main.GamePanel;
-import Src.lib.Vector2;
+import src.Main.GamePanel;
+import src.lib.Vector2;
 
 /**
  * The HUD (Heads-Up Display) class manages the graphical elements displayed on the screen during gameplay

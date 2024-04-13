@@ -1,4 +1,4 @@
-package Src.Main;
+package src.Main;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,15 +8,15 @@ import java.io.IOException;
 
 import javax.swing.JPanel;
 
-import Src.Entity.Player;
-import Src.Manager.EnemiesManager;
-import Src.Manager.GameManager;
-import Src.Manager.ObjectManager;
-import Src.Manager.TitleManager;
-import Src.Sound.AudioManager;
-import Src.Utils.CollisionChecker;
-import Src.Utils.HUD;
-import Src.Utils.KeyHandler;
+import src.Entity.Player;
+import src.Manager.EnemiesManager;
+import src.Manager.GameManager;
+import src.Manager.ObjectManager;
+import src.Manager.TitleManager;
+import src.Sound.AudioManager;
+import src.Utils.CollisionChecker;
+import src.Utils.HUD;
+import src.Utils.KeyHandler;
 
 /**
  * GamePanel class that handles the game loop, player input, and rendering. This class also manages the game's title map,

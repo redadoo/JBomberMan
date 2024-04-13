@@ -1,4 +1,4 @@
-package Src.Utils;
+package src.Utils;
 
 import javax.swing.JFrame;
 

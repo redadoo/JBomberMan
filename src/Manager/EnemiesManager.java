@@ -1,4 +1,4 @@
-package Src.Manager;
+package src.Manager;
 
 import java.awt.Graphics2D;
 import java.io.IOException;
@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import Src.Entity.BrightHead;
-import Src.Entity.FlyHead;
-import Src.Main.GamePanel;
-import Src.Manager.TitleManager.TitleType;
-import Src.lib.Vector2;
+import src.Entity.BrightHead;
+import src.Entity.FlyHead;
+import src.Main.GamePanel;
+import src.Manager.TitleManager.TitleType;
+import src.lib.Vector2;
 
 /**
  * Class to manage the enemies

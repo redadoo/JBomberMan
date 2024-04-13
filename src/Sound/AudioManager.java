@@ -1,4 +1,4 @@
-package Src.Sound;
+package src.Sound;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;

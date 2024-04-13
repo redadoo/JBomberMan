@@ -1,13 +1,13 @@
-package Src.Entity;
+package src.Entity;
 
 import java.awt.Graphics2D;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import Src.Manager.ObjectManager.PowerUpType;
-import Src.Title.Title;
-import Src.lib.Vector2;
+import src.Manager.ObjectManager.PowerUpType;
+import src.Title.Title;
+import src.lib.Vector2;
 
 /**
  * The PowerUp class represents a power-up entity in the game

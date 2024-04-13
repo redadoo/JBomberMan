@@ -1,10 +1,10 @@
-package Src.Title;
+package src.Title;
 
 import java.awt.image.BufferedImage;
 
-import Src.Manager.TitleManager.TitleType;
-import Src.lib.Collider;
-import Src.lib.Vector2;
+import src.Manager.TitleManager.TitleType;
+import src.lib.Collider;
+import src.lib.Vector2;
 
 /**
  * Class Title that represents a map title with properties such as position, size, collision status, and sprite

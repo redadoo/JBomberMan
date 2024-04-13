@@ -1,21 +1,21 @@
-package Src.Utils;
+package src.Utils;
 
 import java.util.List;
 import java.util.Observable;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import Src.Entity.Alarm;
-import Src.Entity.Bomb;
-import Src.Entity.BrightHead;
-import Src.Entity.Entity;
-import Src.Entity.FlyHead;
-import Src.Entity.Player;
-import Src.Main.GamePanel;
-import Src.Manager.EnemiesManager;
-import Src.Manager.TitleManager;
-import Src.lib.Collider;
-import Src.lib.Vector2;
+import src.Entity.Alarm;
+import src.Entity.Bomb;
+import src.Entity.BrightHead;
+import src.Entity.Entity;
+import src.Entity.FlyHead;
+import src.Entity.Player;
+import src.Main.GamePanel;
+import src.Manager.EnemiesManager;
+import src.Manager.TitleManager;
+import src.lib.Collider;
+import src.lib.Vector2;
 
 /**
  * Class CollisionChecker to check if two entity/Collider make contact

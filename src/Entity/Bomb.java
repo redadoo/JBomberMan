@@ -1,4 +1,4 @@
-package Src.Entity;
+package src.Entity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,10 +7,10 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import Src.Main.GamePanel;
-import Src.Title.Title;
-import Src.lib.Sprite;
-import Src.lib.Vector2;
+import src.Main.GamePanel;
+import src.Title.Title;
+import src.lib.Sprite;
+import src.lib.Vector2;
 
 /**
  * Class to manage class Bomb 
